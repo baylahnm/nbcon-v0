@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "allowJs": true,
+    "checkJs": false,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "baseUrl": ".",
+    "paths": {
+      "@app/*": ["apps/web/src/*"],
+      "@components/*": ["apps/web/src/components/*"],
+      "@hooks/*": ["apps/web/src/hooks/*"],
+      "@shared/*": ["packages/shared/*"],
+      "@config/*": ["packages/config/*"],
+      "@ui/*": ["packages/ui/*"],
+      "@types/*": ["packages/types/*"],
+      "@utils/*": ["packages/utils/*"],
+      "@nbcon/ai-core": ["packages/ai-core"],
+      "@nbcon/enterprise-sdk": ["packages/enterprise-sdk"]
+    }
+  },
+  "exclude": ["node_modules", "dist", "build", ".next"]
+}
+

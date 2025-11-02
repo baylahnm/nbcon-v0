@@ -1,0 +1,17 @@
+{
+  "name": "@nbcon/enterprise-sdk",
+  "version": "0.1.0",
+  "private": true,
+  "main": "./index.ts",
+  "types": "./index.ts",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.39.0",
+    "jsonwebtoken": "^9.0.2",
+    "posthog-js": "^1.146.1",
+    "stripe": "^14.0.0"
+  },
+  "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.7"
+  }
+}
+

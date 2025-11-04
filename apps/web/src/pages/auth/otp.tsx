@@ -1,29 +1,54 @@
+"use client"
+
+import { useState, useEffect } from "react"
+import { useRouter } from "next/router"
 import { GalleryVerticalEnd } from "lucide-react"
 import { OTPForm } from "@/components/otp-form"
+import { verifyOTP, resendOTP } from "@/lib/auth"
 
 export default function OTPPage() {
-  // TODO: Get email from query params or session
-  const email = "user@example.com" // Replace with actual email from auth flow
+  const router = useRouter()
+  const [email, setEmail] = useState<string>("")
+  const [verificationType, setVerificationType] = useState<"signup" | "email">("signup")
+
+  useEffect(() => {
+    // Get email from query params (Pages Router)
+    const emailParam = router.query.email as string | undefined
+    const typeParam = router.query.type as "signup" | "email" | undefined
+    
+    if (emailParam) {
+      setEmail(emailParam)
+    }
+    if (typeParam === "email" || typeParam === "signup") {
+      setVerificationType(typeParam)
+    }
+  }, [router.query])
 
   const handleVerify = async (code: string) => {
-    // TODO: Wire to Supabase auth verification
-    console.log("Verifying code:", code)
-    // Example:
-    // const { data, error } = await supabase.auth.verifyOtp({
-    //   email,
-    //   token: code,
-    //   type: 'email'
-    // })
+    if (!email) {
+      throw new Error("Email is required for verification")
+    }
+
+    const result = await verifyOTP(email, code, verificationType)
+
+    if (result.success) {
+      // Redirect to dashboard on successful verification
+      router.push("/dashboard")
+    } else {
+      throw new Error(result.error || "Verification failed")
+    }
   }
 
   const handleResend = async () => {
-    // TODO: Wire to Supabase auth resend OTP
-    console.log("Resending OTP to:", email)
-    // Example:
-    // const { error } = await supabase.auth.resend({
-    //   type: 'signup',
-    //   email
-    // })
+    if (!email) {
+      throw new Error("Email is required to resend code")
+    }
+
+    const result = await resendOTP(email, verificationType)
+
+    if (!result.success) {
+      throw new Error(result.error || "Failed to resend code")
+    }
   }
 
   return (

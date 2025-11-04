@@ -8,6 +8,15 @@ const nextConfig = {
     outputFileTracingRoot: require("path").join(__dirname, "../../"),
     serverComponentsExternalPackages: ['stripe'],
   },
+  async redirects() {
+    return [
+      {
+        source: '/login',
+        destination: '/auth/login',
+        permanent: true,
+      },
+    ];
+  },
   webpack: (config, { isServer }) => {
     // Prevent server-only stripeClient from being bundled in client
     if (!isServer) {

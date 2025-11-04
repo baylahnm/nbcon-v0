@@ -1,15 +1,19 @@
 "use client"
 
 import { useState } from "react"
+import { useRouter } from "next/router"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { signUp } from "@/lib/auth"
+import { Loader2 } from "lucide-react"
 
 export function SignupForm({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<"form">) {
+  const router = useRouter()
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -17,6 +21,8 @@ export function SignupForm({
     confirmPassword: "",
   })
   const [errors, setErrors] = useState<Record<string, string>>({})
+  const [isLoading, setIsLoading] = useState(false)
+  const [submitError, setSubmitError] = useState<string | null>(null)
 
   const validateForm = () => {
     const newErrors: Record<string, string> = {}
@@ -47,11 +53,38 @@ export function SignupForm({
     return Object.keys(newErrors).length === 0
   }
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    if (validateForm()) {
-      // TODO: Wire to Supabase auth signup
-      console.log("Signup data:", formData)
+    setSubmitError(null)
+    
+    if (!validateForm()) {
+      return
+    }
+
+    setIsLoading(true)
+
+    try {
+      const result = await signUp({
+        email: formData.email,
+        password: formData.password,
+        fullName: formData.fullName,
+      })
+
+      if (result.success) {
+        // If email verification is required, redirect to OTP page
+        if (result.data?.needsEmailVerification) {
+          router.push(`/auth/otp?email=${encodeURIComponent(formData.email)}`)
+        } else {
+          // User is already signed in, redirect to dashboard
+          router.push("/dashboard")
+        }
+      } else {
+        setSubmitError(result.error || "Failed to create account")
+      }
+    } catch (err) {
+      setSubmitError(err instanceof Error ? err.message : "An unexpected error occurred")
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -132,8 +165,20 @@ export function SignupForm({
             <p className="text-xs text-destructive">{errors.confirmPassword}</p>
           )}
         </div>
-        <Button type="submit" className="w-full">
-          Create Account
+        {submitError && (
+          <div className="text-sm text-destructive text-center bg-destructive/10 p-3 rounded-md">
+            {submitError}
+          </div>
+        )}
+        <Button type="submit" className="w-full" disabled={isLoading}>
+          {isLoading ? (
+            <>
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              Creating Account...
+            </>
+          ) : (
+            "Create Account"
+          )}
         </Button>
         <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
           <span className="relative z-10 bg-background px-2 text-muted-foreground">

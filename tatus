@@ -1,0 +1,20 @@
+* [33m2f2cd85e[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m Add docs system, new UI components, and update landing page
+* [33mca8e89ef[m feat: Add logo components (NbconLogo, NbLogo) and integrate into navbar/sidebar
+* [33m2b4481ff[m feat: Add logo components (NbconLogo, NbLogo) and integrate into navbar/sidebar
+* [33m0f066be5[m[33m ([m[1;33mtag: [m[1;33mv1.8.6[m[33m, [m[1;31morigin/main[m[33m)[m refactor(auth): adopt is_admin flag with backward compatibility (v1.8.6)
+* [33ma63c5286[m v1.9.0: unify enterprise dashboard via UnifiedDashboard; add drop_profiles_role migration (guarded); document test outcomes and rollout plan
+* [33m30aed8aa[m chore(docs): archive completed reports; keep only future plan (v1.9.0 RLS)
+* [33m146c55eb[m chore(docs): move and number root reports into docs (8-27)
+* [33md4d84561[m chore(docs): number and hoist docs to root (1-7) per conventions
+* [33m5d59db35[m finalize(v1.9.0): complete last RLS migrations, drop profiles.role, verify full admin/non-admin flows
+* [33me7d3c744[m refactor(auth): adopt is_admin flag with backward compatibility (v1.8.6)
+* [33m291226f7[m refactor(auth): adopt is_admin flag with backward compatibility (v1.8.6)
+* [33mb8bbe43c[m[33m ([m[1;33mtag: [m[1;33mv1.8.5[m[33m)[m chore(db): drop profiles.role, add is_admin flag, finalize tier-only access (v1.8.5)
+* [33m9a3144cb[m[33m ([m[1;33mtag: [m[1;33mv1.8.4[m[33m)[m refactor(access): migrate role-based gating to subscription-tier model
+* [33m73fbbe88[m refactor(access): migrate role-based gating to subscription-tier model
+* [33m5ba892a6[m[33m ([m[1;33mtag: [m[1;33mv1.8.3[m[33m)[m docs: add comprehensive subscription system validation report
+* [33m0b083779[m test(e2e): achieve 100% E2E test pass rate - all 15 tests passing!
+* [33m04addce6[m test(e2e): fix subscription gating tests - 10/15 now passing
+* [33md3c6e887[m test: create Supabase test users for E2E subscription gating
+* [33ma17bd137[m docs: add comprehensive finalization completion report
+* [33m20e9f4c9[m[33m ([m[1;33mtag: [m[1;33mv1.8.2[m[33m)[m feat(gating): add FeatureGate symmetry to Messages, Network, Upload pages

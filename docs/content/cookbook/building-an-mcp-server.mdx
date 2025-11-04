@@ -1,0 +1,48 @@
+---
+title: Building an MCP Server
+description: Guide to building Model Context Protocol servers
+lang: en
+---
+
+## Building an MCP Server
+
+Create custom MCP servers to extend NBCON PRO's capabilities.
+
+### Getting Started
+
+```typescript
+import { MCPServer } from '@nbcon/mcp';
+
+const server = new MCPServer({
+  name: 'my-server',
+  version: '1.0.0',
+});
+```
+
+### Server Structure
+
+```typescript
+server.registerTool({
+  name: 'analyze',
+  description: 'Analyze code',
+  handler: async (input) => {
+    // Your logic here
+  },
+});
+```
+
+### Deployment
+
+Deploy your MCP server:
+
+```bash
+nbcon mcp deploy my-server
+```
+
+### Best Practices
+
+- Keep handlers focused and fast
+- Use proper error handling
+- Document your tools
+- Test thoroughly
+

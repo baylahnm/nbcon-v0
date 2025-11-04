@@ -1,0 +1,36 @@
+---
+title: Bugbot
+description: Automated bug detection and fixing
+lang: en
+---
+
+## Bugbot
+
+Automated bug detection and fixing powered by AI.
+
+### Features
+
+- **Static Analysis**: Detect potential bugs before runtime
+- **Runtime Monitoring**: Catch errors in production
+- **Auto-fix**: Automatically fix common issues
+
+### Usage
+
+```typescript
+import { Bugbot } from '@nbcon/pro';
+
+const bugbot = new Bugbot({
+  projectId: 'your-project-id',
+});
+
+// Run analysis
+const issues = await bugbot.analyze();
+
+// Auto-fix issues
+await bugbot.fix(issues);
+```
+
+### Configuration
+
+Configure Bugbot through the dashboard or API.
+

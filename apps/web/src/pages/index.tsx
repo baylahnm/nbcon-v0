@@ -1,16 +1,22 @@
-import { Navbar } from "@/components/ui/navbar"
 import { HeroSection } from "@/components/ui/hero-section-3"
+import { LogoCloud } from "@/components/ui/logo-cloud"
+import { FeaturesShowcase } from "@/components/ui/features-showcase"
+import { HowItWorksSection } from "@/components/ui/how-it-works-section"
+import { ReleaseTimelineSection } from "@/components/ui/release-timeline-section"
 import { CommunityShowcase } from "@/components/ui/community-showcase"
-import { LandingFooter } from "@/components/ui/landing-footer"
+import { TestimonialsSection } from "@/components/ui/testimonials-section"
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen flex flex-col">
-      <Navbar />
+    <>
       <HeroSection />
+      <LogoCloud />
+      <FeaturesShowcase />
+      <HowItWorksSection />
+      <ReleaseTimelineSection />
       <CommunityShowcase />
-      <LandingFooter />
-    </div>
+      <TestimonialsSection />
+    </>
   )
 }
 

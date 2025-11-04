@@ -1,87 +1,68 @@
 "use client";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { ProjectCard } from "@/components/ui/project-card";
 import { motion } from "framer-motion";
-import { Brain, Network, ShieldCheck, Layers, Zap, Users } from "lucide-react";
 
 const features = [
   {
-    icon: Brain,
+    imgSrc: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop",
+    title: "Project as Chat",
+    description: "Transform your project workflow into natural conversations. Build, iterate, and collaborate through intuitive chat interfaces.",
+    link: "#",
+    linkText: "Learn more"
+  },
+  {
+    imgSrc: "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=2070&auto=format&fit=crop",
     title: "AI Co-Pilot",
-    description:
-      "Civil, Electrical, Mechanical, Survey, and GIS agents designed to assist engineers intelligently in real time.",
+    description: "Your intelligent assistant that understands engineering workflows. Get real-time suggestions and automate repetitive tasks.",
+    link: "#",
+    linkText: "Explore AI"
   },
   {
-    icon: Network,
-    title: "Real-time Collaboration",
-    description:
-      "Collaborate with teams, share data layers, and review results simultaneously using Supabase Realtime.",
+    imgSrc: "https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?q=80&w=2070&auto=format&fit=crop",
+    title: "Field-to-Report",
+    description: "Seamless workflow from field data collection to final report generation. Connect your entire project lifecycle.",
+    link: "#",
+    linkText: "See workflow"
   },
   {
-    icon: Layers,
-    title: "Enterprise SDK & API",
-    description:
-      "Integrate NBCON PRO capabilities directly into enterprise systems through the official SDK and REST APIs.",
-  },
-  {
-    icon: ShieldCheck,
-    title: "Compliance & Security",
-    description:
-      "Fully aligned with PDPL and ISO 27001 compliance standards. Every action is logged with RLS and audit trails.",
-  },
-  {
-    icon: Zap,
-    title: "Stripe Billing & Entitlements",
-    description:
-      "Automated subscription management with tier sync via Stripe Webhooks and Supabase Realtime updates.",
-  },
-  {
-    icon: Users,
-    title: "Multi-tier Subscriptions",
-    description:
-      "Flexible plans for freelancers, teams, and enterprises. Upgrade instantly as your needs evolve.",
+    imgSrc: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop",
+    title: "Multi-Agent Team",
+    description: "Orchestrate multiple AI agents working together on complex projects. Each agent specializes in different aspects of your work.",
+    link: "#",
+    linkText: "Meet the team"
   },
 ];
 
 export function FeaturesGrid() {
   return (
-    <section className="relative z-10 bg-background py-24">
-      <div className="container mx-auto px-6">
+    <section className="py-24 bg-background">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-12"
         >
-          <h2 className="text-3xl font-bold tracking-tight mb-2 bg-gradient-to-r from-primary to-blue-500 bg-clip-text text-transparent">
-            Powering the Future of Engineering Intelligence
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
+            Powerful Features for Modern Engineering
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            Explore NBCON PRO's key innovations designed to connect AI,
-            geospatial data, and engineering precision.
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            Everything you need to streamline your workflow and boost productivity
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {features.map((feature, index) => (
             <motion.div
-              key={index}
+              key={feature.title}
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
             >
-              <Card className="hover:shadow-xl transition-all duration-300 border-border/60 bg-card/60 backdrop-blur-sm">
-                <CardHeader className="flex flex-row items-center gap-3">
-                  <feature.icon className="w-6 h-6 text-primary" />
-                  <CardTitle>{feature.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-muted-foreground">
-                    {feature.description}
-                  </p>
-                </CardContent>
-              </Card>
+              <ProjectCard {...feature} />
             </motion.div>
           ))}
         </div>
@@ -89,4 +70,3 @@ export function FeaturesGrid() {
     </section>
   );
 }
-

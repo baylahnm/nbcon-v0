@@ -68,6 +68,11 @@ const config: Config = {
   		},
   		animation: {
   			rainbow: 'rainbow 3s linear infinite',
+  			'accordion-down': 'accordion-down 0.2s ease-out',
+  			'accordion-up': 'accordion-up 0.2s ease-out',
+  			'spin-slow': 'spin 12s linear infinite',
+  			'spin-medium': 'spin 18s linear infinite',
+  			'spin-fast': 'spin 24s linear infinite',
   		},
   		keyframes: {
   			rainbow: {

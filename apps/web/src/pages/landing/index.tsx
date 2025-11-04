@@ -3,12 +3,12 @@ import { FeaturesGrid } from "@/components/ui/features-grid"
 
 export default function LandingPage() {
   return (
-    <div className="min-h-screen">
+    <>
       <HeroSection />
       
       {/* Features Grid Section */}
       <FeaturesGrid />
-    </div>
+    </>
   )
 }
 

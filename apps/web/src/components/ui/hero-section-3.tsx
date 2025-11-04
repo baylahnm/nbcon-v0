@@ -2,6 +2,8 @@
 
 import { motion } from "framer-motion"
 import { PromptBox } from "@/components/ui/chatgpt-prompt-input"
+import { Button } from "@/components/ui/button"
+import Link from "next/link"
 
 export function HeroSection() {
   return (
@@ -26,7 +28,7 @@ export function HeroSection() {
       >
         <div className="text-center space-y-8">
           <div className="space-y-3">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-foreground">
+            <h1 className="text-[50px] font-bold tracking-tight text-foreground">
               What do you want to create?
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -34,6 +36,13 @@ export function HeroSection() {
             </p>
           </div>
           <PromptBox />
+          <div className="flex justify-center">
+            <Link href="/projects/new">
+              <Button size="lg" className="mt-4">
+                Start New Project
+              </Button>
+            </Link>
+          </div>
           <p className="text-xs text-muted-foreground">
             By using NBCON PRO AI Assistant, you agree to our Terms & AI Policy.
           </p>

@@ -1,0 +1,34 @@
+---
+title: GitHub Integration
+description: Integrating with GitHub repositories
+lang: en
+---
+
+## GitHub Integration
+
+Connect your GitHub repositories with NBCON PRO.
+
+### Setup
+
+1. Install the NBCON PRO GitHub App
+2. Select repositories to connect
+3. Configure sync settings
+
+### Features
+
+- **Pull Request Analysis**: AI analyzes PRs automatically
+- **Code Review**: AI-powered code reviews
+- **Issue Linking**: Link GitHub issues to NBCON PRO projects
+
+### GitHub Actions
+
+```yaml
+name: NBCON Analysis
+on: [pull_request]
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: nbcon/pro-action@v1
+```
+

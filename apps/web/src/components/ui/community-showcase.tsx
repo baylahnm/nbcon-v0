@@ -111,7 +111,7 @@ export function CommunityShowcase() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="flex items-center justify-between mb-12"
+          className="flex items-center justify-between mb-4"
         >
           <div>
             <h2 className="text-3xl font-bold tracking-tight mb-2">From the Community</h2>
@@ -154,7 +154,11 @@ export function CommunityShowcase() {
                   </h3>
                   
                   {/* Metrics */}
-                  <div className="flex items-center justify-between text-sm text-muted-foreground">
+                  <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                    {/* Creator Avatar Placeholder */}
+                    <div className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center text-xs">
+                      {project.creator.name[0]}
+                    </div>
                     <div className="flex items-center gap-4">
                       <div className="flex items-center gap-1.5">
                         <Eye className="h-4 w-4" />
@@ -164,10 +168,6 @@ export function CommunityShowcase() {
                         <Heart className="h-4 w-4" />
                         <span>{formatNumber(project.likes)}</span>
                       </div>
-                    </div>
-                    {/* Creator Avatar Placeholder */}
-                    <div className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center text-xs">
-                      {project.creator.name[0]}
                     </div>
                   </div>
                 </CardContent>

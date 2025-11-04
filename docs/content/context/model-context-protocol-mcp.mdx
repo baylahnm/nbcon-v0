@@ -1,0 +1,39 @@
+---
+title: Model Context Protocol (MCP)
+description: Using MCP for enhanced AI context
+lang: en
+---
+
+## Model Context Protocol
+
+MCP enables advanced context management for AI agents.
+
+### Overview
+
+MCP allows you to provide structured context to AI models, improving accuracy and relevance.
+
+### Configuration
+
+```typescript
+const mcpConfig = {
+  contextWindow: 200000,
+  maxTokens: 8000,
+  providers: ['openai', 'anthropic'],
+};
+```
+
+### Usage
+
+```typescript
+const agent = await client.agent.create({
+  model: 'claude-3-opus',
+  mcp: mcpConfig,
+});
+```
+
+### Best Practices
+
+- Keep context focused and relevant
+- Use structured data when possible
+- Limit context size for performance
+

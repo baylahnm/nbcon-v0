@@ -1,0 +1,46 @@
+---
+title: Ignore Files
+description: Configuring files to ignore
+lang: en
+---
+
+## Ignore Files
+
+Control which files are indexed and processed by NBCON PRO.
+
+### .nbconignore
+
+Create a `.nbconignore` file in your project root:
+
+```
+# Dependencies
+node_modules/
+vendor/
+
+# Build outputs
+dist/
+build/
+
+# Environment files
+.env
+.env.local
+```
+
+### Patterns
+
+Supports glob patterns:
+
+```
+*.log
+**/temp/
+!important.log
+```
+
+### File Types
+
+By default, NBCON PRO ignores:
+
+- Binary files
+- Large files (>10MB)
+- Generated files
+

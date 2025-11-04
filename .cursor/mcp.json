@@ -1,17 +1,7 @@
 {
   "mcpServers": {
     "supabase": {
-      "command": "cmd",
-      "args": [
-        "/c",
-        "npx",
-        "-y",
-        "@supabase/mcp-server-supabase",
-        "--project-ref=joloqygeooyntwxjpxwv"
-      ],
-      "env": {
-        "SUPABASE_ACCESS_TOKEN": "sbp_ea03280b3f9509608e36ad0116e1d6a01aa9db5f"
-      }
+      "url": "https://mcp.supabase.com/mcp?project_ref=hckuptbnicbnfknrizqf&features=docs%2Caccount%2Cdatabase%2Cdebugging%2Cdevelopment%2Cfunctions%2Cbranching%2Cstorage"
     },
     "shadcn": {
       "command": "npx",

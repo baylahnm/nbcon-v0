@@ -41,7 +41,7 @@ const nextConfig = {
     }
     return config;
   },
-  transpilePackages: ['@nbcon/config'],
+  transpilePackages: ['@nbcon/config', '@lobehub/icons'],
 };
 
 // Only wrap with Sentry in production

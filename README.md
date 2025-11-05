@@ -1,4 +1,4 @@
-# v0.app Clone
+# nbcon.app
 
 A clone of the v0.app landing page built with Next.js, TypeScript, and Tailwind CSS.
 

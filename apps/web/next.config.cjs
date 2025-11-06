@@ -91,7 +91,7 @@ const nextConfig = {
       }
       
       // Also modify existing TypeScript rules to explicitly include packages directory
-      oneOfRule.oneOf.forEach((rule, index) => {
+      oneOfRule.oneOf.forEach((rule) => {
         // Look for rules that handle TypeScript files
         if (rule.test && (
           (rule.test.toString().includes('tsx?') && !rule.test.toString().includes('tsconfig')) ||

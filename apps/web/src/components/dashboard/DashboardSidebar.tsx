@@ -23,7 +23,6 @@ import { useUserProfile } from "@/hooks/useUserProfile";
 import { useJobs } from "@/hooks/useJobs";
 import { NbconLogo } from "@/components/ui/nbcon-logo";
 import { UserMenu } from "./UserMenu";
-import { cn } from "@/lib/utils";
 
 export function DashboardSidebar() {
   const { profile, isLoading: profileLoading } = useUserProfile();

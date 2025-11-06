@@ -215,7 +215,6 @@ const modelsList = [
 ];
 
 // --- The Final, Self-Contained PromptBox Component ---
-/* eslint-disable react/prop-types */
 export const PromptBox = React.forwardRef<HTMLTextAreaElement, React.TextareaHTMLAttributes<HTMLTextAreaElement>>(
   ({ className, ...props }, ref) => {
     const internalTextareaRef = React.useRef<HTMLTextAreaElement>(null);
@@ -240,7 +239,6 @@ export const PromptBox = React.forwardRef<HTMLTextAreaElement, React.TextareaHTM
 
     const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
       setValue(e.target.value);
-      // eslint-disable-next-line react/prop-types
       if (props.onChange) props.onChange(e);
     };
 

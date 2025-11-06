@@ -22,7 +22,6 @@ export function CheckboxTask({ id, children, defaultChecked = false, onToggle }:
       setChecked(saved === "true");
     }
     setIsClient(true);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   const handleToggle = () => {

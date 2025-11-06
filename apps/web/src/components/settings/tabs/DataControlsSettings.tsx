@@ -36,20 +36,17 @@ export function DataControlsSettings() {
 
       let blob: Blob;
       let filename: string;
-      let mimeType: string;
 
       if (format === "json") {
         blob = new Blob([JSON.stringify(userData, null, 2)], {
           type: "application/json",
         });
         filename = `nbcon-data-export-${Date.now()}.json`;
-        mimeType = "application/json";
       } else {
         // CSV format
         const csv = `Type,Value\nProfile,${JSON.stringify(userData.profile)}\nTimestamp,${userData.timestamp}`;
         blob = new Blob([csv], { type: "text/csv" });
         filename = `nbcon-data-export-${Date.now()}.csv`;
-        mimeType = "text/csv";
       }
 
       const url = URL.createObjectURL(blob);

@@ -102,8 +102,8 @@ export function NotificationsSettings() {
     // If enabling "enable_all", enable all notifications
     if (key === "enable_all" && value) {
       Object.keys(newSettings).forEach((k) => {
-        if (k !== "enable_all") {
-          (newSettings as any)[k] = true;
+        if (k !== "enable_all" && k in newSettings) {
+          (newSettings as NotificationSettings)[k as keyof NotificationSettings] = true;
         }
       });
     }

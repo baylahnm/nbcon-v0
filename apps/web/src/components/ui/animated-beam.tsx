@@ -1,5 +1,4 @@
 "use client";
-/* eslint-disable react/prop-types */
 
 import { RefObject, useEffect, useId, useState } from "react";
 import { motion } from "framer-motion";

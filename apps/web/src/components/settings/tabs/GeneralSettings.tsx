@@ -12,15 +12,11 @@ import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Monitor, Sun, Moon, ChevronDown, Play } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
-import { cn } from "@/lib/utils";
 
 export function GeneralSettings() {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = React.useState(false);
   const [showAdditionalModels, setShowAdditionalModels] = React.useState(true);
-  const [accentColor, setAccentColor] = React.useState("default");
-  const [language, setLanguage] = React.useState("en-US");
-  const [spokenLanguage, setSpokenLanguage] = React.useState("en");
   const [voice, setVoice] = React.useState("Cove");
 
   React.useEffect(() => {

@@ -5,14 +5,12 @@ import { PromptBox } from "@/components/ui/chatgpt-prompt-input";
 import { Button } from "@/components/ui/button";
 import { useUserProfile } from "@/hooks/useUserProfile";
 import { useSubscriptionTier } from "@/hooks/useSubscriptionTier";
-import { cn } from "@/lib/utils";
 import Link from "next/link";
 import {
   FileText,
   BarChart3,
   Search,
   BookOpen,
-  Sparkles,
 } from "lucide-react";
 
 interface QuickAction {

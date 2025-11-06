@@ -12,20 +12,12 @@ export const NbLogo = ({ className }: NbLogoProps) => {
   return (
     <span
       className={cn(
-        "text-foreground font-bold relative inline-block",
+        "text-foreground font-bold inline-block",
         isSmall ? "text-sm" : "text-2xl"
       )}
+      style={{ fontFamily: "Carter One, cursive" }}
     >
       n.
-      <span
-        className={cn(
-          "absolute italic font-bold transform -rotate-12",
-          isSmall ? "-top-1 left-0 text-[6px]" : "-top-2 left-2 text-[8px]"
-        )}
-        style={{ fontFamily: "Quintessential, cursive" }}
-      >
-        pro
-      </span>
     </span>
   );
 };

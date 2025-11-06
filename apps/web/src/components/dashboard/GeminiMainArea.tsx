@@ -4,7 +4,9 @@ import * as React from "react";
 import { PromptBox } from "@/components/ui/chatgpt-prompt-input";
 import { Button } from "@/components/ui/button";
 import { useUserProfile } from "@/hooks/useUserProfile";
+import { useSubscriptionTier } from "@/hooks/useSubscriptionTier";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
 import {
   FileText,
   BarChart3,
@@ -22,9 +24,12 @@ interface QuickAction {
 
 export function GeminiMainArea() {
   const { profile, isLoading } = useUserProfile();
+  const { tier, isLoading: tierLoading } = useSubscriptionTier();
   const [inputValue, setInputValue] = React.useState("");
 
   const displayName = profile?.full_name || profile?.username || profile?.email?.split("@")[0] || "there";
+  
+  const planLabel = tier === "free" ? "Free plan" : tier === "pro" ? "Pro plan" : tier === "enterprise" ? "Enterprise plan" : "Free plan";
 
   const quickActions: QuickAction[] = [
     {
@@ -82,6 +87,27 @@ export function GeminiMainArea() {
   return (
     <div className="flex flex-1 flex-col items-center justify-center p-8">
       <div className="w-full max-w-3xl space-y-8">
+        {/* Plan Badge */}
+        <div className="flex justify-center">
+          <div className="ml-0.5 inline-flex items-center gap-1.5 rounded-lg h-8 px-2.5 text-center text-sm bg-muted text-muted-foreground select-none">
+            {tierLoading ? (
+              <span className="h-4 w-16 bg-muted-foreground/20 rounded animate-pulse" />
+            ) : (
+              <>
+                {planLabel}
+                <div className="size-[3px] bg-muted-foreground/30 rounded-full mt-0.5" />
+                {tier === "free" ? (
+                  <Link className="inline underline hover:no-underline cursor-pointer" href="/?settings=billing">
+                    Upgrade
+                  </Link>
+                ) : (
+                  <span className="text-xs opacity-70">Active</span>
+                )}
+              </>
+            )}
+          </div>
+        </div>
+
         {/* Greeting */}
         <div className="text-center space-y-2">
           {isLoading ? (
@@ -96,14 +122,34 @@ export function GeminiMainArea() {
           </p>
         </div>
 
-        {/* Chat Input */}
-        <form onSubmit={handleSubmit} className="w-full">
-          <PromptBox
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
-            className="w-full"
-          />
-        </form>
+        {/* Chat Input with Status Bar */}
+        <div className="w-full">
+          <form onSubmit={handleSubmit} className="w-full">
+            <PromptBox
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
+              className="w-full"
+            />
+          </form>
+
+          {/* Status Bar Footer */}
+          <div className="w-full max-w-[calc(100%-2rem)] mx-auto border-t border-border/50 relative z-0 px-3.5 m-0 rounded-b-[15px] border-t-0 pb-2 pt-2 bg-[#181818] border-transparent mt-0">
+            <div className="w-full">
+              <div className="flex w-full flex-col items-center md:flex-row gap-2">
+                <div className="flex flex-row items-center gap-2 md:w-full text-muted-foreground">
+                  <div>
+                    <div className="text-xs">Session limit reached ∙ resets 5:00 PM</div>
+                  </div>
+                </div>
+                <div className="w-full whitespace-nowrap md:w-fit">
+                  <Link className="inline underline hover:no-underline cursor-pointer text-xs" href="/?settings=billing">
+                    Upgrade
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
         {/* Quick Actions */}
         <div className="flex flex-wrap items-center justify-center gap-2">
@@ -115,7 +161,7 @@ export function GeminiMainArea() {
                 variant="outline"
                 size="sm"
                 onClick={action.onClick}
-                className="h-9 rounded-full border-border hover:bg-accent hover:text-accent-foreground"
+                className="h-9 rounded-full border-border bg-[#181818] hover:bg-accent hover:text-accent-foreground"
               >
                 <Icon className="mr-2 h-4 w-4" />
                 {action.label}

@@ -19,31 +19,20 @@ export const NbconLogo = ({
 }: NbconLogoProps) => {
   const logoContent = (
     <div className="flex items-center">
-      <div className="relative inline-block">
-        <span
-          className="absolute -top-2 right-3 text-sm italic font-bold transform -rotate-12 bg-gradient-to-r from-red-500 via-yellow-500 via-green-500 via-blue-500 to-purple-500 bg-clip-text text-transparent animate-[rainbow_3s_linear_infinite]"
-          style={{
-            fontFamily: "Quintessential, cursive",
-            backgroundSize: "200% 100%",
-          }}
-        >
-          pro
-        </span>
-        <div className="flex flex-col items-start relative top-1">
-          <h1
-            className="text-2xl font-bold text-foreground leading-none tracking-tight"
-            style={{ fontFamily: "Carter One, cursive" }}
-          >
-            nbcon.
-          </h1>
-          <p
-            className="text-primary text-[8px] tracking-[0.3em] mt-0.5 lowercase relative -top-1.5 left-1.5 font-bold"
-            style={{ fontFamily: "Alice, serif" }}
-          >
-            enterprise
-          </p>
-        </div>
-      </div>
+      {/* Full logo - hidden when collapsed */}
+      <h1
+        className="text-2xl font-bold text-foreground leading-none tracking-tight group-data-[collapsible=icon]:hidden"
+        style={{ fontFamily: "Carter One, cursive" }}
+      >
+        nbcon.
+      </h1>
+      {/* Collapsed logo - shown only when collapsed */}
+      <h1
+        className="hidden text-2xl font-bold text-foreground leading-none tracking-tight group-data-[collapsible=icon]:block"
+        style={{ fontFamily: "Carter One, cursive" }}
+      >
+        n.
+      </h1>
     </div>
   );
 

@@ -1,17 +1,11 @@
 "use client";
 
 import * as React from "react";
-import { useRouter } from "next/router";
 import {
   Plus,
   Search,
   MessageSquare,
-  Settings,
-  LogOut,
-  ChevronRight,
-  Folder,
 } from "lucide-react";
-import { supabase } from "@nbcon/config";
 import {
   Sidebar,
   SidebarContent,
@@ -24,23 +18,14 @@ import {
   SidebarMenuItem,
   SidebarRail,
 } from "@/components/ui/sidebar";
-import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { useUserProfile } from "@/hooks/useUserProfile";
 import { useJobs } from "@/hooks/useJobs";
 import { NbconLogo } from "@/components/ui/nbcon-logo";
+import { UserMenu } from "./UserMenu";
 import { cn } from "@/lib/utils";
 
 export function DashboardSidebar() {
-  const router = useRouter();
   const { profile, isLoading: profileLoading } = useUserProfile();
   const { jobs, isLoading: jobsLoading } = useJobs();
   const [isCreatingJob, setIsCreatingJob] = React.useState(false);
@@ -59,10 +44,6 @@ export function DashboardSidebar() {
     }
   };
 
-  const handleLogout = async () => {
-    await supabase.auth.signOut();
-    window.location.href = "/auth/login";
-  };
 
   const displayName = profile?.full_name || profile?.username || profile?.email?.split("@")[0] || "User";
   const initials = displayName
@@ -77,9 +58,6 @@ export function DashboardSidebar() {
       <SidebarHeader className="border-b border-sidebar-border p-4">
         <div className="flex items-center gap-2">
           <NbconLogo className="h-8 w-8" asLink={false} />
-          <span className="font-semibold text-sidebar-foreground group-data-[collapsible=icon]:hidden">
-            nbcon
-          </span>
         </div>
       </SidebarHeader>
 
@@ -150,8 +128,8 @@ export function DashboardSidebar() {
       </SidebarContent>
 
       <SidebarFooter className="border-t border-sidebar-border p-2">
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
+        <UserMenu
+          trigger={
             <SidebarMenuButton
               size="lg"
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground w-full"
@@ -180,39 +158,10 @@ export function DashboardSidebar() {
                 </>
               )}
             </SidebarMenuButton>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent
-            className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg"
-            side="right"
-            align="end"
-            sideOffset={4}
-          >
-            <DropdownMenuLabel className="p-0 font-normal">
-              <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
-                <Avatar className="h-8 w-8 rounded-lg">
-                  <AvatarImage src={profile?.avatar_url || undefined} alt={displayName} />
-                  <AvatarFallback className="rounded-lg">{initials}</AvatarFallback>
-                </Avatar>
-                <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-medium">{displayName}</span>
-                  <span className="truncate text-xs text-muted-foreground">
-                    {profile?.email}
-                  </span>
-                </div>
-              </div>
-            </DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              <Settings className="mr-2 h-4 w-4" />
-              Settings
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={handleLogout}>
-              <LogOut className="mr-2 h-4 w-4" />
-              Log out
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+          }
+          side="right"
+          align="end"
+        />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>

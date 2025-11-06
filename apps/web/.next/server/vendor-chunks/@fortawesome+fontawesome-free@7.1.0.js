@@ -18,6 +18,16 @@ exports.modules = {
 
 
 
+/***/ }),
+
+/***/ "../../node_modules/.pnpm/@fortawesome+fontawesome-free@7.1.0/node_modules/@fortawesome/fontawesome-free/css/all.min.css":
+/*!*******************************************************************************************************************************!*\
+  !*** ../../node_modules/.pnpm/@fortawesome+fontawesome-free@7.1.0/node_modules/@fortawesome/fontawesome-free/css/all.min.css ***!
+  \*******************************************************************************************************************************/
+/***/ (() => {
+
+
+
 /***/ })
 
 };

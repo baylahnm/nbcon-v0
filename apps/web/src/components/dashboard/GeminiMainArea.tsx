@@ -152,7 +152,7 @@ export function GeminiMainArea() {
         </div>
 
         {/* Quick Actions */}
-        <div className="flex flex-wrap items-center justify-center gap-2">
+        <div className="flex flex-wrap items-center justify-center gap-2 mt-4">
           {quickActions.map((action) => {
             const Icon = action.icon;
             return (

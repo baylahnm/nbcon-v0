@@ -1,24 +1,4 @@
 {
-  "..\\..\\..\\node_modules\\.pnpm\\@supabase+auth-js@2.78.0\\node_modules\\@supabase\\auth-js\\dist\\module\\lib\\helpers.js -> @supabase/node-fetch": {
-    "id": "..\\..\\..\\node_modules\\.pnpm\\@supabase+auth-js@2.78.0\\node_modules\\@supabase\\auth-js\\dist\\module\\lib\\helpers.js -> @supabase/node-fetch",
-    "files": []
-  },
-  "..\\..\\..\\node_modules\\.pnpm\\@supabase+functions-js@2.78.0\\node_modules\\@supabase\\functions-js\\dist\\module\\helper.js -> @supabase/node-fetch": {
-    "id": "..\\..\\..\\node_modules\\.pnpm\\@supabase+functions-js@2.78.0\\node_modules\\@supabase\\functions-js\\dist\\module\\helper.js -> @supabase/node-fetch",
-    "files": []
-  },
-  "..\\..\\..\\node_modules\\.pnpm\\@supabase+realtime-js@2.78.0\\node_modules\\@supabase\\realtime-js\\dist\\module\\RealtimeClient.js -> @supabase/node-fetch": {
-    "id": "..\\..\\..\\node_modules\\.pnpm\\@supabase+realtime-js@2.78.0\\node_modules\\@supabase\\realtime-js\\dist\\module\\RealtimeClient.js -> @supabase/node-fetch",
-    "files": []
-  },
-  "..\\..\\..\\node_modules\\.pnpm\\@supabase+storage-js@2.78.0\\node_modules\\@supabase\\storage-js\\dist\\module\\lib\\helpers.js -> @supabase/node-fetch": {
-    "id": "..\\..\\..\\node_modules\\.pnpm\\@supabase+storage-js@2.78.0\\node_modules\\@supabase\\storage-js\\dist\\module\\lib\\helpers.js -> @supabase/node-fetch",
-    "files": []
-  },
-  "..\\..\\..\\node_modules\\.pnpm\\@supabase+storage-js@2.78.0\\node_modules\\@supabase\\storage-js\\dist\\module\\lib\\vectors\\helpers.js -> @supabase/node-fetch": {
-    "id": "..\\..\\..\\node_modules\\.pnpm\\@supabase+storage-js@2.78.0\\node_modules\\@supabase\\storage-js\\dist\\module\\lib\\vectors\\helpers.js -> @supabase/node-fetch",
-    "files": []
-  },
   "..\\..\\..\\node_modules\\.pnpm\\next@15.5.6_@babel+core@7.28.5_@opentelemetry+api@1.9.0_@playwright+test@1.56.1_react-dom@19.2.0_react@19.2.0\\node_modules\\next\\dist\\client\\index.js -> ../pages/_app": {
     "id": "..\\..\\..\\node_modules\\.pnpm\\next@15.5.6_@babel+core@7.28.5_@opentelemetry+api@1.9.0_@playwright+test@1.56.1_react-dom@19.2.0_react@19.2.0\\node_modules\\next\\dist\\client\\index.js -> ../pages/_app",
     "files": [
@@ -29,6 +9,42 @@
     "id": "..\\..\\..\\node_modules\\.pnpm\\next@15.5.6_@babel+core@7.28.5_@opentelemetry+api@1.9.0_@playwright+test@1.56.1_react-dom@19.2.0_react@19.2.0\\node_modules\\next\\dist\\client\\index.js -> ../pages/_error",
     "files": [
       "static/chunks/_pages-dir-browser_node_modules_pnpm_next_15_5_6__babel_core_7_28_5__opentelemetry_api_1_9_0_-390367.js"
+    ]
+  },
+  "components\\ui\\stack-feature-section.tsx -> @lobehub/icons/es/Claude": {
+    "id": "components\\ui\\stack-feature-section.tsx -> @lobehub/icons/es/Claude",
+    "files": [
+      "static/chunks/_pages-dir-browser_node_modules_pnpm_lobehub_icons_2_43_1__babel_core_7_28_5__types_react-dom-d60810.js"
+    ]
+  },
+  "components\\ui\\stack-feature-section.tsx -> @lobehub/icons/es/DeepSeek": {
+    "id": "components\\ui\\stack-feature-section.tsx -> @lobehub/icons/es/DeepSeek",
+    "files": [
+      "static/chunks/_pages-dir-browser_node_modules_pnpm_lobehub_icons_2_43_1__babel_core_7_28_5__types_react-dom-902790.js"
+    ]
+  },
+  "components\\ui\\stack-feature-section.tsx -> @lobehub/icons/es/Gemini": {
+    "id": "components\\ui\\stack-feature-section.tsx -> @lobehub/icons/es/Gemini",
+    "files": [
+      "static/chunks/_pages-dir-browser_node_modules_pnpm_lobehub_icons_2_43_1__babel_core_7_28_5__types_react-dom-e2a040.js"
+    ]
+  },
+  "components\\ui\\stack-feature-section.tsx -> @lobehub/icons/es/Grok": {
+    "id": "components\\ui\\stack-feature-section.tsx -> @lobehub/icons/es/Grok",
+    "files": [
+      "static/chunks/_pages-dir-browser_node_modules_pnpm_lobehub_icons_2_43_1__babel_core_7_28_5__types_react-dom-847e99.js"
+    ]
+  },
+  "components\\ui\\stack-feature-section.tsx -> @lobehub/icons/es/OpenAI": {
+    "id": "components\\ui\\stack-feature-section.tsx -> @lobehub/icons/es/OpenAI",
+    "files": [
+      "static/chunks/_pages-dir-browser_node_modules_pnpm_lobehub_icons_2_43_1__babel_core_7_28_5__types_react-dom-568b56.js"
+    ]
+  },
+  "components\\ui\\stack-feature-section.tsx -> @lobehub/icons/es/Perplexity": {
+    "id": "components\\ui\\stack-feature-section.tsx -> @lobehub/icons/es/Perplexity",
+    "files": [
+      "static/chunks/_pages-dir-browser_node_modules_pnpm_lobehub_icons_2_43_1__babel_core_7_28_5__types_react-dom-a0fdb0.js"
     ]
   }
 }

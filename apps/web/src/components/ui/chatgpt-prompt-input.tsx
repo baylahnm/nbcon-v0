@@ -4,6 +4,18 @@ import * as React from "react";
 import * as TooltipPrimitive from "@radix-ui/react-tooltip";
 import * as PopoverPrimitive from "@radix-ui/react-popover";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuSeparator,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
 
 // --- Utility Function & Radix Primitives ---
@@ -196,6 +208,12 @@ const toolsList = [
   { id: "thinkLonger", name: "Think for longer", shortName: "Think", icon: LightbulbIcon },
 ];
 
+const modelsList = [
+  { id: "opus-4.1", name: "Opus 4.1", description: "Deep brainstorming model. Consumes usage faster.", requiresUpgrade: true },
+  { id: "sonnet-4.5", name: "Sonnet 4.5", description: "Smartest for everyday tasks.", requiresUpgrade: false },
+  { id: "haiku-4.5", name: "Haiku 4.5", description: "Fastest for quick answers.", requiresUpgrade: false },
+];
+
 // --- The Final, Self-Contained PromptBox Component ---
 /* eslint-disable react/prop-types */
 export const PromptBox = React.forwardRef<HTMLTextAreaElement, React.TextareaHTMLAttributes<HTMLTextAreaElement>>(
@@ -207,6 +225,7 @@ export const PromptBox = React.forwardRef<HTMLTextAreaElement, React.TextareaHTM
     const [selectedTool, setSelectedTool] = React.useState<string | null>(null);
     const [isPopoverOpen, setIsPopoverOpen] = React.useState(false);
     const [isImageDialogOpen, setIsImageDialogOpen] = React.useState(false);
+    const [selectedModel, setSelectedModel] = React.useState<string>("sonnet-4.5");
 
     React.useImperativeHandle(ref, () => internalTextareaRef.current!, []);
 
@@ -343,6 +362,75 @@ export const PromptBox = React.forwardRef<HTMLTextAreaElement, React.TextareaHTM
                   </div>
                 </PopoverContent>
               </Popover>
+
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <button
+                    type="button"
+                    title="Select AI model"
+                    className="inline-flex items-center justify-center relative shrink-0 select-none disabled:pointer-events-none disabled:opacity-50 border-transparent transition font-base duration-300 ease-[cubic-bezier(0.165,0.85,0.45,1)] h-8 rounded-md px-3 min-w-[4rem] active:scale-[0.985] whitespace-nowrap text-xs pl-2.5 pr-2 gap-1 text-foreground dark:text-white hover:bg-accent dark:hover:bg-[#515151] focus-visible:outline-none"
+                  >
+                    <div className="inline-flex gap-[3px] text-[14px] h-[14px] leading-none items-baseline">
+                      <div className="flex items-center gap-[4px]">
+                        <div className="whitespace-nowrap select-none">
+                          {modelsList.find((m) => m.id === selectedModel)?.name || "Sonnet 4.5"}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="flex items-center justify-center opacity-75" style={{ width: "20px", height: "20px" }}>
+                      <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg" className="shrink-0 opacity-75" aria-hidden="true">
+                        <path d="M14.128 7.16482C14.3126 6.95983 14.6298 6.94336 14.835 7.12771C15.0402 7.31242 15.0567 7.62952 14.8721 7.83477L10.372 12.835L10.2939 12.9053C10.2093 12.9667 10.1063 13 9.99995 13C9.85833 12.9999 9.72264 12.9402 9.62788 12.835L5.12778 7.83477L5.0682 7.75273C4.95072 7.55225 4.98544 7.28926 5.16489 7.12771C5.34445 6.96617 5.60969 6.95939 5.79674 7.09744L5.87193 7.16482L9.99995 11.7519L14.128 7.16482Z" />
+                      </svg>
+                    </div>
+                  </button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent
+                  side="bottom"
+                  align="end"
+                  className="z-50 bg-popover dark:bg-[#303030] border border-border dark:border-[#2d2d2d] backdrop-blur-xl rounded-xl min-w-[20rem] overflow-hidden p-1.5 text-popover-foreground dark:text-white shadow-lg max-h-[min(var(--radix-dropdown-menu-content-available-height),400px)] overflow-y-auto"
+                >
+                  <DropdownMenuRadioGroup value={selectedModel} onValueChange={setSelectedModel}>
+                    {modelsList.map((model) => (
+                      <DropdownMenuRadioItem
+                        key={model.id}
+                        value={model.id}
+                        className="py-1.5 px-2 rounded-lg cursor-pointer whitespace-nowrap overflow-hidden text-ellipsis grid grid-cols-[minmax(0,_1fr)_auto] gap-2 items-center outline-none select-none hover:bg-accent dark:hover:bg-[#515151] focus:bg-accent dark:focus:bg-[#515151] group pr-1 pl-2 !pl-2 [&>span]:left-auto [&>span]:right-2 [&>span]:absolute"
+                      >
+                        <div>
+                          <div className="flex items-center">
+                            <div className="flex-1 text-sm">
+                              <div className="flex items-center gap-1.5">
+                                <div className="font-medium">{model.name}</div>
+                              </div>
+                            </div>
+                            {model.requiresUpgrade && (
+                              <button
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  // Handle upgrade
+                                }}
+                                className="border border-border dark:border-[#515151] text-blue-600 dark:text-blue-400 px-1.5 py-px rounded-3xl text-xs cursor-pointer hover:border-border/80 dark:hover:border-[#666] transition-colors mt-0.5 ml-2 -mr-1 flex-shrink-0"
+                              >
+                                Upgrade
+                              </button>
+                            )}
+                          </div>
+                          <div className="text-muted-foreground dark:text-gray-400 pr-4 text-xs mt-1">{model.description}</div>
+                        </div>
+                      </DropdownMenuRadioItem>
+                    ))}
+                  </DropdownMenuRadioGroup>
+                  <DropdownMenuSeparator className="h-0 border-t border-border dark:border-[#2d2d2d] m-1" />
+                  <DropdownMenuSub>
+                    <DropdownMenuSubTrigger className="py-1.5 px-2 rounded-lg cursor-pointer whitespace-nowrap overflow-hidden text-ellipsis grid grid-cols-[minmax(0,_1fr)_auto] gap-2 items-center outline-none select-none hover:bg-accent dark:hover:bg-[#515151] focus:bg-accent dark:focus:bg-[#515151] pl-2 gap-2">
+                      <div className="group-hover:text-foreground dark:group-hover:text-white text-sm">More models</div>
+                    </DropdownMenuSubTrigger>
+                    <DropdownMenuSubContent className="bg-popover dark:bg-[#303030] border border-border dark:border-[#2d2d2d] rounded-xl">
+                      <DropdownMenuItem className="py-1.5 px-2 text-sm">Coming soon...</DropdownMenuItem>
+                    </DropdownMenuSubContent>
+                  </DropdownMenuSub>
+                </DropdownMenuContent>
+              </DropdownMenu>
 
               {activeTool && (
                 <>

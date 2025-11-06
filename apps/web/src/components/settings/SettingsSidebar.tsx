@@ -61,21 +61,21 @@ export function SettingsSidebar() {
             {SETTINGS_CATEGORIES.map((category) => {
               const Icon = category.icon;
               return (
-                <TabsTrigger
+                  <TabsTrigger
                   key={category.id}
-                  value={category.id}
-                  asChild
-                  className={cn(
-                    "w-full justify-start data-[state=active]:bg-sidebar-accent data-[state=active]:text-sidebar-accent-foreground"
-                  )}
-                >
-                  <SidebarMenuButton className="w-full">
-                    <Icon className="h-4 w-4" />
-                    <span className="group-data-[collapsible=icon]:hidden">
-                      {category.label}
-                    </span>
-                  </SidebarMenuButton>
-                </TabsTrigger>
+                    value={category.id}
+                    asChild
+                    className={cn(
+                      "w-full justify-start data-[state=active]:bg-sidebar-accent data-[state=active]:text-sidebar-accent-foreground"
+                    )}
+                  >
+                    <SidebarMenuButton className="w-full">
+                      <Icon className="h-4 w-4" />
+                      <span className="group-data-[collapsible=icon]:hidden">
+                        {category.label}
+                      </span>
+                    </SidebarMenuButton>
+                  </TabsTrigger>
               );
             })}
           </TabsList>

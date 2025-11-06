@@ -35,12 +35,4 @@ yarn-error.log*
 next-env.d.ts
 
 # docs
-docs/cursor_chats/
-docs/agents/
-docs/api/
-docs/compliance/
-docs/directory_tree/
-docs/governance/
-docs/plan_nbcon_v0/
-docs/security/
-docs/gpt_chats/
+docs/

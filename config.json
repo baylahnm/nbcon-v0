@@ -1,0 +1,52 @@
+[1mdiff --git a/tsconfig.json b/tsconfig.json[m
+[1mindex eb231e50..a734ba64 100644[m
+[1m--- a/tsconfig.json[m
+[1m+++ b/tsconfig.json[m
+[36m@@ -1,28 +1,28 @@[m
+ {[m
+[32m+[m[32m  "extends": "./tsconfig.base.json",[m
+   "compilerOptions": {[m
+[31m-    "target": "ES2020",[m
+[31m-    "lib": ["dom", "dom.iterable", "esnext"],[m
+[31m-    "allowJs": true,[m
+[31m-    "skipLibCheck": true,[m
+[31m-    "strict": true,[m
+[31m-    "noEmit": true,[m
+[31m-    "esModuleInterop": true,[m
+[31m-    "module": "esnext",[m
+[31m-    "moduleResolution": "bundler",[m
+[31m-    "resolveJsonModule": true,[m
+[31m-    "isolatedModules": true,[m
+[31m-    "jsx": "preserve",[m
+[31m-    "incremental": true,[m
+     "plugins": [[m
+       {[m
+         "name": "next"[m
+       }[m
+[31m-    ],[m
+[31m-    "paths": {[m
+[31m-      "@/*": ["./*"][m
+[31m-    }[m
+[32m+[m[32m    ][m
+   },[m
+[31m-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],[m
+[31m-  "exclude": ["node_modules"][m
+[32m+[m[32m  "include": [[m
+[32m+[m[32m    "apps/**/*.ts",[m
+[32m+[m[32m    "apps/**/*.tsx",[m
+[32m+[m[32m    "packages/**/*.ts",[m
+[32m+[m[32m    "packages/**/*.tsx"[m
+[32m+[m[32m  ],[m
+[32m+[m[32m  "exclude": [[m
+[32m+[m[32m    "node_modules",[m
+[32m+[m[32m    "**/node_modules",[m
+[32m+[m[32m    "**/.next",[m
+[32m+[m[32m    "**/dist",[m
+[32m+[m[32m    "**/build"[m
+[32m+[m[32m  ],[m
+[32m+[m[32m  "references": [[m
+[32m+[m[32m    { "path": "./apps/web" },[m
+[32m+[m[32m    { "path": "./packages/config" }[m
+[32m+[m[32m  ][m
+ }[m
+ [m

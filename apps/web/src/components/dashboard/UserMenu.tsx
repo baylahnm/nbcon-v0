@@ -223,7 +223,6 @@ export function UserMenu({ trigger, side = "right", align = "end" }: UserMenuPro
           <DropdownMenuSubTrigger className="flex cursor-default select-none items-center gap-2 rounded-lg px-2 py-1.5 text-sm outline-none data-[state=open]:bg-accent focus:bg-accent">
             <Moon className="h-5 w-5" />
             <p>Appearance</p>
-            <ChevronRight className="h-5 w-5 ml-auto" />
           </DropdownMenuSubTrigger>
           <DropdownMenuSubContent className="rounded-xl border border-sidebar-border bg-[#fafafa] dark:bg-[#181818]">
             <DropdownMenuRadioGroup value={theme} onValueChange={(value) => setTheme(value as "light" | "dark" | "system")}>

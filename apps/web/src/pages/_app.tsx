@@ -1,5 +1,6 @@
 import type { AppProps } from "next/app";
 import { useRouter } from "next/router";
+import { ThemeProvider as NextThemesProvider } from "next-themes";
 import "@/styles/globals.css";
 import "@/styles/theme.css";
 import { I18nProvider } from "@/lib/i18n/context";
@@ -33,13 +34,20 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <I18nProvider>
-      {isPublicRoute ? (
-        <PublicLayout>
+      <NextThemesProvider
+        attribute="class"
+        defaultTheme="system"
+        enableSystem
+        disableTransitionOnChange={false}
+      >
+        {isPublicRoute ? (
+          <PublicLayout>
+            <Component {...pageProps} />
+          </PublicLayout>
+        ) : (
           <Component {...pageProps} />
-        </PublicLayout>
-      ) : (
-        <Component {...pageProps} />
-      )}
+        )}
+      </NextThemesProvider>
     </I18nProvider>
   );
 }

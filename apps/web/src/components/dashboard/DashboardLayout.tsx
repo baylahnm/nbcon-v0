@@ -7,6 +7,7 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { Separator } from "@/components/ui/separator";
+import { ToggleTheme } from "@/components/ui/toggle-theme";
 import { DashboardSidebar } from "./DashboardSidebar";
 import { GeminiMainArea } from "./GeminiMainArea";
 
@@ -18,6 +19,9 @@ export function DashboardLayout({ children }: { children?: React.ReactNode }) {
         <header className="flex shrink-0 items-center gap-2 border-b border-border px-4 py-2">
           <SidebarTrigger className="-ml-1" />
           <Separator orientation="vertical" className="mr-2 h-4" />
+          <div className="ml-auto">
+            <ToggleTheme />
+          </div>
         </header>
         <main className="flex flex-1 flex-col overflow-hidden bg-background dark:bg-[#212121]">
           {children || <GeminiMainArea />}

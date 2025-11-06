@@ -136,14 +136,14 @@ export function DashboardSidebar() {
             >
               {profileLoading ? (
                 <div className="flex items-center gap-2">
-                  <div className="h-8 w-8 rounded-full bg-muted animate-pulse" />
+                  <div className="h-8 w-8 rounded-full bg-muted animate-pulse group-data-[collapsible=icon]:h-7 group-data-[collapsible=icon]:w-7" />
                   <div className="flex-1 text-left group-data-[collapsible=icon]:hidden">
                     <div className="h-4 w-24 bg-muted rounded animate-pulse" />
                   </div>
                 </div>
               ) : (
                 <>
-                  <Avatar className="h-8 w-8 rounded-lg">
+                  <Avatar className="h-8 w-8 rounded-lg group-data-[collapsible=icon]:h-7 group-data-[collapsible=icon]:w-7">
                     <AvatarImage src={profile?.avatar_url || undefined} alt={displayName} />
                     <AvatarFallback className="rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
                       {initials}

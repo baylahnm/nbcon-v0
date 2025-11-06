@@ -89,7 +89,7 @@ export function GeminiMainArea() {
       <div className="w-full max-w-3xl space-y-8">
         {/* Plan Badge */}
         <div className="flex justify-center">
-          <div className="ml-0.5 inline-flex items-center gap-1.5 rounded-lg h-8 px-2.5 text-center text-sm bg-muted text-muted-foreground select-none">
+          <div className="ml-0.5 inline-flex items-center gap-1.5 rounded-lg h-8 px-2.5 text-center text-sm bg-[#fafafa] dark:bg-[#181818] text-muted-foreground select-none">
             {tierLoading ? (
               <span className="h-4 w-16 bg-muted-foreground/20 rounded animate-pulse" />
             ) : (
@@ -133,7 +133,7 @@ export function GeminiMainArea() {
           </form>
 
           {/* Status Bar Footer */}
-          <div className="w-full max-w-[calc(100%-2rem)] mx-auto border-t border-border/50 relative z-0 px-3.5 m-0 rounded-b-[15px] border-t-0 pb-2 pt-2 bg-[#181818] border-transparent mt-0">
+          <div className="w-full max-w-[calc(100%-2rem)] mx-auto border-t border-border/50 relative z-0 px-3.5 m-0 rounded-b-[15px] border-t-0 pb-2 pt-2 bg-[#fafafa] dark:bg-[#181818] border-transparent mt-0">
             <div className="w-full">
               <div className="flex w-full flex-col items-center md:flex-row gap-2">
                 <div className="flex flex-row items-center gap-2 md:w-full text-muted-foreground">
@@ -161,7 +161,7 @@ export function GeminiMainArea() {
                 variant="outline"
                 size="sm"
                 onClick={action.onClick}
-                className="h-9 rounded-full border-border bg-[#181818] hover:bg-accent hover:text-accent-foreground"
+                className="h-9 rounded-full border-border bg-[#fafafa] dark:bg-[#181818] hover:bg-accent hover:text-accent-foreground"
               >
                 <Icon className="mr-2 h-4 w-4" />
                 {action.label}

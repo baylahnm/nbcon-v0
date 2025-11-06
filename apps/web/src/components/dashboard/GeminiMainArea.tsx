@@ -138,11 +138,11 @@ export function GeminiMainArea() {
               <div className="flex w-full flex-col items-center md:flex-row gap-2">
                 <div className="flex flex-row items-center gap-2 md:w-full text-muted-foreground">
                   <div>
-                    <div className="text-xs">Session limit reached ∙ resets 5:00 PM</div>
+                    <div className="text-xs font-normal">Session limit reached ∙ resets 5:00 PM</div>
                   </div>
                 </div>
                 <div className="w-full whitespace-nowrap md:w-fit">
-                  <Link className="inline underline hover:no-underline cursor-pointer text-xs" href="/?settings=billing">
+                  <Link className="inline underline hover:no-underline cursor-pointer text-xs font-normal" href="/?settings=billing">
                     Upgrade
                   </Link>
                 </div>

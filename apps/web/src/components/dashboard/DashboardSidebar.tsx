@@ -55,7 +55,7 @@ export function DashboardSidebar() {
 
   return (
     <Sidebar collapsible="icon">
-      <SidebarHeader className="border-b border-sidebar-border p-4">
+      <SidebarHeader className="border-b border-sidebar-border px-4 py-2">
         <div className="flex items-center gap-2">
           <NbconLogo className="h-8 w-8" asLink={false} />
         </div>

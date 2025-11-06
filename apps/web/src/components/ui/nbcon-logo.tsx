@@ -21,14 +21,14 @@ export const NbconLogo = ({
     <div className="flex items-center">
       {/* Full logo - hidden when collapsed */}
       <h1
-        className="text-2xl font-bold text-foreground leading-none tracking-tight group-data-[collapsible=icon]:hidden"
+        className="text-lg font-bold text-foreground leading-none tracking-tight group-data-[collapsible=icon]:hidden"
         style={{ fontFamily: "Carter One, cursive" }}
       >
         nbcon.
       </h1>
       {/* Collapsed logo - shown only when collapsed */}
       <h1
-        className="hidden text-2xl font-bold text-foreground leading-none tracking-tight group-data-[collapsible=icon]:block"
+        className="hidden text-lg font-bold text-foreground leading-none tracking-tight group-data-[collapsible=icon]:block"
         style={{ fontFamily: "Carter One, cursive" }}
       >
         n.

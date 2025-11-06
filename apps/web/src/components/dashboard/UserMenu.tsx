@@ -225,7 +225,7 @@ export function UserMenu({ trigger, side = "right", align = "end" }: UserMenuPro
             <p>Appearance</p>
             <ChevronRight className="h-5 w-5 ml-auto" />
           </DropdownMenuSubTrigger>
-          <DropdownMenuSubContent className="rounded-xl">
+          <DropdownMenuSubContent className="rounded-xl border border-sidebar-border bg-[#181818]">
             <DropdownMenuRadioGroup value={theme} onValueChange={(value) => setTheme(value as "light" | "dark" | "system")}>
               <DropdownMenuRadioItem value="system">
                 <Monitor className="mr-2 h-4 w-4" />

@@ -7,7 +7,7 @@
     "dev": "pnpm --filter @nbcon/config build && next dev",
     "build": "pnpm --filter @nbcon/config build && next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint . --ext .ts,.tsx --max-warnings=0",
     "prebuild": "pnpm --filter @nbcon/config build"
   },
   "dependencies": {

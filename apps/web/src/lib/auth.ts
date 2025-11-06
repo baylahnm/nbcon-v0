@@ -15,7 +15,11 @@ export interface LoginData {
 export interface AuthResponse {
   success: boolean;
   error?: string;
-  data?: any;
+  data?: {
+    user?: unknown;
+    session?: unknown;
+    needsEmailVerification?: boolean;
+  };
 }
 
 /**

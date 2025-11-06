@@ -10,7 +10,7 @@ exports.id = "vendor-chunks/bootstrap-icons@1.13.1";
 exports.ids = ["vendor-chunks/bootstrap-icons@1.13.1"];
 exports.modules = {
 
-/***/ "../../node_modules/.pnpm/bootstrap-icons@1.13.1/node_modules/bootstrap-icons/font/bootstrap-icons.css":
+/***/ "(pages-dir-node)/../../node_modules/.pnpm/bootstrap-icons@1.13.1/node_modules/bootstrap-icons/font/bootstrap-icons.css":
 /*!*************************************************************************************************************!*\
   !*** ../../node_modules/.pnpm/bootstrap-icons@1.13.1/node_modules/bootstrap-icons/font/bootstrap-icons.css ***!
   \*************************************************************************************************************/

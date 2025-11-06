@@ -4,7 +4,7 @@ import { Bot, FileText, BarChart3, X } from "lucide-react";
 import { clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
-function cn(...inputs: any[]) {
+function cn(...inputs: (string | undefined | null | boolean)[]) {
   return twMerge(clsx(inputs));
 }
 
@@ -25,7 +25,7 @@ export function CoPilotToolbar() {
     channel.on(
       "broadcast",
       { event: "refresh" },
-      (payload: { payload: any }) => {
+      (payload: { payload: { newState?: ToolbarState } }) => {
         if (payload.payload?.newState) {
           setState(payload.payload.newState);
         }

@@ -2,12 +2,11 @@ import { TextareaHTMLAttributes, forwardRef } from "react";
 import { clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
-function cn(...inputs: any[]) {
+function cn(...inputs: (string | undefined | null | boolean)[]) {
   return twMerge(clsx(inputs));
 }
 
-export interface TextareaProps
-  extends TextareaHTMLAttributes<HTMLTextAreaElement> {}
+export type TextareaProps = TextareaHTMLAttributes<HTMLTextAreaElement>
 
 const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
   ({ className, ...props }, ref) => {

@@ -1,4 +1,4 @@
-import { MenuItem, SubscriptionTier } from "./menuConfig";
+import { SubscriptionTier } from "./menuConfig";
 
 export interface RouteGroup {
   name: string;

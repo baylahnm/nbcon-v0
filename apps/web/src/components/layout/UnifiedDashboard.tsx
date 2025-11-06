@@ -1,10 +1,12 @@
 import { useSubscriptionTier } from "../../hooks/useSubscriptionTier";
+import { useI18n } from "../../hooks/useI18n";
 import { Card } from "../ui/card";
 import { BarChart3, Bot, Users, TrendingUp } from "lucide-react";
 import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
 
 export default function UnifiedDashboard() {
   const { tier, isLoading } = useSubscriptionTier();
+  const { t } = useI18n();
 
   if (isLoading) {
     return (
@@ -21,9 +23,9 @@ export default function UnifiedDashboard() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold mb-2">Dashboard</h1>
+        <h1 className="text-3xl font-bold mb-2">{t("dashboard.welcome")}</h1>
         <p className="text-muted-foreground">
-          Welcome back! Here's your overview.
+          {t("dashboard.overview")}
         </p>
       </div>
 
@@ -31,7 +33,7 @@ export default function UnifiedDashboard() {
         <Card className="p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-muted-foreground">Active Projects</p>
+              <p className="text-sm text-muted-foreground">{t("dashboard.activeProjects")}</p>
               <p className="text-2xl font-bold mt-1">12</p>
             </div>
             <BarChart3 className="w-8 h-8 text-primary" />
@@ -41,7 +43,7 @@ export default function UnifiedDashboard() {
         <Card className="p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-muted-foreground">AI Usage</p>
+              <p className="text-sm text-muted-foreground">{t("dashboard.aiUsage")}</p>
               <p className="text-2xl font-bold mt-1">342</p>
             </div>
             <Bot className="w-8 h-8 text-primary" />
@@ -51,7 +53,7 @@ export default function UnifiedDashboard() {
         <Card className="p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-muted-foreground">Team Members</p>
+              <p className="text-sm text-muted-foreground">{t("dashboard.teamMembers")}</p>
               <p className="text-2xl font-bold mt-1">5</p>
             </div>
             <Users className="w-8 h-8 text-primary" />
@@ -61,7 +63,7 @@ export default function UnifiedDashboard() {
         <Card className="p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-muted-foreground">Growth</p>
+              <p className="text-sm text-muted-foreground">{t("dashboard.growth")}</p>
               <p className="text-2xl font-bold mt-1">+23%</p>
             </div>
             <TrendingUp className="w-8 h-8 text-primary" />
@@ -71,7 +73,7 @@ export default function UnifiedDashboard() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Card className="p-6">
-          <h3 className="text-lg font-semibold mb-4">Project Activity</h3>
+          <h3 className="text-lg font-semibold mb-4">{t("dashboard.projectActivity")}</h3>
           <ResponsiveContainer width="100%" height={256}>
             <BarChart
               data={[
@@ -93,7 +95,7 @@ export default function UnifiedDashboard() {
         </Card>
 
         <Card className="p-6">
-          <h3 className="text-lg font-semibold mb-4">AI Usage Trends</h3>
+          <h3 className="text-lg font-semibold mb-4">{t("dashboard.aiUsageTrends")}</h3>
           <ResponsiveContainer width="100%" height={256}>
             <LineChart
               data={[
@@ -124,13 +126,13 @@ export default function UnifiedDashboard() {
 
       <Card className="p-6">
         <div className="flex items-center justify-between mb-4">
-          <h3 className="text-lg font-semibold">Subscription Status</h3>
+          <h3 className="text-lg font-semibold">{t("dashboard.subscriptionStatus")}</h3>
           <span className="px-3 py-1 bg-primary/10 text-primary rounded-md text-sm font-medium capitalize">
             {tier}
           </span>
         </div>
         <p className="text-sm text-muted-foreground">
-          Your current plan includes access to core features and tools.
+          {t("dashboard.currentPlan")}
         </p>
       </Card>
     </div>

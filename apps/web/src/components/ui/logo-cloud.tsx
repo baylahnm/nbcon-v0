@@ -31,7 +31,7 @@ function InfiniteSlider({
   const [key, setKey] = useState(0);
 
   useEffect(() => {
-    let controls: any;
+    let controls: { stop: () => void } | undefined;
 
     const size = direction === 'horizontal' ? width : height;
     if (size === 0) return;
@@ -91,7 +91,7 @@ function InfiniteSlider({
           ...(direction === 'horizontal' ? { x: translation } : { y: translation }),
           gap: `${gap}px`,
           flexDirection: direction === 'horizontal' ? 'row' : 'column',
-        } as any}
+        } as React.CSSProperties}
         ref={ref}
         {...hoverProps}>
         {children}

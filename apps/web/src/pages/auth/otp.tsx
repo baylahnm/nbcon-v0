@@ -16,11 +16,17 @@ export default function OTPPage() {
     const emailParam = router.query.email as string | undefined
     const typeParam = router.query.type as "signup" | "email" | undefined
     
-    if (emailParam) {
-      setEmail(emailParam)
-    }
-    if (typeParam === "email" || typeParam === "signup") {
-      setVerificationType(typeParam)
+    // Batch state updates to avoid setState in effect warning
+    if (emailParam || typeParam === "email" || typeParam === "signup") {
+      const timer = setTimeout(() => {
+        if (emailParam) {
+          setEmail(emailParam)
+        }
+        if (typeParam === "email" || typeParam === "signup") {
+          setVerificationType(typeParam)
+        }
+      }, 0);
+      return () => clearTimeout(timer);
     }
   }, [router.query])
 

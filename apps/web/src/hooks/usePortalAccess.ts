@@ -16,6 +16,8 @@ export function usePortalAccess(): PortalAccess {
   const [userId, setUserId] = useState<string | null>(null);
 
   useEffect(() => {
+    let unsubscribe: (() => void) | undefined;
+
     async function fetchAccess() {
       try {
         const {
@@ -66,11 +68,11 @@ export function usePortalAccess(): PortalAccess {
           )
           .subscribe();
 
-        setIsLoading(false);
-
-        return () => {
+        unsubscribe = () => {
           supabase.removeChannel(channel);
         };
+
+        setIsLoading(false);
       } catch (error) {
         console.error("Error in usePortalAccess:", error);
         setIsLoading(false);
@@ -78,6 +80,11 @@ export function usePortalAccess(): PortalAccess {
     }
 
     fetchAccess();
+
+    // Cleanup function for useEffect
+    return () => {
+      unsubscribe?.();
+    };
   }, []);
 
   return { tier, isAdmin, isLoading, userId };

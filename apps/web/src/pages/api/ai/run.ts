@@ -74,7 +74,7 @@ User message: ${messages.find((m) => m.role === "user")?.content || "N/A"}`;
       output: responseContent,
       tokens: usage?.total_tokens || 0,
     });
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.error("AI API Error:", err);
     
     // Handle OpenAI-specific errors
@@ -84,8 +84,9 @@ User message: ${messages.find((m) => m.role === "user")?.content || "N/A"}`;
       });
     }
 
+    const errorMessage = err instanceof Error ? err.message : "Internal server error";
     return res.status(500).json({
-      error: err.message || "Internal server error",
+      error: errorMessage,
     });
   }
 }

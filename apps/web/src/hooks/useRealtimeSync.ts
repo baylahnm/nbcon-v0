@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { supabase } from "@nbcon/config";
 
-export function useRealtimeSync(
+export function useRealtimeSync<T = unknown>(
   channelName: string,
-  callback: (data: any) => void
+  callback: (data: T) => void
 ) {
   useEffect(() => {
     const channel = supabase.channel(channelName);

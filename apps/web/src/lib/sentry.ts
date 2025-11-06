@@ -3,7 +3,8 @@ import * as Sentry from "@sentry/nextjs";
 function getSentryDsn(): string | undefined {
   return (
     (typeof process !== "undefined" && process.env?.SENTRY_DSN) ||
-    (typeof import.meta !== "undefined" && (import.meta as any).env?.SENTRY_DSN)
+    (typeof import.meta !== "undefined" && 
+      (import.meta as { env?: { SENTRY_DSN?: string } }).env?.SENTRY_DSN)
   );
 }
 
@@ -19,7 +20,7 @@ export function initSentry() {
     dsn,
     tracesSampleRate: process.env.NODE_ENV === "production" ? 0.1 : 1.0,
     environment: process.env.NODE_ENV || "development",
-    beforeSend(event, hint) {
+    beforeSend(event) {
       // Filter out sensitive data
       if (event.request?.headers) {
         delete event.request.headers.authorization;

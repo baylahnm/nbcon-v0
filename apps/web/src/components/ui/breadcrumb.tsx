@@ -1,7 +1,9 @@
-import { useLocation, Link } from "react-router-dom";
+import { useRouter } from "next/router";
+import Link from "next/link";
 import { menuItems, publicRoutes } from "../../config/menuConfig";
 import { ChevronRight, Home } from "lucide-react";
-import { clsx } from "clsx";
+import { cn } from "../../lib/utils";
+import { useI18n } from "../../hooks/useI18n";
 
 interface BreadcrumbItem {
   label: string;
@@ -9,14 +11,15 @@ interface BreadcrumbItem {
 }
 
 export function Breadcrumb() {
-  const location = useLocation();
-  const pathname = location.pathname;
+  const router = useRouter();
+  const pathname = router.asPath;
+  const { t } = useI18n();
 
   // Build breadcrumb items
   const items: BreadcrumbItem[] = [];
 
   // Always start with Home
-  items.push({ label: "Home", href: "/" });
+  items.push({ label: t("navigation.breadcrumbHome"), href: "/" });
 
   // Skip if already at home
   if (pathname === "/" || pathname === "/landing") {
@@ -66,8 +69,8 @@ export function Breadcrumb() {
             <li key={item.href} className="flex items-center gap-2">
               {index === 0 ? (
                 <Link
-                  to={item.href}
-                  className={clsx(
+                  href={item.href}
+                  className={cn(
                     "flex items-center gap-1 hover:text-foreground transition-colors",
                     isLast && "text-foreground font-medium"
                   )}
@@ -81,7 +84,7 @@ export function Breadcrumb() {
                     <span className="text-foreground font-medium">{item.label}</span>
                   ) : (
                     <Link
-                      to={item.href}
+                      href={item.href}
                       className="hover:text-foreground transition-colors"
                     >
                       {item.label}

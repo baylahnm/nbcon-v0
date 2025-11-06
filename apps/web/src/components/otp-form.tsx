@@ -113,7 +113,7 @@ export function OTPForm({
         </Button>
 
         <div className="text-center text-sm">
-          <span className="text-muted-foreground">Didn't receive the code? </span>
+          <span className="text-muted-foreground">Didn&apos;t receive the code? </span>
           {resendTimer > 0 ? (
             <span className="text-muted-foreground">
               Resend in {resendTimer}s

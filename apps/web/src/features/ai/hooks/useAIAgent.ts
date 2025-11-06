@@ -100,12 +100,13 @@ export function useAIAgent(agentKey: AgentKey) {
 
       setLoading(false);
       return data;
-    } catch (err: any) {
+    } catch (err: unknown) {
       // Track errors to PostHog
+      const errorMessage = err instanceof Error ? err.message : "Unknown error";
       track("ai_agent_error", {
         agent_id: agent.id,
         agent_key: agentKey,
-        error_message: err.message,
+        error_message: errorMessage,
         user_id: user?.id,
       });
 

@@ -7,7 +7,11 @@ interface AuditLog {
   id: string;
   user_id: string;
   action: string;
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown> & {
+    error?: string;
+    latency_ms?: number;
+    status_code?: number;
+  };
   created_at: string;
 }
 
@@ -77,8 +81,8 @@ export default function MonitoringDashboard() {
             recent_latencies: latencies.slice(0, 20),
           });
         }
-      } catch (err: any) {
-        setError(err.message);
+      } catch (err: unknown) {
+        setError(err instanceof Error ? err.message : "Failed to load logs");
       } finally {
         setLoading(false);
       }

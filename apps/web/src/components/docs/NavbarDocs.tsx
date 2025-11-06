@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { Search, Moon, Sun, Sparkles } from "lucide-react";
+import { Search, Moon, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SidebarDocsMobile } from "./SidebarDocsMobile";
 import { SidebarNode } from "./SidebarDocs";

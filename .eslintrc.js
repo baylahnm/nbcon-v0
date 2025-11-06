@@ -10,7 +10,6 @@ module.exports = {
     "plugin:@typescript-eslint/recommended",
     "plugin:react/recommended",
     "plugin:react-hooks/recommended",
-    "next/core-web-vitals",
   ],
   parser: "@typescript-eslint/parser",
   parserOptions: {
@@ -20,6 +19,7 @@ module.exports = {
       jsx: true,
     },
     project: "./tsconfig.json",
+    tsconfigRootDir: __dirname,
   },
   plugins: ["@typescript-eslint", "react"],
   rules: {

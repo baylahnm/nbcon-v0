@@ -3,7 +3,7 @@ import { clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { Slot } from "@radix-ui/react-slot";
 
-function cn(...inputs: any[]) {
+function cn(...inputs: (string | undefined | null | boolean)[]) {
   return twMerge(clsx(inputs));
 }
 

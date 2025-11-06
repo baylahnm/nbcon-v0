@@ -1,16 +1,20 @@
-import { Outlet } from "react-router-dom";
+import { ReactNode } from "react";
 import { TierAwareAppSidebar } from "../portal/shared/TierAwareAppSidebar";
 import { AppNavbar } from "../portal/shared/AppNavbar";
 import { CoPilotToolbar } from "./CoPilotToolbar";
 
-export default function AppLayout() {
+interface AppLayoutProps {
+  children: ReactNode;
+}
+
+export default function AppLayout({ children }: AppLayoutProps) {
   return (
     <div className="flex min-h-screen w-full bg-background">
       <TierAwareAppSidebar />
       <div className="flex flex-col flex-1 min-w-0">
         <AppNavbar />
         <main className="flex-1 overflow-y-auto p-6">
-          <Outlet />
+          {children}
         </main>
       </div>
       <CoPilotToolbar />

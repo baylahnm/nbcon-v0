@@ -44,7 +44,7 @@ export function useSubscriptionTier() {
               filter: `id=eq.${user.id}`,
             },
             (payload) => {
-              const newTier = (payload.new as any)?.subscription_tier;
+              const newTier = (payload.new as { subscription_tier?: string })?.subscription_tier;
               if (newTier) {
                 setTier(newTier as SubscriptionTier);
               }

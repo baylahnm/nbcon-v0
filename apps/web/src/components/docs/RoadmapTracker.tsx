@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Card } from "../ui/card";
 import { Progress } from "../ui/progress";
+import { useI18n } from "../../hooks/useI18n";
 import { CheckCircle2, Circle, AlertCircle, ChevronDown, ChevronUp } from "lucide-react";
 
 interface PhaseStatus {
@@ -27,6 +28,7 @@ const phases: PhaseStatus[] = [
 ];
 
 export function RoadmapTracker() {
+  const { t } = useI18n();
   const [expandedPhases, setExpandedPhases] = useState<Set<number>>(new Set());
 
   const togglePhase = (phase: number) => {
@@ -46,16 +48,16 @@ export function RoadmapTracker() {
   return (
     <Card className="p-6">
       <div className="mb-6">
-        <h2 className="text-2xl font-bold mb-2">Implementation Roadmap</h2>
+        <h2 className="text-2xl font-bold mb-2">{t("roadmap.title")}</h2>
         <div className="flex items-center gap-4">
           <div className="flex-1">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-sm font-medium">Overall Progress</span>
+              <span className="text-sm font-medium">{t("roadmap.overallProgress")}</span>
               <span className="text-sm font-bold">{overallPercentage}%</span>
             </div>
             <Progress value={overallPercentage} className="h-2" />
             <p className="text-xs text-muted-foreground mt-2">
-              {overallProgress} of {overallTotal} tasks completed
+              {overallProgress} {t("roadmap.tasksCompleted")} {overallTotal}
             </p>
           </div>
         </div>
@@ -104,14 +106,14 @@ export function RoadmapTracker() {
               <div className="mt-4 pl-8 space-y-2 text-sm text-muted-foreground">
                 <p>
                   {phase.isComplete
-                    ? "✅ All tasks completed"
-                    : `${phase.total - phase.completed} task(s) remaining`}
+                    ? t("roadmap.allTasksCompleted")
+                    : `${phase.total - phase.completed} ${t("roadmap.tasksRemaining")}`}
                 </p>
                 {phase.phase === 4 && (
-                  <p className="text-xs">Pending: i18n system (Arabic/English support)</p>
+                  <p className="text-xs">{t("roadmap.completeI18n")}</p>
                 )}
                 {phase.phase === 9 && (
-                  <p className="text-xs">Pending: Production validation and testing</p>
+                  <p className="text-xs">{t("roadmap.completeProduction")}</p>
                 )}
               </div>
             )}
@@ -123,10 +125,10 @@ export function RoadmapTracker() {
         <div className="flex items-start gap-2">
           <AlertCircle className="w-5 h-5 text-primary mt-0.5" />
           <div className="text-sm">
-            <p className="font-medium mb-1">Next Steps</p>
+            <p className="font-medium mb-1">{t("roadmap.nextSteps")}</p>
             <ul className="list-disc list-inside space-y-1 text-muted-foreground">
-              <li>Implement i18n system for Arabic/English (Phase 4)</li>
-              <li>Complete production validation (Phase 9)</li>
+              <li>{t("roadmap.completeI18n")}</li>
+              <li>{t("roadmap.completeProduction")}</li>
             </ul>
           </div>
         </div>

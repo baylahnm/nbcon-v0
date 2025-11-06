@@ -2,10 +2,8 @@
 
 import Link from "next/link";
 import { ChevronRightIcon } from "@radix-ui/react-icons";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
-import { Globe } from "lucide-react";
 import { NbconLogo } from "@/components/ui/nbcon-logo";
+import { LanguageToggle } from "@/components/ui/language-toggle";
 
 const footerLinks = [
   {
@@ -56,10 +54,7 @@ export function LandingFooter() {
               Engineering precision meets AI-driven innovation.
             </p>
             {/* Language Toggle */}
-            <Button variant="outline" size="sm" className="w-full sm:w-auto">
-              <Globe className="h-4 w-4 mr-2" />
-              English
-            </Button>
+            <LanguageToggle />
           </div>
 
           {/* Footer Links */}

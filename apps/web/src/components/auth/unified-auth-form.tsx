@@ -161,7 +161,7 @@ export function UnifiedAuthForm() {
               </span>
             </div>
             <CardTitle className="text-2xl tracking-tight">Welcome to nbcon</CardTitle>
-            <CardDescription>Saudi Arabia's Professional Engineering Marketplace</CardDescription>
+            <CardDescription>Saudi Arabia&apos;s Professional Engineering Marketplace</CardDescription>
           </CardHeader>
 
           <CardContent className="p-4 space-y-4">

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useAIAgent } from "../../features/ai/hooks/useAIAgent";
+import { useI18n } from "../../hooks/useI18n";
 import { agentRegistry } from "../../features/ai/registry/agentRegistry";
 import { Button } from "../ui/button";
 import { Card } from "../ui/card";
@@ -29,6 +30,7 @@ export function ChatProjectHub({ projectId, defaultAgent = "civil" }: ChatProjec
   const [selectedAgent, setSelectedAgent] = useState<AgentKey>(defaultAgent);
   const [loading, setLoading] = useState(false);
   const { runAgent } = useAIAgent(selectedAgent);
+  const { t } = useI18n();
 
   // Load chat history for project/user
   useEffect(() => {
@@ -121,11 +123,11 @@ export function ChatProjectHub({ projectId, defaultAgent = "civil" }: ChatProjec
           tokens_used: result.tokens || 0,
         });
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       const errorMessage: Message = {
         id: `error-${Date.now()}`,
         role: "assistant",
-        content: `Error: ${error.message}`,
+        content: `Error: ${error instanceof Error ? error.message : "Unknown error occurred"}`,
         timestamp: new Date(),
       };
       setMessages((prev) => [...prev, errorMessage]);
@@ -153,7 +155,7 @@ export function ChatProjectHub({ projectId, defaultAgent = "civil" }: ChatProjec
             <div className="flex items-center gap-2">
               <Bot className="w-5 h-5 text-primary" />
               <div>
-                <h3 className="font-semibold">Project Chat</h3>
+                <h3 className="font-semibold">{t("chat.projectChat")}</h3>
                 <p className="text-xs text-muted-foreground">
                   {agent?.context || "AI Assistant"}
                 </p>
@@ -190,7 +192,7 @@ export function ChatProjectHub({ projectId, defaultAgent = "civil" }: ChatProjec
               <div className="flex items-center justify-center h-full text-muted-foreground text-sm">
                 <div className="text-center">
                   <Bot className="w-12 h-12 mx-auto mb-2 opacity-50" />
-                  <p>Start a conversation with {agent?.context}</p>
+                  <p>{t("chat.startConversation")} {agent?.context}</p>
                   <p className="text-xs mt-1">{agent?.description}</p>
                 </div>
               </div>
@@ -223,7 +225,7 @@ export function ChatProjectHub({ projectId, defaultAgent = "civil" }: ChatProjec
                 <div className="bg-muted rounded-lg p-3">
                   <div className="flex items-center gap-2 text-sm text-muted-foreground">
                     <div className="w-2 h-2 bg-primary rounded-full animate-pulse" />
-                    Thinking...
+                    {t("chat.thinking")}
                   </div>
                 </div>
               </div>
@@ -242,7 +244,7 @@ export function ChatProjectHub({ projectId, defaultAgent = "civil" }: ChatProjec
                     handleSend();
                   }
                 }}
-                placeholder={`Ask ${agent?.context}...`}
+                placeholder={`${t("chat.ask")} ${agent?.context}...`}
                 className="min-h-[60px] resize-none"
                 disabled={loading}
               />

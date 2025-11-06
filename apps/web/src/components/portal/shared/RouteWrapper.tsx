@@ -1,5 +1,5 @@
-import { ReactNode } from "react";
-import { Navigate } from "react-router-dom";
+import { ReactNode, useEffect } from "react";
+import { useRouter } from "next/router";
 import { useFeatureGate } from "../../../hooks/useFeatureGate";
 import { SubscriptionTier } from "../../../config/menuConfig";
 
@@ -15,9 +15,16 @@ export function RouteWrapper({
   redirectTo = "/billing",
 }: RouteWrapperProps) {
   const allowed = useFeatureGate(featureTier);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!allowed) {
+      router.push(redirectTo);
+    }
+  }, [allowed, redirectTo, router]);
 
   if (!allowed) {
-    return <Navigate to={redirectTo} replace />;
+    return null; // or a loading spinner
   }
 
   return <>{children}</>;

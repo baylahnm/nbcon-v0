@@ -24,6 +24,10 @@
     --input: 0 0% 89.8%;
     --ring: 0 0% 3.9%;
     --radius: 0.5rem;
+    /* Brand colors */
+    --brand-primary: 220 90% 50%;
+    --brand-surface: 240 4% 10%;
+    --brand-text: 0 0% 98%;
     /* Chart colors defined in theme.css using OKLCH */
     /* Keeping placeholder HSL values here for fallback */
     --chart-1: 12 76% 61%;
@@ -61,6 +65,10 @@
     --border: 0 0% 14.9%;
     --input: 0 0% 14.9%;
     --ring: 0 0% 83.1%;
+    /* Brand colors for dark mode */
+    --brand-primary: 220 90% 50%;
+    --brand-surface: 240 4% 10%;
+    --brand-text: 0 0% 98%;
     /* Chart colors defined in theme.css using OKLCH */
     /* Keeping placeholder HSL values here for fallback */
     --chart-1: 220 70% 50%;

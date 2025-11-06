@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { RouteWrapper } from "../../components/portal/shared/RouteWrapper";
 import { useSubscriptionTier } from "../../hooks/useSubscriptionTier";
+import { useI18n } from "../../hooks/useI18n";
 import { createCheckoutSession } from "./checkout";
-import { CreditCard, Check, X, ExternalLink } from "lucide-react";
+import { Check, ExternalLink } from "lucide-react";
 import { supabase } from "@nbcon/config";
 import { Button } from "../../components/ui/button";
 
@@ -50,6 +51,7 @@ const plans = [
 
 export default function BillingPage() {
   const { tier: currentTier, isLoading } = useSubscriptionTier();
+  const { t } = useI18n();
   const [loading, setLoading] = useState<string | null>(null);
   const [portalLoading, setPortalLoading] = useState(false);
 
@@ -58,9 +60,10 @@ export default function BillingPage() {
       setLoading(priceId);
       const url = await createCheckoutSession(priceId);
       window.location.href = url;
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Checkout error:", error);
-      alert(`Error: ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : "Unknown error occurred";
+      alert(`Error: ${errorMessage}`);
       setLoading(null);
     }
   };
@@ -89,9 +92,10 @@ export default function BillingPage() {
 
       window.location.href = data.url;
 
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Portal error:", error);
-      alert(`Error: ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : "Unknown error occurred";
+      alert(`Error: ${errorMessage}`);
     } finally {
       setPortalLoading(false);
     }
@@ -113,9 +117,9 @@ export default function BillingPage() {
         <div className="mb-8">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h1 className="text-3xl font-bold mb-2">Billing & Subscription</h1>
+              <h1 className="text-3xl font-bold mb-2">{t("billing.title")}</h1>
               <p className="text-muted-foreground">
-                Current Plan: <span className="font-semibold capitalize">{currentTier}</span>
+                {t("billing.currentPlan")}: <span className="font-semibold capitalize">{currentTier}</span>
               </p>
             </div>
             {currentTier !== "free" && (
@@ -126,11 +130,11 @@ export default function BillingPage() {
                 className="flex items-center gap-2"
               >
                 {portalLoading ? (
-                  "Loading..."
+                  t("common.loading")
                 ) : (
                   <>
                     <ExternalLink className="w-4 h-4" />
-                    Manage Subscription
+                    {t("billing.manageSubscription")}
                   </>
                 )}
               </Button>
@@ -158,7 +162,7 @@ export default function BillingPage() {
                   <h3 className="text-xl font-semibold">{plan.name}</h3>
                   {isCurrent && (
                     <span className="text-xs bg-primary text-primary-foreground px-2 py-1 rounded">
-                      Current
+                      {t("billing.currentPlanBadge")}
                     </span>
                   )}
                 </div>
@@ -186,12 +190,12 @@ export default function BillingPage() {
                   }`}
                 >
                   {loading === plan.priceId
-                    ? "Loading..."
+                    ? t("common.loading")
                     : isCurrent
-                    ? "Current Plan"
+                    ? t("billing.currentPlan")
                     : isUpgrade
-                    ? "Upgrade"
-                    : "Select Plan"}
+                    ? t("billing.upgrade")
+                    : t("billing.selectPlan")}
                 </button>
               </div>
             );

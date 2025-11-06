@@ -18,8 +18,8 @@ export default function AgentConsole({ agentKey, agent }: AgentConsoleProps) {
     try {
       const result = await runAgent({ prompt: input });
       setOutput(result.output);
-    } catch (err: any) {
-      setOutput(`Error: ${err.message}`);
+    } catch (err: unknown) {
+      setOutput(`Error: ${err instanceof Error ? err.message : "Unknown error occurred"}`);
     }
   };
 

@@ -21,7 +21,9 @@
         "name": "next"
       }
     ],
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "skipLibCheck": true,
+    "types": []
   },
   "include": [
     "src/**/*",

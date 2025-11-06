@@ -36,7 +36,8 @@ export function OTPInput({
       })
       setOtp(newOtp)
     }
-  }, []) // Only on mount
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []) // Only run on mount to sync with value prop
 
   React.useEffect(() => {
     // Focus first input on mount

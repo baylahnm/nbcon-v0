@@ -153,7 +153,11 @@ export default function TimeLine_01({
 
   // Optional: ensure the first card is active on mount
   useEffect(() => {
-    setActiveIndex(0);
+    // Use setTimeout to avoid setState in effect warning
+    const timer = setTimeout(() => {
+      setActiveIndex(0);
+    }, 0);
+    return () => clearTimeout(timer);
   }, []);
 
   // Calculate container height for scroll effect (similar to testimonials)

@@ -52,7 +52,7 @@ export async function getAllDocs(lang: "en" | "ar" = "en"): Promise<DocMeta[]> {
         const meta: DocMeta = {
           title: (data.title as string) || withoutExt.split("/").pop()!,
           description: (data.description as string) || "",
-          lang: (data.lang as any) || "en",
+          lang: (data.lang as "en" | "ar") || "en",
           slug: withoutExt,
           section,
         };
@@ -76,8 +76,8 @@ export async function getDocBySlug(slug: string, lang: "en" | "ar" = "en"): Prom
   // Choose by lang
   let picked: string | null = null;
   for (const f of files) {
-    const fm = matter(fs.readFileSync(f, "utf-8")).data as any;
-    if ((fm.lang as string) === lang) {
+    const fm = matter(fs.readFileSync(f, "utf-8")).data as { lang?: string };
+    if (fm.lang === lang) {
       picked = f;
       break;
     }
@@ -86,10 +86,11 @@ export async function getDocBySlug(slug: string, lang: "en" | "ar" = "en"): Prom
   const raw = fs.readFileSync(picked, "utf-8");
   const { content, data } = matter(raw);
   const section = slug.split("/")[0];
+  const frontMatter = data as { title?: string; description?: string; lang?: string };
   const meta: DocMeta = {
-    title: (data as any).title || slug.split("/").pop()!,
-    description: (data as any).description || "",
-    lang: ((data as any).lang as any) || "en",
+    title: frontMatter.title || slug.split("/").pop()!,
+    description: frontMatter.description || "",
+    lang: (frontMatter.lang as "en" | "ar") || "en",
     slug,
     section,
   };

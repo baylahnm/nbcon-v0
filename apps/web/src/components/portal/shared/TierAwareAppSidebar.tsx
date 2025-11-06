@@ -1,18 +1,22 @@
+"use client";
+
 import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { menuItems } from "../../../config/menuConfig";
 import { usePortalAccess } from "../../../hooks/usePortalAccess";
 import { hasTierAccess } from "../../../config/tierVisibility";
 import { clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { NbLogo } from "../../ui/n-logo";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
-function cn(...inputs: any[]) {
+function cn(...inputs: (string | undefined | null | boolean)[]) {
   return twMerge(clsx(inputs));
 }
 
 export function TierAwareAppSidebar() {
-  const location = useLocation();
+  const pathname = usePathname();
   const { tier, isLoading } = usePortalAccess();
   const [collapsed, setCollapsed] = useState(false);
 
@@ -49,7 +53,11 @@ export function TierAwareAppSidebar() {
             className="p-2 hover:bg-accent rounded-md"
             aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
           >
-            {collapsed ? "→" : "←"}
+            {collapsed ? (
+              <ChevronRight className="w-4 h-4" />
+            ) : (
+              <ChevronLeft className="w-4 h-4" />
+            )}
           </button>
         </div>
 
@@ -57,12 +65,12 @@ export function TierAwareAppSidebar() {
           <ul className="space-y-1">
             {filteredItems.map((item) => {
               const Icon = item.icon;
-              const isActive = location.pathname === item.href;
+              const isActive = pathname === item.href;
 
               return (
                 <li key={item.href}>
                   <Link
-                    to={item.href}
+                    href={item.href}
                     className={cn(
                       "flex items-center gap-3 px-3 py-2 rounded-md transition-colors",
                       "hover:bg-accent hover:text-accent-foreground",

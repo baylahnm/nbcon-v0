@@ -3,13 +3,13 @@ import { supabase } from "@nbcon/config";
 export interface AuditEvent {
   user_id: string;
   action: string;
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }
 
 export async function logAuditEvent(
   userId: string,
   action: string,
-  metadata?: Record<string, any>
+  metadata?: Record<string, unknown>
 ): Promise<void> {
   if (process.env.PDPL_AUDIT_MODE !== "on") {
     console.log(`[PDPL Audit] ${action} by ${userId}`);

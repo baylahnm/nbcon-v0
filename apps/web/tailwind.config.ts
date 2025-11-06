@@ -8,7 +8,12 @@ const config: Config = {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-  	extend: {
+    extend: {
+      // RTL support
+      screens: {
+        rtl: { raw: '[dir="rtl"]' },
+        ltr: { raw: '[dir="ltr"]' },
+      },
   		colors: {
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',

@@ -25,7 +25,7 @@ interface SettingsContentProps {
 
 export function SettingsContent({ activeTab }: SettingsContentProps) {
   return (
-    <div className="grow overflow-y-auto bg-background dark:bg-[#212121]">
+    <div className="grow overflow-y-auto bg-background">
       {activeTab === "General" && (
         <TabsContent value="General" className={contentClassName}>
           <GeneralSettings />

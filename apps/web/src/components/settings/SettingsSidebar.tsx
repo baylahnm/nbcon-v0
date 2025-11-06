@@ -48,7 +48,7 @@ export function SettingsSidebar() {
           >
             <ArrowLeft className="h-4 w-4" />
           </Button>
-          <span className="text-sm font-semibold group-data-[collapsible=icon]:hidden">Settings</span>
+          <span className="text-sm font-semibold leading-4 group-data-[collapsible=icon]:hidden">Settings</span>
         </div>
       </SidebarHeader>
 

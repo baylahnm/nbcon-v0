@@ -1,17 +1,20 @@
 "use client";
 
 import React, { forwardRef, useRef } from "react";
+import dynamic from "next/dynamic";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { AnimatedBeam } from "@/components/ui/animated-beam";
 import { NbLogo } from "@/components/ui/n-logo";
-import Claude from "@lobehub/icons/es/Claude";
-import OpenAI from "@lobehub/icons/es/OpenAI";
-import Gemini from "@lobehub/icons/es/Gemini";
-import DeepSeek from "@lobehub/icons/es/DeepSeek";
-import Perplexity from "@lobehub/icons/es/Perplexity";
-import Grok from "@lobehub/icons/es/Grok";
+
+// Dynamic imports to avoid SSR issues with ESM-only @lobehub/icons
+const Claude = dynamic(() => import("@lobehub/icons/es/Claude"), { ssr: false });
+const OpenAI = dynamic(() => import("@lobehub/icons/es/OpenAI"), { ssr: false });
+const Gemini = dynamic(() => import("@lobehub/icons/es/Gemini"), { ssr: false });
+const DeepSeek = dynamic(() => import("@lobehub/icons/es/DeepSeek"), { ssr: false });
+const Perplexity = dynamic(() => import("@lobehub/icons/es/Perplexity"), { ssr: false });
+const Grok = dynamic(() => import("@lobehub/icons/es/Grok"), { ssr: false });
 
 const Circle = forwardRef<
   HTMLDivElement,

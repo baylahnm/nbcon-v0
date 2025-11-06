@@ -1,6 +1,7 @@
 import { useSubscriptionTier } from "../../hooks/useSubscriptionTier";
 import { Card } from "../ui/card";
 import { BarChart3, Bot, Users, TrendingUp } from "lucide-react";
+import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
 
 export default function UnifiedDashboard() {
   const { tier, isLoading } = useSubscriptionTier();
@@ -71,16 +72,53 @@ export default function UnifiedDashboard() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Card className="p-6">
           <h3 className="text-lg font-semibold mb-4">Project Activity</h3>
-          <div className="h-64 flex items-center justify-center text-muted-foreground">
-            Chart component will be rendered here
-          </div>
+          <ResponsiveContainer width="100%" height={256}>
+            <BarChart
+              data={[
+                { month: "Jan", projects: 3 },
+                { month: "Feb", projects: 5 },
+                { month: "Mar", projects: 4 },
+                { month: "Apr", projects: 7 },
+                { month: "May", projects: 6 },
+                { month: "Jun", projects: 8 },
+              ]}
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="month" />
+              <YAxis />
+              <Tooltip />
+              <Bar dataKey="projects" fill="hsl(var(--primary))" />
+            </BarChart>
+          </ResponsiveContainer>
         </Card>
 
         <Card className="p-6">
           <h3 className="text-lg font-semibold mb-4">AI Usage Trends</h3>
-          <div className="h-64 flex items-center justify-center text-muted-foreground">
-            Chart component will be rendered here
-          </div>
+          <ResponsiveContainer width="100%" height={256}>
+            <LineChart
+              data={[
+                { month: "Jan", tokens: 120 },
+                { month: "Feb", tokens: 189 },
+                { month: "Mar", tokens: 245 },
+                { month: "Apr", tokens: 312 },
+                { month: "May", tokens: 298 },
+                { month: "Jun", tokens: 342 },
+              ]}
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="month" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Line
+                type="monotone"
+                dataKey="tokens"
+                stroke="hsl(var(--primary))"
+                strokeWidth={2}
+                name="AI Tokens"
+              />
+            </LineChart>
+          </ResponsiveContainer>
         </Card>
       </div>
 

@@ -21,22 +21,38 @@ serve(async (req) => {
   }
 
   try {
-    const { priceId, userId } = await req.json();
-
-    if (!priceId || !userId) {
+    // Get user from auth header
+    const authHeader = req.headers.get('authorization');
+    if (!authHeader) {
       return new Response(
-        JSON.stringify({ error: 'Missing priceId or userId' }),
+        JSON.stringify({ error: 'Missing authorization header' }),
         {
-          status: 400,
+          status: 401,
           headers: { ...corsHeaders, 'Content-Type': 'application/json' },
         }
       );
     }
 
-    const frontendUrl = Deno.env.get('FRONTEND_URL') || 'http://localhost:3000';
+    // Get user ID from JWT
+    const token = authHeader.replace('Bearer ', '');
+    const { data: { user }, error: userError } = await supabase.auth.getUser(token);
+
+    if (userError || !user) {
+      return new Response(
+        JSON.stringify({ error: 'Invalid or missing user' }),
+        {
+          status: 401,
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        }
+      );
+    }
+
+    const userId = user.id;
 
     // Get or create Stripe customer
     let customerId: string | null = null;
+
+    // Check if user has stripe_customer_id in profile
     const { data: profile } = await supabase
       .from('profiles')
       .select('stripe_customer_id, email')
@@ -47,9 +63,8 @@ serve(async (req) => {
       customerId = profile.stripe_customer_id;
     } else {
       // Create new Stripe customer
-      const { data: { user } } = await supabase.auth.admin.getUserById(userId);
       const customer = await stripe.customers.create({
-        email: user?.email || profile?.email,
+        email: user.email || profile?.email,
         metadata: {
           userId,
         },
@@ -64,27 +79,28 @@ serve(async (req) => {
         .eq('id', userId);
     }
 
-    const session = await stripe.checkout.sessions.create({
-      mode: 'subscription',
-      customer: customerId,
-      line_items: [
+    if (!customerId) {
+      return new Response(
+        JSON.stringify({ error: 'Could not create or retrieve customer' }),
         {
-          price: priceId,
-          quantity: 1,
-        },
-      ],
-      success_url: `${frontendUrl}/billing/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${frontendUrl}/billing/cancel`,
-      metadata: {
-        userId,
-      },
-      client_reference_id: userId,
+          status: 500,
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        }
+      );
+    }
+
+    // Create portal session
+    const frontendUrl = Deno.env.get('FRONTEND_URL') || 'http://localhost:3000';
+    const portalSession = await stripe.billingPortal.sessions.create({
+      customer: customerId,
+      return_url: `${frontendUrl}/billing`,
     });
 
-    return new Response(JSON.stringify({ url: session.url }), {
+    return new Response(JSON.stringify({ url: portalSession.url }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
-  } catch (error) {
+  } catch (error: any) {
+    console.error('Portal error:', error);
     return new Response(
       JSON.stringify({ error: error.message }),
       {

@@ -1,4 +1,5 @@
 import { RouteWrapper } from "../../components/portal/shared/RouteWrapper";
+import { ChatProjectHub } from "../../components/layout/ChatProjectHub";
 
 export default function ProjectsPage() {
   return (
@@ -7,6 +8,7 @@ export default function ProjectsPage() {
         <h1 className="text-2xl font-bold mb-4">Projects</h1>
         <p className="text-muted-foreground">Manage your projects.</p>
       </div>
+      <ChatProjectHub />
     </RouteWrapper>
   );
 }

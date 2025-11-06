@@ -4,6 +4,7 @@ import Link from "next/link";
 import React from "react";
 import DocsLayout from "@/components/docs/DocsLayout";
 import { CheckboxTask } from "@/components/ui/checkbox-task";
+import { RoadmapTracker } from "@/components/docs/RoadmapTracker";
 import { getAllDocs } from "@/lib/docs";
 
 interface DocsPageProps { index: { title: string; slug: string; excerpt?: string }[]; sidebar: { title: string; slug: string; section: string }[] }
@@ -192,6 +193,11 @@ export default function DocsIndex({ index, sidebar }: DocsPageProps) {
                 </div>
               </Link>
             ))}
+          </div>
+
+          {/* Roadmap Tracker */}
+          <div className="mb-12">
+            <RoadmapTracker />
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

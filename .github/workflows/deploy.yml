@@ -48,6 +48,7 @@ jobs:
         run: |
           supabase functions deploy stripe-checkout --no-verify-jwt
           supabase functions deploy stripe-webhook --no-verify-jwt
+          supabase functions deploy stripe-portal --no-verify-jwt
           supabase functions deploy lifecycle-cron --no-verify-jwt
         env:
           SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}

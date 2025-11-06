@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { agentRegistry } from "../registry/agentRegistry";
 import { supabase } from "@nbcon/config";
+import { track } from "@nbcon/enterprise-sdk/telemetry";
 import type { AgentRequest, AgentResponse } from "@nbcon/ai-core";
 
 type AgentKey = keyof typeof agentRegistry;
@@ -18,14 +19,18 @@ export function useAIAgent(agentKey: AgentKey) {
     setLoading(true);
     setError(null);
 
+    let user: { id: string } | null = null;
+
     try {
       const {
-        data: { user },
+        data: { user: authUser },
       } = await supabase.auth.getUser();
 
-      if (!user) {
+      if (!authUser) {
         throw new Error("User not authenticated");
       }
+
+      user = authUser;
 
       const body = {
         model: agent.model,
@@ -58,21 +63,52 @@ export function useAIAgent(agentKey: AgentKey) {
       const data: AgentResponse = await res.json();
 
       // Log to Supabase
-      const { error: logError } = await supabase.from("ai_logs").insert({
-        user_id: user.id,
+      const { data: logData, error: logError } = await supabase.from("ai_logs").insert({
+        user_id: user!.id,
         agent: agent.id,
         input: params.prompt,
         output: data.output || "",
         tokens_used: data.tokens || 0,
-      });
+      }).select().single();
 
       if (logError) {
         console.error("Error logging AI request:", logError);
+      } else {
+        // Track to PostHog for telemetry
+        track("ai_agent_request", {
+          agent_id: agent.id,
+          agent_key: agentKey,
+          agent_context: agent.context,
+          model: agent.model,
+          tokens_used: data.tokens || 0,
+          log_id: logData?.id,
+          user_id: user!.id,
+          prompt_length: params.prompt.length,
+          response_length: data.output?.length || 0,
+          temperature: params.options?.temperature || agent.temperature || 0.3,
+          max_tokens: params.options?.maxTokens || agent.maxTokens || 4000,
+        });
+
+        // Track token usage separately for analytics
+        track("ai_token_usage", {
+          agent_id: agent.id,
+          tokens: data.tokens || 0,
+          model: agent.model,
+          user_id: user!.id,
+        });
       }
 
       setLoading(false);
       return data;
     } catch (err: any) {
+      // Track errors to PostHog
+      track("ai_agent_error", {
+        agent_id: agent.id,
+        agent_key: agentKey,
+        error_message: err.message,
+        user_id: user?.id,
+      });
+
       setError(err.message);
       setLoading(false);
       throw err;

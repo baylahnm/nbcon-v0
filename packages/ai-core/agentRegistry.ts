@@ -41,5 +41,21 @@ export const agentRegistry: Record<string, AgentConfig> = {
     maxTokens: 4000,
     temperature: 0.3,
   },
+  geotechnical: {
+    id: "geotechnicalAgent",
+    description: "Analyzes soil properties, foundation design, and slope stability.",
+    model: "gpt-4",
+    context: "geotechnical-engineering",
+    maxTokens: 4000,
+    temperature: 0.3,
+  },
+  environmental: {
+    id: "environmentalAgent",
+    description: "Handles environmental impact assessments, compliance, and remediation planning.",
+    model: "gpt-4",
+    context: "environmental-engineering",
+    maxTokens: 4000,
+    temperature: 0.3,
+  },
 };
 

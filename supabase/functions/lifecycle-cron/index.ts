@@ -30,8 +30,28 @@ serve(async () => {
     const now = Date.now();
     const ninetyDaysInMs = 90 * 24 * 60 * 60 * 1000; // 90 days
     let downgradedCount = 0;
+    
+    // Churn analysis: Track cancellations and downgrades
+    const thirtyDaysAgo = new Date(now - 30 * 24 * 60 * 60 * 1000);
+    const churnData = {
+      total_users: profiles.length,
+      active_subscriptions: 0,
+      cancelled_this_month: 0,
+      downgraded_this_month: 0,
+      new_users_this_month: 0,
+    };
 
     for (const profile of profiles) {
+      // Count active subscriptions (non-free tiers)
+      if (profile.subscription_tier && profile.subscription_tier !== "free") {
+        churnData.active_subscriptions++;
+      }
+      
+      // Count new users this month
+      const createdDate = new Date(profile.created_at);
+      if (createdDate >= thirtyDaysAgo) {
+        churnData.new_users_this_month++;
+      }
       const lastActivity = new Date(profile.updated_at || profile.created_at).getTime();
       const daysSinceActivity = (now - lastActivity) / (24 * 60 * 60 * 1000);
 
@@ -61,15 +81,43 @@ serve(async () => {
               days_inactive: Math.floor(daysSinceActivity),
             },
           });
+          
+          churnData.downgraded_this_month++;
         }
       }
     }
+    
+    // Fetch billing events for churn analysis
+    const { data: billingEvents } = await supabase
+      .from("billing_events")
+      .select("stripe_event, created_at")
+      .gte("created_at", thirtyDaysAgo.toISOString());
+    
+    if (billingEvents) {
+      churnData.cancelled_this_month = billingEvents.filter(
+        (e) => e.stripe_event === "customer.subscription.deleted"
+      ).length;
+    }
+    
+    // Store monthly churn report
+    await supabase.from("audit_logs").insert({
+      user_id: null, // System-level report
+      action: "monthly_churn_report",
+      metadata: {
+        ...churnData,
+        retention_rate: churnData.total_users > 0
+          ? ((churnData.total_users - churnData.cancelled_this_month - churnData.downgraded_this_month) / churnData.total_users * 100).toFixed(2)
+          : "0.00",
+        month: new Date().toISOString().slice(0, 7), // YYYY-MM format
+      },
+    });
 
     return new Response(
       JSON.stringify({
         message: "Lifecycle check complete",
         profiles_checked: profiles.length,
         downgraded: downgradedCount,
+        churn_report: churnData,
         timestamp: new Date().toISOString(),
       }),
       { status: 200, headers: { "Content-Type": "application/json" } }

@@ -2,7 +2,9 @@ import { useState } from "react";
 import { RouteWrapper } from "../../components/portal/shared/RouteWrapper";
 import { useSubscriptionTier } from "../../hooks/useSubscriptionTier";
 import { createCheckoutSession } from "./checkout";
-import { CreditCard, Check, X } from "lucide-react";
+import { CreditCard, Check, X, ExternalLink } from "lucide-react";
+import { supabase } from "@nbcon/config";
+import { Button } from "../../components/ui/button";
 
 const plans = [
   {
@@ -49,6 +51,7 @@ const plans = [
 export default function BillingPage() {
   const { tier: currentTier, isLoading } = useSubscriptionTier();
   const [loading, setLoading] = useState<string | null>(null);
+  const [portalLoading, setPortalLoading] = useState(false);
 
   const handleUpgrade = async (priceId: string) => {
     try {
@@ -59,6 +62,38 @@ export default function BillingPage() {
       console.error("Checkout error:", error);
       alert(`Error: ${error.message}`);
       setLoading(null);
+    }
+  };
+
+  const handleOpenPortal = async () => {
+    try {
+      setPortalLoading(true);
+      const { data: { session } } = await supabase.auth.getSession();
+      
+      if (!session) {
+        alert("Please sign in to manage your subscription");
+        return;
+      }
+
+      const { data, error: portalError } = await supabase.functions.invoke('stripe-portal', {
+        body: {},
+      });
+
+      if (portalError) {
+        throw new Error(portalError.message);
+      }
+
+      if (!data?.url) {
+        throw new Error('No portal URL returned');
+      }
+
+      window.location.href = data.url;
+
+    } catch (error: any) {
+      console.error("Portal error:", error);
+      alert(`Error: ${error.message}`);
+    } finally {
+      setPortalLoading(false);
     }
   };
 
@@ -76,10 +111,31 @@ export default function BillingPage() {
     <RouteWrapper featureTier="free">
       <div className="p-6 max-w-6xl mx-auto">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold mb-2">Billing & Subscription</h1>
-          <p className="text-muted-foreground">
-            Current Plan: <span className="font-semibold capitalize">{currentTier}</span>
-          </p>
+          <div className="flex items-center justify-between mb-4">
+            <div>
+              <h1 className="text-3xl font-bold mb-2">Billing & Subscription</h1>
+              <p className="text-muted-foreground">
+                Current Plan: <span className="font-semibold capitalize">{currentTier}</span>
+              </p>
+            </div>
+            {currentTier !== "free" && (
+              <Button
+                onClick={handleOpenPortal}
+                disabled={portalLoading}
+                variant="outline"
+                className="flex items-center gap-2"
+              >
+                {portalLoading ? (
+                  "Loading..."
+                ) : (
+                  <>
+                    <ExternalLink className="w-4 h-4" />
+                    Manage Subscription
+                  </>
+                )}
+              </Button>
+            )}
+          </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">

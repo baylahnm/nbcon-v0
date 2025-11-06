@@ -17,7 +17,7 @@
     "migrate": "supabase db push",
     "seed": "supabase db seed",
     "deploy:web": "pnpm --filter @nbcon/web build",
-    "deploy:functions": "supabase functions deploy stripe-checkout stripe-webhook lifecycle-cron",
+    "deploy:functions": "supabase functions deploy stripe-checkout stripe-webhook stripe-portal lifecycle-cron",
     "docs:generate": "typedoc --out docs/api ./packages",
     "version:patch": "pnpm version patch && git push --follow-tags",
     "version:minor": "pnpm version minor && git push --follow-tags",

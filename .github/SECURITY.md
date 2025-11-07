@@ -20,8 +20,32 @@ Instead, please report them via one of the following methods:
    - This allows us to coordinate the fix and disclosure
 
 2. **Email** (Alternative)
-   - Contact: [Add security contact email]
-   - Include details about the vulnerability
+   - Contact: info@nbcon.app
+   - Subject: "Security Vulnerability Report - nbcon-v0"
+   - Include details about the vulnerability, affected versions, and potential impact
+
+## Secret Policy
+
+**⚠️ STRICT POLICY: No secrets in repository**
+
+1. **Never commit secrets:**
+   - API keys, tokens, passwords
+   - Private keys or certificates
+   - Database credentials
+   - OAuth client secrets
+   - Any hardcoded credentials
+
+2. **Use environment variables:**
+   - All sensitive data in `.env.local` (already in `.gitignore`)
+   - Never hardcode credentials in code
+   - Use GitHub Secrets for CI/CD
+   - Replace any detected secrets with `process.env.VARIABLE_NAME` and add `TODO: replace with process.env` comment
+
+3. **If secrets are detected:**
+   - Immediately rotate the exposed credential
+   - Remove the secret from git history if needed
+   - Update code to use environment variables
+   - Report via GitHub Security Advisories
 
 ## Security Best Practices
 

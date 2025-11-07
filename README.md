@@ -30,13 +30,20 @@ pnpm dev
 
 Open [http://localhost:3000](http://localhost:3000) to see the application.
 
-## 🔐 Security & Configuration
+## 🔐 Security
+
+**⚠️ CRITICAL: Never commit secrets or credentials to this repository.**
+
+### Secret Policy
+
+- **No secrets in code:** All sensitive data must use environment variables (`process.env`, `import.meta.env`, or `Deno.env`)
+- **No hardcoded credentials:** API keys, tokens, passwords, or private keys are strictly forbidden
+- **Use `.env.local`:** All secrets belong in `.env.local` (already in `.gitignore`)
+- **GitHub Secrets:** CI/CD secrets stored in repository Settings → Secrets
 
 ### Environment Variables
 
-**⚠️ Important:** Never commit secrets or credentials. All sensitive data must be stored in environment variables.
-
-Required environment variables (see `CONTRIBUTING.md` for detailed setup):
+All sensitive configuration must be stored in environment variables. See `CONTRIBUTING.md` for detailed setup:
 
 - `NEXT_PUBLIC_SUPABASE_URL` - Supabase project URL
 - `NEXT_PUBLIC_SUPABASE_ANON_KEY` - Supabase anonymous key
@@ -46,12 +53,14 @@ Required environment variables (see `CONTRIBUTING.md` for detailed setup):
 
 ### Secret Detection
 
-The repository uses automated secret scanning. Before committing:
+The repository uses automated secret scanning via GitHub Actions and Gitleaks. Before committing:
 
 ```bash
 # Check for exposed secrets
-grep -r "api[_-]key\|secret\|password\|token" --include="*.ts" --include="*.tsx" | grep -v "process.env\|import.meta.env"
+grep -r "api[_-]key\|secret\|password\|token" --include="*.ts" --include="*.tsx" | grep -v "process.env\|import.meta.env\|Deno.env"
 ```
+
+If secrets are detected, replace with `process.env.VARIABLE_NAME` and add a TODO comment.
 
 ## 🔌 Integrations
 

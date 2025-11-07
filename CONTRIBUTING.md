@@ -6,7 +6,8 @@ Thank you for your interest in contributing to NBCON PRO! This document provides
 
 ### Prerequisites
 
-- Node.js 20+ and pnpm 9+
+- Node.js 20+
+- **pnpm 9+** (canonical package manager - required)
 - Git
 - A GitHub account
 
@@ -20,8 +21,12 @@ Thank you for your interest in contributing to NBCON PRO! This document provides
 
 2. **Install dependencies**
    ```bash
+   # This project uses pnpm as the canonical package manager
+   # Do NOT use npm or yarn - use pnpm only
    pnpm install
    ```
+   
+   **⚠️ Important:** This project uses **pnpm** as the canonical package manager. Do not use `npm` or `yarn`. The `package-lock.json` file is intentionally excluded from the repository.
 
 3. **Set up environment variables**
    ```bash

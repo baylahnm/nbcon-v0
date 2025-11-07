@@ -28,7 +28,7 @@ jobs:
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@fe2b34f79cd3cc39e477e0e07e0e5cde2f8f07d3 # v3.0.0
+        uses: pnpm/action-setup@v4
         with:
           version: 9
 
@@ -45,18 +45,18 @@ jobs:
         run: pnpm test
 
       - name: Build application
-        run: pnpm build
+        run: pnpm --filter @nbcon/web build
 
       # Security: Only use secrets on trusted branches (not forks)
-      - name: Deploy to Cloudflare Pages
+      - name: Deploy to Vercel
         if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
-        uses: cloudflare/pages-action@v1
+        uses: amondnet/vercel-action@v25
         with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: nbcon-pro
-          directory: apps/web/.next
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          working-directory: apps/web
+          scope: ${{ secrets.VERCEL_ORG_ID }}
 
       # Security: Only use secrets on trusted branches (not forks)
       - name: Deploy Supabase Functions

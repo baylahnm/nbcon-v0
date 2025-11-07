@@ -28,7 +28,7 @@ jobs:
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@fe2b34f79cd3cc39e477e0e07e0e5cde2f8f07d3 # v3.0.0
+        uses: pnpm/action-setup@v4
         with:
           version: 9
 
@@ -42,10 +42,10 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Lint
-        run: pnpm lint || true
+        run: pnpm lint
 
       - name: Type check
-        run: pnpm typecheck || true
+        run: pnpm typecheck
 
       - name: Unit tests
         run: pnpm test

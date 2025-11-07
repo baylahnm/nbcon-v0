@@ -5,9 +5,6 @@ import "@/styles/globals.css";
 import "@/styles/theme.css";
 import { I18nProvider } from "@/lib/i18n/context";
 import PublicLayout from "@/components/layout/PublicLayout";
-// Icon libraries
-import "bootstrap-icons/font/bootstrap-icons.css";
-import "@fortawesome/fontawesome-free/css/all.min.css";
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();

@@ -1,155 +1,41 @@
 /**
- * Centralized Icon Library Helper
+ * Unified Icon System - NBCON PRO
  * 
- * Provides type-safe, centralized access to all icon libraries used in NBCON PRO.
+ * Centralized access to approved icon libraries.
  * 
- * Libraries:
- * - lucide-react: Primary icon set (modern & consistent) - Recommended for most use cases
- * - bootstrap-icons: Supplementary minimal icons
- * - @fortawesome/fontawesome-free: Legacy icons, social icons
+ * Approved Libraries:
+ * - lucide-react: Primary icon library (recommended for all UI icons)
+ * - react-icons: Brand/service icons (Google Drive, Dropbox, etc.)
+ * - @radix-ui/react-icons: Radix UI component icons (accordion, dropdown, etc.)
+ * - @lobehub/icons: AI brand logos (Claude, OpenAI, Gemini, etc.)
  * 
  * Usage:
  * ```tsx
- * import { LucideIcon, BootstrapIcon, FontAwesomeIcon } from "@/lib/icons";
+ * // Primary: lucide-react (recommended for most icons)
+ * import { Check, X, Settings, Menu } from "lucide-react";
+ * <Check className="h-5 w-5 text-green-500" />
  * 
- * // Lucide (recommended)
- * <LucideIcon.Menu className="h-5 w-5" />
+ * // Brand icons: react-icons
+ * import { SiGoogledrive, SiDropbox } from "react-icons/si";
+ * <SiGoogledrive className="h-5 w-5" />
  * 
- * // Bootstrap Icons (via className)
- * <i className="bi bi-house" />
+ * // Radix UI: @radix-ui/react-icons
+ * import { ChevronDownIcon } from "@radix-ui/react-icons";
+ * <ChevronDownIcon className="h-4 w-4" />
  * 
- * // Font Awesome (via className)
- * <i className="fas fa-home" />
+ * // AI logos: @lobehub/icons (use dynamic imports for SSR)
+ * import dynamic from "next/dynamic";
+ * const Claude = dynamic(() => import("@lobehub/icons/es/Claude"), { ssr: false });
+ * <Claude size={24} />
  * ```
+ * 
+ * Theme Awareness:
+ * - Always use Tailwind classes for colors: `text-muted-foreground`, `text-primary`, etc.
+ * - Never use hardcoded colors in SVGs
+ * - Use `currentColor` in custom SVGs for theme compatibility
  */
-
-import React from "react";
 
 // Lucide React - Primary icon library
+// Re-export for convenience (optional - direct imports are preferred)
 export * as LucideIcon from "lucide-react";
-
-/**
- * Bootstrap Icons Helper
- * 
- * Usage:
- * ```tsx
- * import { BootstrapIcon } from "@/lib/icons";
- * 
- * // Via className
- * <i className="bi bi-house" />
- * 
- * // Common icons mapped
- * <BootstrapIcon.House />
- * ```
- */
-export const BootstrapIcon = {
-  // Common icons - use className for full library
-  House: ({ className }: { className?: string }): React.JSX.Element => (
-    <i className={`bi bi-house ${className || ""}`} />
-  ),
-  ChevronDown: ({ className }: { className?: string }): React.JSX.Element => (
-    <i className={`bi bi-chevron-down ${className || ""}`} />
-  ),
-  ChevronUp: ({ className }: { className?: string }): React.JSX.Element => (
-    <i className={`bi bi-chevron-up ${className || ""}`} />
-  ),
-  ChevronLeft: ({ className }: { className?: string }): React.JSX.Element => (
-    <i className={`bi bi-chevron-left ${className || ""}`} />
-  ),
-  ChevronRight: ({ className }: { className?: string }): React.JSX.Element => (
-    <i className={`bi bi-chevron-right ${className || ""}`} />
-  ),
-  Menu: ({ className }: { className?: string }): React.JSX.Element => (
-    <i className={`bi bi-list ${className || ""}`} />
-  ),
-  X: ({ className }: { className?: string }): React.JSX.Element => (
-    <i className={`bi bi-x ${className || ""}`} />
-  ),
-  Search: ({ className }: { className?: string }): React.JSX.Element => (
-    <i className={`bi bi-search ${className || ""}`} />
-  ),
-  // Add more Bootstrap icons as needed
-};
-
-/**
- * Font Awesome Icons Helper
- * 
- * Usage:
- * ```tsx
- * import { FontAwesomeIcon } from "@/lib/icons";
- * 
- * // Via className
- * <i className="fas fa-home" />
- * <i className="fab fa-github" />
- * 
- * // Common icons mapped
- * <FontAwesomeIcon.Home />
- * ```
- */
-export const FontAwesomeIcon = {
-  // Solid icons (fas)
-  Home: ({ className }: { className?: string }): React.JSX.Element => (
-    <i className={`fas fa-home ${className || ""}`} />
-  ),
-  User: ({ className }: { className?: string }): React.JSX.Element => (
-    <i className={`fas fa-user ${className || ""}`} />
-  ),
-  Settings: ({ className }: { className?: string }): React.JSX.Element => (
-    <i className={`fas fa-cog ${className || ""}`} />
-  ),
-  Bell: ({ className }: { className?: string }): React.JSX.Element => (
-    <i className={`fas fa-bell ${className || ""}`} />
-  ),
-  Search: ({ className }: { className?: string }): React.JSX.Element => (
-    <i className={`fas fa-search ${className || ""}`} />
-  ),
-  // Brand icons (fab)
-  GitHub: ({ className }: { className?: string }): React.JSX.Element => (
-    <i className={`fab fa-github ${className || ""}`} />
-  ),
-  Twitter: ({ className }: { className?: string }): React.JSX.Element => (
-    <i className={`fab fa-twitter ${className || ""}`} />
-  ),
-  Facebook: ({ className }: { className?: string }): React.JSX.Element => (
-    <i className={`fab fa-facebook ${className || ""}`} />
-  ),
-  LinkedIn: ({ className }: { className?: string }): React.JSX.Element => (
-    <i className={`fab fa-linkedin ${className || ""}`} />
-  ),
-  Instagram: ({ className }: { className?: string }): React.JSX.Element => (
-    <i className={`fab fa-instagram ${className || ""}`} />
-  ),
-  // Add more Font Awesome icons as needed
-};
-
-/**
- * Type-safe icon component props
- */
-export interface IconProps {
-  className?: string;
-  size?: number;
-  color?: string;
-}
-
-/**
- * Get Bootstrap Icon class name
- * @param name - Bootstrap icon name (e.g., "house", "chevron-down")
- * @returns className string
- */
-export const getBootstrapIconClass = (name: string): string => {
-  return `bi bi-${name}`;
-};
-
-/**
- * Get Font Awesome icon class name
- * @param name - Font Awesome icon name
- * @param style - Icon style: "fas" (solid), "far" (regular), "fab" (brands), "fal" (light)
- * @returns className string
- */
-export const getFontAwesomeIconClass = (
-  name: string,
-  style: "fas" | "far" | "fab" | "fal" = "fas"
-): string => {
-  return `${style} fa-${name}`;
-};
 

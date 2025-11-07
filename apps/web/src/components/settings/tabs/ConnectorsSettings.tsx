@@ -4,12 +4,33 @@ import * as React from "react";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@nbcon/config";
 import {
-  Cloud,
   CheckCircle2,
   XCircle,
   ExternalLink,
   Loader2,
 } from "lucide-react";
+import {
+  SiGoogledrive,
+  SiDropbox,
+  SiAutodesk,
+} from "react-icons/si";
+
+// Custom icons for services not available in react-icons
+// Note: Brand logos use brand-specific colors for brand recognition (acceptable for brand logos)
+const OneDriveIcon = ({ className }: { className?: string }) => (
+  <svg className={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12.5 6.5C14.5 6.5 16 8 16 10C16 12 14.5 13.5 12.5 13.5C10.5 13.5 9 12 9 10C9 8 10.5 6.5 12.5 6.5ZM12.5 8C11.4 8 10.5 8.9 10.5 10C10.5 11.1 11.4 12 12.5 12C13.6 12 14.5 11.1 14.5 10C14.5 8.9 13.6 8 12.5 8Z" fill="#0078D4"/>
+    <path d="M7 17.5C8.5 17.5 9.5 18.5 9.5 20C9.5 21.5 8.5 22.5 7 22.5C5.5 22.5 4.5 21.5 4.5 20C4.5 18.5 5.5 17.5 7 17.5ZM7 19C6.4 19 6 19.4 6 20C6 20.6 6.4 21 7 21C7.6 21 8 20.6 8 20C8 19.4 7.6 19 7 19Z" fill="#0078D4"/>
+    <path d="M18 15.5C19.5 15.5 20.5 16.5 20.5 18C20.5 19.5 19.5 20.5 18 20.5C16.5 20.5 15.5 19.5 15.5 18C15.5 16.5 16.5 15.5 18 15.5ZM18 17C17.4 17 17 17.4 17 18C17 18.6 17.4 19 18 19C18.6 19 19 18.6 19 18C19 17.4 18.6 17 18 17Z" fill="#0078D4"/>
+  </svg>
+);
+
+const ArcGISIcon = ({ className }: { className?: string }) => (
+  <svg className={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 2L2 7L7 12L12 7L17 12L22 7L12 2Z" fill="#00B9F1"/>
+    <path d="M2 17L7 12L12 17L17 12L22 17L12 22L2 17Z" fill="#00B9F1"/>
+  </svg>
+);
 
 interface Integration {
   id: string;
@@ -19,35 +40,40 @@ interface Integration {
   connected: boolean;
 }
 
+// Wrapper components for react-icons to match the interface
+const GoogleDriveIcon = ({ className }: { className?: string }) => <SiGoogledrive className={className} />;
+const DropboxIcon = ({ className }: { className?: string }) => <SiDropbox className={className} />;
+const AutodeskIcon = ({ className }: { className?: string }) => <SiAutodesk className={className} />;
+
 const availableIntegrations: Omit<Integration, "connected">[] = [
   {
     id: "google_drive",
     name: "Google Drive",
-    icon: Cloud,
+    icon: GoogleDriveIcon,
     description: "Access and sync files from Google Drive",
   },
   {
     id: "dropbox",
     name: "Dropbox",
-    icon: Cloud,
+    icon: DropboxIcon,
     description: "Connect your Dropbox account",
   },
   {
     id: "autodesk",
     name: "Autodesk",
-    icon: Cloud,
+    icon: AutodeskIcon,
     description: "Integrate with Autodesk services",
   },
   {
     id: "arcgis",
     name: "ArcGIS",
-    icon: Cloud,
+    icon: ArcGISIcon,
     description: "Connect to ArcGIS platform",
   },
   {
     id: "onedrive",
     name: "OneDrive",
-    icon: Cloud,
+    icon: OneDriveIcon,
     description: "Sync files from Microsoft OneDrive",
   },
 ];

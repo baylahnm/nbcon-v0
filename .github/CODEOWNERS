@@ -1,0 +1,34 @@
+# CODEOWNERS file for nbcon-v0
+# This file defines code owners for different parts of the repository
+# See: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Global owners - all files
+* @baylahnm
+
+# Documentation
+/docs/ @baylahnm
+/docs/documentation_structure/ @baylahnm
+
+# Configuration and secrets
+/.github/ @baylahnm
+/.env* @baylahnm
+/config/ @baylahnm
+/scripts/ @baylahnm
+
+# Supabase configuration
+/supabase/ @baylahnm
+/supabase/functions/ @baylahnm
+/supabase/migrations/ @baylahnm
+
+# Core application
+/apps/web/src/ @baylahnm
+/packages/ @baylahnm
+
+# GitHub Actions workflows
+/.github/workflows/ @baylahnm
+
+# Package management
+/package.json @baylahnm
+/pnpm-lock.yaml @baylahnm
+/pnpm-workspace.yaml @baylahnm
+

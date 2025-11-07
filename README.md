@@ -1,44 +1,146 @@
-# nbcon.app
+# NBCON PRO
 
-A clone of the v0.app landing page built with Next.js, TypeScript, and Tailwind CSS.
+Streamline engineering projects with AI-powered automation — from smart engineer matching and real-time cost estimation to project management and SCE compliance. Our solutions reduce project delays, ensure quality, and scale effortlessly with your engineering needs in Saudi Arabia.
 
-## Getting Started
+## 🚀 Getting Started
 
-Install dependencies:
+### Prerequisites
+
+- Node.js 20+
+- pnpm 9+
+- Git
+
+### Installation
 
 ```bash
-npm install
-# or
+# Clone the repository
+git clone https://github.com/baylahnm/nbcon-v0.git
+cd nbcon-v0
+
+# Install dependencies
 pnpm install
-# or
-yarn install
+
+# Set up environment variables
+cp apps/web/.env.example apps/web/.env.local
+# Edit .env.local with your credentials (see CONTRIBUTING.md)
+
+# Run development server
+pnpm dev
 ```
 
-Run the development server:
+Open [http://localhost:3000](http://localhost:3000) to see the application.
+
+## 🔐 Security & Configuration
+
+### Environment Variables
+
+**⚠️ Important:** Never commit secrets or credentials. All sensitive data must be stored in environment variables.
+
+Required environment variables (see `CONTRIBUTING.md` for detailed setup):
+
+- `NEXT_PUBLIC_SUPABASE_URL` - Supabase project URL
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY` - Supabase anonymous key
+- `STRIPE_SECRET_KEY` - Stripe secret key (production)
+- `OPENAI_API_KEY` - OpenAI API key
+- `CLOUDFLARE_API_TOKEN` - Cloudflare API token (deployment)
+
+### Secret Detection
+
+The repository uses automated secret scanning. Before committing:
 
 ```bash
-npm run dev
-# or
-pnpm dev
-# or
-yarn dev
+# Check for exposed secrets
+grep -r "api[_-]key\|secret\|password\|token" --include="*.ts" --include="*.tsx" | grep -v "process.env\|import.meta.env"
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🔌 Integrations
 
-## Features
+NBCON PRO integrates with:
 
-- Responsive design matching v0.app
-- Dark theme with modern UI
-- Template grid with hover effects
-- Hero section with prompt input
-- Navigation header
-- Footer with links
+- **Supabase** - Authentication, database, and realtime features
+- **Stripe** - Payment processing and subscriptions
+- **Cloudflare** - CDN, security, and edge computing
+- **OpenAI/Gemini** - AI-powered features
+- **GitHub** - DevOps workflows
+- **Slack & Linear** - Team collaboration
+- **MCP** - Model Context Protocol
+- **BIM Tools** - Autodesk, Revit, ArcGIS, and more
 
-## Tech Stack
+See [CONTRIBUTING.md](CONTRIBUTING.md) for integration setup instructions.
 
-- Next.js 14
-- TypeScript
-- Tailwind CSS
-- React
+## 📚 Documentation
 
+- **Structure:** [`docs/documentation_structure/DOCS_STRUCTURE_REPORT.md`](docs/documentation_structure/DOCS_STRUCTURE_REPORT.md)
+- **Contributing:** [`CONTRIBUTING.md`](CONTRIBUTING.md)
+- **Security:** [`.github/SECURITY.md`](.github/SECURITY.md)
+- **Deployment:** [`docs/how_to_start/DEPLOYMENT_GUIDE.md`](docs/how_to_start/DEPLOYMENT_GUIDE.md)
+
+## 🛠️ Tech Stack
+
+- **Framework:** Next.js 15
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS
+- **Database:** Supabase (PostgreSQL)
+- **Payments:** Stripe
+- **Deployment:** Cloudflare Pages
+- **Testing:** Vitest, Playwright
+- **Package Manager:** pnpm
+
+## 📦 Project Structure
+
+```
+nbcon-v0/
+├── apps/web/              # Next.js web application
+├── packages/              # Shared packages
+│   ├── config/           # Shared configuration
+│   ├── ui/               # UI components
+│   └── enterprise-sdk/   # Enterprise SDK
+├── supabase/             # Supabase functions and migrations
+├── docs/                 # Documentation
+└── .github/              # GitHub workflows and configs
+```
+
+## 🧪 Development
+
+```bash
+# Run tests
+pnpm test
+
+# Run linting
+pnpm lint
+
+# Run type checking
+pnpm typecheck
+
+# Build for production
+pnpm build
+```
+
+## 🤝 Contributing
+
+We welcome contributions! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for:
+
+- Development setup
+- Integration configuration
+- Security guidelines
+- Code style and conventions
+- Pull request process
+
+## 🔒 Security Policy
+
+- Never commit secrets or credentials
+- Use environment variables for all sensitive data
+- Report security issues privately via GitHub Security tab
+- Follow secure coding practices
+
+See [`.github/SECURITY.md`](.github/SECURITY.md) for detailed security guidelines.
+
+## 📄 License
+
+[Add your license here]
+
+## 🌐 Links
+
+- **Repository:** https://github.com/baylahnm/nbcon-v0
+- **Documentation:** See `docs/documentation_structure/DOCS_STRUCTURE_REPORT.md`
+- **Issues:** https://github.com/baylahnm/nbcon-v0/issues

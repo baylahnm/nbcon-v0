@@ -1,0 +1,96 @@
+# Gitleaks configuration for secret scanning
+# See: https://github.com/gitleaks/gitleaks
+
+title = "NBCON PRO Secret Scanning"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Allowlist for false positives"
+paths = [
+  '''\.md$''',
+  '''\.json$''',
+  '''\.lock$''',
+  '''package-lock\.json$''',
+  '''pnpm-lock\.yaml$''',
+  '''yarn\.lock$''',
+  '''\.example$''',
+  '''\.sample$''',
+]
+
+commits = [
+  '''^Initial commit''',
+]
+
+regexes = [
+  '''mock[_-]?token''',
+  '''example[_-]?key''',
+  '''test[_-]?secret''',
+  '''placeholder''',
+]
+
+[rules]
+id = "supabase-anon-key"
+description = "Supabase Anonymous Key"
+regex = '''sb-[a-zA-Z0-9_-]{48}'''
+entropy = 3.5
+secretGroup = 1
+tags = ["supabase", "api"]
+
+id = "supabase-service-key"
+description = "Supabase Service Role Key"
+regex = '''eyJ[a-zA-Z0-9_-]{100,}'''
+entropy = 4.0
+secretGroup = 1
+tags = ["supabase", "api", "service"]
+
+id = "stripe-secret-key"
+description = "Stripe Secret Key"
+regex = '''sk_(live|test)_[a-zA-Z0-9]{24,}'''
+entropy = 3.5
+secretGroup = 1
+tags = ["stripe", "payment", "api"]
+
+id = "openai-api-key"
+description = "OpenAI API Key"
+regex = '''sk-[a-zA-Z0-9]{32,}'''
+entropy = 3.5
+secretGroup = 1
+tags = ["openai", "ai", "api"]
+
+id = "github-token"
+description = "GitHub Personal Access Token"
+regex = '''ghp_[a-zA-Z0-9]{36}'''
+entropy = 3.5
+secretGroup = 1
+tags = ["github", "api"]
+
+id = "slack-token"
+description = "Slack API Token"
+regex = '''xox[baprs]-[0-9a-zA-Z-]{10,48}'''
+entropy = 3.5
+secretGroup = 1
+tags = ["slack", "api"]
+
+id = "cloudflare-api-token"
+description = "Cloudflare API Token"
+regex = '''[a-zA-Z0-9_-]{40}'''
+entropy = 3.5
+secretGroup = 1
+tags = ["cloudflare", "api"]
+
+id = "generic-api-key"
+description = "Generic API Key Pattern"
+regex = '''(api[_-]?key|apikey|api_key)\s*[:=]\s*['"]([a-zA-Z0-9_-]{20,})['"]'''
+entropy = 3.0
+secretGroup = 2
+tags = ["api", "key"]
+
+id = "generic-secret"
+description = "Generic Secret Pattern"
+regex = '''(secret|password|token|credential)\s*[:=]\s*['"]([a-zA-Z0-9!@#$%^&*()_+-=]{12,})['"]'''
+entropy = 3.5
+secretGroup = 2
+tags = ["secret", "credential"]
+

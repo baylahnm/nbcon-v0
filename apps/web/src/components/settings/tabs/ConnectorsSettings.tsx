@@ -133,10 +133,19 @@ export function ConnectorsSettings() {
       // Simulate OAuth connection
       await new Promise((resolve) => setTimeout(resolve, 1500));
 
+      // TODO: Replace with actual OAuth flow
+      // In production, this should come from OAuth callback
+      // For now, using placeholder - actual implementation requires OAuth setup
+      const mockToken = process.env.NODE_ENV === "development" ? "mock_token_dev" : null;
+      
+      if (!mockToken && process.env.NODE_ENV === "production") {
+        throw new Error("OAuth integration required in production");
+      }
+
       const { error } = await supabase.from("integrations").upsert({
         user_id: user.id,
         provider: integrationId,
-        access_token: "mock_token", // In production, this comes from OAuth
+        access_token: mockToken, // In production, this comes from OAuth
         refresh_token: null,
         expires_at: null,
         created_at: new Date().toISOString(),

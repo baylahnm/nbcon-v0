@@ -6,10 +6,22 @@ on:
     tags:
       - "v*"
 
+# Security: Restrict workflow permissions - only write for deployment
+permissions:
+  contents: read
+  deployments: write
+  id-token: write  # Required for OIDC authentication
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/v')
+    
+    # Security: Use minimal permissions
+    permissions:
+      contents: read
+      deployments: write
+      id-token: write
 
     steps:
       - name: Checkout code

@@ -1,4 +1,6 @@
-import { GetStaticProps } from "next";
+"use client";
+
+import { useEffect, useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import React from "react";
@@ -6,9 +8,7 @@ import DocsLayout from "@/components/docs/DocsLayout";
 import { CheckboxTask } from "@/components/ui/checkbox-task";
 import { RoadmapTracker } from "@/components/docs/RoadmapTracker";
 import { useI18n } from "@/hooks/useI18n";
-import { getAllDocs } from "@/lib/docs";
-
-interface DocsPageProps { index: { title: string; slug: string; excerpt?: string }[]; sidebar: { title: string; slug: string; section: string }[] }
+import { getAllDocs } from "@/lib/docs-data";
 
 // Custom components for MDX
 interface MDXComponentProps {
@@ -133,8 +133,18 @@ const components = {
   ),
 };
 
-export default function DocsIndex({ index, sidebar }: DocsPageProps) {
-  const { t } = useI18n();
+export default function DocsIndex() {
+  const { t, locale } = useI18n();
+  const [docs, setDocs] = useState<ReturnType<typeof getAllDocs>>([]);
+
+  useEffect(() => {
+    // Load docs with current locale
+    const loadedDocs = getAllDocs(locale);
+    setDocs(loadedDocs);
+  }, [locale]);
+
+  const index = docs.map((d) => ({ title: d.title, slug: d.slug }));
+  const sidebar = docs;
   
   const quickLinks = [
     {
@@ -172,9 +182,9 @@ export default function DocsIndex({ index, sidebar }: DocsPageProps) {
       <DocsLayout index={index} sidebar={sidebar}>
         <div className="max-w-4xl">
           <div className="mb-2 text-sm font-medium text-muted-foreground uppercase tracking-wide">
-            Get Started
+            {t("docs.sections.get-started")}
           </div>
-              <h1 className="text-[38px] font-bold mb-6">{t("docs.title")}</h1>
+          <h1 className="text-[38px] font-bold mb-6">{t("docs.title")}</h1>
           <p className="text-lg text-muted-foreground mb-12 max-w-2xl">
             {t("docs.description")}
           </p>
@@ -199,6 +209,18 @@ export default function DocsIndex({ index, sidebar }: DocsPageProps) {
             ))}
           </div>
 
+          {/* Integrations Summary Card */}
+          <div className="mb-12 rounded-lg border p-6 bg-muted/50">
+            <h2 className="text-2xl font-semibold mb-3">{t("docs.sections.integrations")}</h2>
+            <p className="text-muted-foreground mb-4">{t("docs.integrationsSummary")}</p>
+            <Link
+              href="/docs/integrations/supabase"
+              className="inline-flex items-center text-primary hover:underline font-medium"
+            >
+              Explore Integrations →
+            </Link>
+          </div>
+
           {/* Roadmap Tracker */}
           <div className="mb-12">
             <RoadmapTracker />
@@ -212,7 +234,7 @@ export default function DocsIndex({ index, sidebar }: DocsPageProps) {
                 className="rounded-lg border p-4 hover:bg-accent transition-colors"
               >
                 <div className="font-semibold mb-1">{item.title}</div>
-                <div className="text-xs text-muted-foreground">{item.section}</div>
+                <div className="text-xs text-muted-foreground">{t(`docs.sections.${item.section}`)}</div>
               </Link>
             ))}
           </div>
@@ -221,66 +243,4 @@ export default function DocsIndex({ index, sidebar }: DocsPageProps) {
     </>
   );
 }
-
-export const getStaticProps: GetStaticProps = async () => {
-  const docs = await getAllDocs("en");
-  console.log(`[getStaticProps] Received ${docs.length} docs`);
-  
-  // Fallback: if no docs found, create placeholder structure
-  const index = docs.length > 0 
-    ? docs.map((d) => ({ title: d.title, slug: d.slug }))
-    : [
-        { title: "Welcome", slug: "get-started/welcome" },
-        { title: "Quickstart", slug: "get-started/quickstart" },
-        { title: "Concepts", slug: "get-started/concepts" },
-      ];
-  
-  const sidebar = docs.length > 0 
-    ? docs 
-    : [
-        { title: "Welcome", slug: "get-started/welcome", section: "get-started" },
-        { title: "Quickstart", slug: "get-started/quickstart", section: "get-started" },
-        { title: "Concepts", slug: "get-started/concepts", section: "get-started" },
-        { title: "Models", slug: "get-started/models", section: "get-started" },
-        { title: "Pricing", slug: "get-started/pricing", section: "get-started" },
-        { title: "Tab", slug: "core/tab", section: "core" },
-        { title: "Agent", slug: "core/agent", section: "core" },
-        { title: "Cloud", slug: "core/cloud", section: "core" },
-        { title: "CLI", slug: "core/cli", section: "core" },
-        { title: "Inline Edit", slug: "core/inline-edit", section: "core" },
-        { title: "Rules", slug: "core/rules", section: "core" },
-        { title: "Bugbot", slug: "core/bugbot", section: "core" },
-        { title: "Codebase Indexing", slug: "context/codebase-indexing", section: "context" },
-        { title: "Ignore files", slug: "context/ignore-files", section: "context" },
-        { title: "Model Context Protocol (MCP)", slug: "context/model-context-protocol-mcp", section: "context" },
-        { title: "@ Symbols", slug: "context/at-symbols", section: "context" },
-        { title: "Slack", slug: "integrations/slack", section: "integrations" },
-        { title: "Linear", slug: "integrations/linear", section: "integrations" },
-        { title: "GitHub", slug: "integrations/github", section: "integrations" },
-        { title: "Git", slug: "integrations/git", section: "integrations" },
-        { title: "Deeplinks", slug: "integrations/deeplinks", section: "integrations" },
-        { title: "Extensions", slug: "configuration/extensions", section: "configuration" },
-        { title: "Keyboard Shortcuts", slug: "configuration/keyboard-shortcuts", section: "configuration" },
-        { title: "Themes", slug: "configuration/themes", section: "configuration" },
-        { title: "Shell Commands", slug: "configuration/shell-commands", section: "configuration" },
-        { title: "Parallel Agents", slug: "configuration/parallel-agents", section: "configuration" },
-        { title: "Languages", slug: "configuration/languages", section: "configuration" },
-        { title: "Migrations", slug: "configuration/migrations", section: "configuration" },
-        { title: "Billing", slug: "account/billing", section: "account" },
-        { title: "Update Access", slug: "account/update-access", section: "account" },
-        { title: "Teams", slug: "account/teams", section: "account" },
-        { title: "Enterprise", slug: "enterprise/index", section: "enterprise" },
-        { title: "Building an MCP Server", slug: "cookbook/building-an-mcp-server", section: "cookbook" },
-        { title: "Web Development", slug: "cookbook/web-development", section: "cookbook" },
-        { title: "Data Science", slug: "cookbook/data-science", section: "cookbook" },
-        { title: "Large Codebases", slug: "cookbook/large-codebases", section: "cookbook" },
-        { title: "Mermaid Diagrams", slug: "cookbook/mermaid-diagrams", section: "cookbook" },
-        { title: "Common Issues", slug: "troubleshooting/common-issues", section: "troubleshooting" },
-        { title: "Getting a Request ID", slug: "troubleshooting/getting-a-request-id", section: "troubleshooting" },
-        { title: "Troubleshooting Guide", slug: "troubleshooting/troubleshooting-guide", section: "troubleshooting" },
-        { title: "Downloads", slug: "downloads/index", section: "downloads" },
-      ];
-  
-  return { props: { index, sidebar }, revalidate: 3600 };
-};
 

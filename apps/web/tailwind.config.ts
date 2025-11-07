@@ -77,11 +77,14 @@ const config: Config = {
   			},
   			'muted-active': 'hsl(var(--muted-active))'
   		},
-  		borderRadius: {
-  			lg: 'var(--radius)',
-  			md: 'calc(var(--radius) - 2px)',
-  			sm: 'calc(var(--radius) - 4px)'
-  		},
+		borderRadius: {
+			lg: 'var(--radius)',
+			md: 'calc(var(--radius) - 2px)',
+			sm: 'calc(var(--radius) - 4px)'
+		},
+		transitionTimingFunction: {
+			'smooth': 'cubic-bezier(0.165, 0.85, 0.45, 1)',
+		},
   		animation: {
   			rainbow: 'rainbow 3s linear infinite',
   			'accordion-down': 'accordion-down 0.2s ease-out',

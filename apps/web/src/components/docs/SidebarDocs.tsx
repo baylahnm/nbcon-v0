@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { ChevronRight } from "lucide-react";
+import { useI18n } from "@/hooks/useI18n";
 
 export interface SidebarNode {
   title: string;
@@ -13,6 +14,7 @@ export interface SidebarNode {
 
 export function SidebarDocs({ items, onNavigate }: { items: SidebarNode[]; onNavigate?: () => void }) {
   const router = useRouter();
+  const { t, isRTL } = useI18n();
   const [expanded, setExpanded] = useState<Record<string, boolean>>({});
   const bySection = items.reduce<Record<string, SidebarNode[]>>((acc, item) => {
     acc[item.section] = acc[item.section] || [];
@@ -24,15 +26,15 @@ export function SidebarDocs({ items, onNavigate }: { items: SidebarNode[]; onNav
     setExpanded((prev) => ({ ...prev, [section]: !prev[section] }));
   };
 
-  // Debug: log items count
-  if (typeof window !== "undefined") {
-    console.log("[SidebarDocs] Items count:", items.length);
-  }
+  const getSectionTitle = (section: string): string => {
+    return t(`docs.sections.${section}`) || section.replace(/-/g, " ");
+  };
+
 
   // If no items, show placeholder
   if (items.length === 0) {
     return (
-      <aside className="w-64 border-r border-border min-h-screen hidden lg:block">
+      <aside className={`w-64 min-h-screen hidden lg:block ${isRTL ? "border-l" : "border-r"} border-border`}>
         <nav className="p-4 space-y-6">
           <div className="text-sm text-muted-foreground">No documentation found. Please check server logs.</div>
         </nav>
@@ -41,7 +43,7 @@ export function SidebarDocs({ items, onNavigate }: { items: SidebarNode[]; onNav
   }
 
   return (
-    <aside className="w-64 border-r border-border min-h-screen hidden lg:block">
+    <aside className={`w-64 min-h-screen hidden lg:block ${isRTL ? "border-l" : "border-r"} border-border`}>
       <nav className="p-4 space-y-6">
         {/* Documentation Sections */}
         {Object.keys(bySection).sort().map((section) => {
@@ -54,9 +56,9 @@ export function SidebarDocs({ items, onNavigate }: { items: SidebarNode[]; onNav
                 onClick={() => toggleSection(section)}
                 className="flex items-center justify-between w-full mb-2 text-xs font-semibold uppercase text-muted-foreground hover:text-foreground transition-colors"
               >
-                <span>{section.replace(/-/g, " ")}</span>
+                <span>{getSectionTitle(section)}</span>
                 <ChevronRight
-                  className={`h-3 w-3 transition-transform ${isExpanded ? "rotate-90" : ""}`}
+                  className={`h-3 w-3 transition-transform ${isExpanded ? "rotate-90" : ""} ${isRTL ? "scale-x-[-1]" : ""}`}
                 />
               </button>
               {isExpanded && (

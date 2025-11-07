@@ -366,7 +366,7 @@ export const PromptBox = React.forwardRef<HTMLTextAreaElement, React.TextareaHTM
                   <button
                     type="button"
                     title="Select AI model"
-                    className="inline-flex items-center justify-center relative shrink-0 select-none disabled:pointer-events-none disabled:opacity-50 border-transparent transition font-base duration-300 ease-[cubic-bezier(0.165,0.85,0.45,1)] h-8 rounded-md px-3 min-w-[4rem] active:scale-[0.985] whitespace-nowrap text-xs pl-2.5 pr-2 gap-1 text-foreground dark:text-white hover:bg-accent dark:hover:bg-[#515151] focus-visible:outline-none"
+                    className="inline-flex items-center justify-center relative shrink-0 select-none disabled:pointer-events-none disabled:opacity-50 border-transparent transition font-base duration-300 ease-smooth h-8 rounded-md px-3 min-w-[4rem] active:scale-[0.985] whitespace-nowrap text-xs pl-2.5 pr-2 gap-1 text-foreground dark:text-white hover:bg-accent dark:hover:bg-[#515151] focus-visible:outline-none"
                   >
                     <div className="inline-flex gap-[3px] text-[14px] h-[14px] leading-none items-baseline">
                       <div className="flex items-center gap-[4px]">

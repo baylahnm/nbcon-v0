@@ -48,28 +48,28 @@ export function Navbar() {
                   Templates
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <div className="grid gap-3 p-4 md:w-[600px] lg:w-[700px] lg:grid-cols-[1fr_200px]">
+                  <div className="grid gap-3 p-4 md:w-[600px] lg:w-[700px] lg:grid-cols-[1fr_200px] dark:bg-popover dark:border dark:border-border/80">
                     {/* Featured Templates Section */}
                     <div className="row-span-3">
                       <div className="flex items-center justify-between mb-3">
                         <div>
-                          <h3 className="text-sm font-semibold leading-none">Featured Templates</h3>
-                          <p className="text-xs text-muted-foreground mt-1.5">Remix from top creators</p>
+                          <h3 className="text-sm font-semibold leading-none dark:text-foreground">Featured Templates</h3>
+                          <p className="text-xs text-muted-foreground mt-1.5 dark:text-muted-foreground">Remix from top creators</p>
                         </div>
-                        <ArrowRight className="h-4 w-4 text-muted-foreground" />
+                        <ArrowRight className="h-4 w-4 text-muted-foreground dark:text-muted-foreground" />
                       </div>
                       <div className="grid grid-cols-2 gap-2">
-                        <div className="h-24 rounded-md bg-muted/50 border border-border flex items-center justify-center">
-                          <div className="text-xs text-muted-foreground">Dashboard</div>
+                        <div className="h-24 rounded-md bg-muted/50 border border-border flex items-center justify-center dark:bg-muted/20 dark:border dark:border-border/60 dark:hover:bg-muted/30 dark:hover:border-border/80 transition-colors">
+                          <div className="text-xs text-muted-foreground dark:text-muted-foreground">Dashboard</div>
                         </div>
-                        <div className="h-24 rounded-md bg-muted/50 border border-border flex items-center justify-center">
-                          <div className="text-xs text-muted-foreground">Map UI</div>
+                        <div className="h-24 rounded-md bg-muted/50 border border-border flex items-center justify-center dark:bg-muted/20 dark:border dark:border-border/60 dark:hover:bg-muted/30 dark:hover:border-border/80 transition-colors">
+                          <div className="text-xs text-muted-foreground dark:text-muted-foreground">Map UI</div>
                         </div>
-                        <div className="h-24 rounded-md bg-muted/50 border border-border flex items-center justify-center">
-                          <div className="text-xs text-muted-foreground">Control Panel</div>
+                        <div className="h-24 rounded-md bg-muted/50 border border-border flex items-center justify-center dark:bg-muted/20 dark:border dark:border-border/60 dark:hover:bg-muted/30 dark:hover:border-border/80 transition-colors">
+                          <div className="text-xs text-muted-foreground dark:text-muted-foreground">Control Panel</div>
                         </div>
-                        <div className="h-24 rounded-md bg-muted/50 border border-border flex items-center justify-center">
-                          <div className="text-xs text-muted-foreground">Landing</div>
+                        <div className="h-24 rounded-md bg-muted/50 border border-border flex items-center justify-center dark:bg-muted/20 dark:border dark:border-border/60 dark:hover:bg-muted/30 dark:hover:border-border/80 transition-colors">
+                          <div className="text-xs text-muted-foreground dark:text-muted-foreground">Landing</div>
                         </div>
                       </div>
                     </div>

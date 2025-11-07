@@ -1,70 +1,81 @@
-import { GetStaticPaths, GetStaticProps } from "next";
+"use client";
+
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import Head from "next/head";
-import { serialize } from "next-mdx-remote/serialize";
-import { MDXRemote, MDXRemoteSerializeResult } from "next-mdx-remote";
-import remarkGfm from "remark-gfm";
-import rehypeHighlight from "rehype-highlight";
+import Link from "next/link";
 import DocsLayout from "@/components/docs/DocsLayout";
-import { getAllDocs, getDocBySlug } from "@/lib/docs";
+import { getAllDocs, getDocBySlug } from "@/lib/docs-data";
+import { useI18n } from "@/hooks/useI18n";
 
-interface DocPageProps {
-  source: MDXRemoteSerializeResult;
-  title: string;
-  description?: string;
-  index: { title: string; slug: string }[];
-  sidebar: { title: string; slug: string; section: string }[];
-}
+export default function DocPage() {
+  const router = useRouter();
+  const { locale } = useI18n();
+  const [docs, setDocs] = useState<ReturnType<typeof getAllDocs>>([]);
+  const [doc, setDoc] = useState<ReturnType<typeof getDocBySlug> | null>(null);
 
-export default function DocPage({ source, title, description, index, sidebar }: DocPageProps) {
+  const slugParam = (router.query.slug as string[]) || [];
+  const slug = slugParam.join("/");
+
+  useEffect(() => {
+    // Load docs with current locale
+    const loadedDocs = getAllDocs(locale);
+    setDocs(loadedDocs);
+    const loadedDoc = getDocBySlug(slug, locale);
+    setDoc(loadedDoc);
+  }, [locale, slug]);
+
+  const index = docs.map((d) => ({ title: d.title, slug: d.slug }));
+  const sidebar = docs;
+
+  // If doc doesn't exist, show 404
+  if (!doc) {
+    return (
+      <>
+        <Head>
+          <title>Page Not Found | NBCON PRO Docs</title>
+        </Head>
+        <DocsLayout index={index} sidebar={sidebar}>
+          <article className="prose prose-slate dark:prose-invert max-w-none">
+            <h1>Page Not Found</h1>
+            <p>The documentation page you're looking for doesn't exist.</p>
+            <p>
+              <Link href="/docs" className="text-primary hover:underline">
+                Return to documentation home
+              </Link>
+            </p>
+          </article>
+        </DocsLayout>
+      </>
+    );
+  }
+
+  // Dynamic import of doc content based on slug
+  // This will be handled by Next.js routing to individual pages
+  // For now, show a placeholder that indicates the page needs to be migrated
   return (
     <>
       <Head>
-        <title>{title} | NBCON PRO Docs</title>
-        {description ? <meta name="description" content={description} /> : null}
-        <link
-          rel="stylesheet"
-          href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/github-dark.min.css"
-        />
+        <title>{doc.title} | NBCON PRO Docs</title>
+        {doc.description ? <meta name="description" content={doc.description} /> : null}
       </Head>
       <DocsLayout index={index} sidebar={sidebar}>
         <article className="prose prose-slate dark:prose-invert max-w-none">
-          <MDXRemote {...source} />
+          <h1>{doc.title}</h1>
+          {doc.description && <p className="text-muted-foreground">{doc.description}</p>}
+          <div className="mt-8 p-4 border border-border rounded-lg bg-muted/50">
+            <p className="text-sm text-muted-foreground">
+              This documentation page is being migrated to the new TSX-based system.
+              Content will be available shortly.
+            </p>
+            <p className="text-sm mt-2">
+              <Link href="/docs" className="text-primary hover:underline">
+                Return to documentation home
+              </Link>
+            </p>
+          </div>
         </article>
       </DocsLayout>
     </>
   );
 }
-
-export const getStaticPaths: GetStaticPaths = async () => {
-  const docs = await getAllDocs("en");
-  const paths = docs.map((d) => ({ params: { slug: d.slug.split("/") } }));
-  return { paths, fallback: "blocking" };
-};
-
-export const getStaticProps: GetStaticProps = async (ctx) => {
-  const slugParam = (ctx.params?.slug as string[]) || [];
-  const slug = slugParam.join("/");
-  const doc = await getDocBySlug(slug);
-  if (!doc) return { notFound: true };
-
-  const mdxSource = await serialize(doc.content, {
-    mdxOptions: { remarkPlugins: [remarkGfm], rehypePlugins: [rehypeHighlight] },
-  });
-
-  const docs = await getAllDocs("en");
-  const index = docs.map((d) => ({ title: d.title, slug: d.slug }));
-  const sidebar = docs;
-
-  return {
-    props: {
-      source: mdxSource,
-      title: doc.meta.title,
-      description: doc.meta.description || "",
-      index,
-      sidebar,
-    },
-    revalidate: 3600,
-  };
-};
-
-

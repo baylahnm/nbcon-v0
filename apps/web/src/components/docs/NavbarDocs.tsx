@@ -10,10 +10,12 @@ import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import Fuse from "fuse.js";
 import { useMemo } from "react";
 import { NbconLogo } from "@/components/ui/nbcon-logo";
+import { useI18n } from "@/hooks/useI18n";
 
 interface SearchItem { title: string; slug: string; excerpt?: string }
 
-export function NavbarDocs({ index, lang = "en", sidebar = [] }: { index: SearchItem[]; lang?: "en" | "ar"; sidebar?: SidebarNode[] }) {
+export function NavbarDocs({ index, sidebar = [] }: { index: SearchItem[]; sidebar?: SidebarNode[] }) {
+  const { locale, setLocale } = useI18n();
   const [searchOpen, setSearchOpen] = useState(false);
   const [query, setQuery] = useState("");
   const fuse = useMemo(
@@ -115,8 +117,13 @@ export function NavbarDocs({ index, lang = "en", sidebar = [] }: { index: Search
             <Sun className="h-4 w-4 hidden dark:block" />
             <Moon className="h-4 w-4 dark:hidden" />
           </Button>
-          <Button asChild size="sm" variant="outline" aria-label="Switch language">
-            <Link href={lang === "ar" ? "/docs" : "/ar/docs"}>{lang === "ar" ? "EN" : "AR"}</Link>
+          <Button 
+            size="sm" 
+            variant="outline" 
+            aria-label="Switch language"
+            onClick={() => setLocale(locale === "ar" ? "en" : "ar")}
+          >
+            {locale === "ar" ? "EN" : "AR"}
           </Button>
           <Button asChild size="sm" variant="ghost">
             <Link href="/auth/login">Sign in</Link>

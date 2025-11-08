@@ -25,7 +25,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+        uses: actions/checkout@v4
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
@@ -33,7 +33,7 @@ jobs:
           version: 9
 
       - name: Setup Node.js
-        uses: actions/setup-node@0f105c54207e5e36b41a67e05e0e2b956e8e8a2a # v4.0.2
+        uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: 'pnpm'
@@ -56,12 +56,15 @@ jobs:
       - name: Coverage report
         run: pnpm run coverage
 
+      - name: Build packages
+        run: pnpm -r --filter "./packages/*" build
+
       - name: Build
-        run: pnpm build
+        run: pnpm --filter @nbcon/web build
 
       # Security: Upload artifacts with retention
       - name: Upload build artifacts
-        uses: actions/upload-artifact@5d5d22b9e8e77e23871503e2e25e35e1e5a5c5c0 # v4.3.1
+        uses: actions/upload-artifact@v4
         with:
           name: build-artifacts
           path: |
@@ -72,7 +75,7 @@ jobs:
 
       # Security: Upload test results
       - name: Upload test results
-        uses: actions/upload-artifact@5d5d22b9e8e77e23871503e2e25e35e1e5a5c5c0 # v4.3.1
+        uses: actions/upload-artifact@v4
         if: always()
         with:
           name: test-results

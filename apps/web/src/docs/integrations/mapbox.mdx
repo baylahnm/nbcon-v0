@@ -1,0 +1,46 @@
+# Mapbox Integration
+
+<div className="prose prose-slate dark:prose-invert max-w-none">
+
+## Overview
+
+Mapbox provides mapping and geospatial services for NBCON PRO. This integration enables interactive maps, geocoding, and location-based features.
+
+## Setup Instructions
+
+1. **Create a Mapbox Account**
+   - Go to [mapbox.com](https://mapbox.com)
+   - Create an account and get your access token
+   - Choose a plan that fits your needs
+
+2. **Configure Environment Variables**
+   Add the following to your `.env.local`:
+   ```bash
+   MAPBOX_TOKEN=pk.eyJ1IjoidXNlcm5hbWUiLCJhIjoiY2x...
+   ```
+
+3. **Verify Integration**
+   ```typescript
+   import { initMapbox, isMapboxConfigured } from "@/lib/integrations";
+   
+   const mapbox = initMapbox();
+   if (isMapboxConfigured()) {
+     console.log("Mapbox configured!");
+   }
+   ```
+
+## Environment Variables
+
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `MAPBOX_TOKEN` | Yes | Your Mapbox access token |
+
+## Features
+
+- **Interactive Maps**: Customizable map components
+- **Geocoding**: Address to coordinates conversion
+- **Routing**: Directions and navigation
+- **Satellite Imagery**: High-resolution map tiles
+
+</div>
+

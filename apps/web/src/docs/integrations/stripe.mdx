@@ -1,0 +1,50 @@
+# Stripe Integration
+
+<div className="prose prose-slate dark:prose-invert max-w-none">
+
+## Overview
+
+Stripe handles payment processing and subscription management for NBCON PRO. This integration enables secure payment processing, subscription billing, and webhook handling.
+
+## Setup Instructions
+
+1. **Create a Stripe Account**
+   - Go to [stripe.com](https://stripe.com)
+   - Create an account and get your API keys
+   - Set up webhooks in the Stripe Dashboard
+
+2. **Configure Environment Variables**
+   Add the following to your `.env.local`:
+   ```bash
+   STRIPE_PUBLIC_KEY=pk_test_...
+   STRIPE_SECRET_KEY=sk_test_...
+   STRIPE_WEBHOOK_SECRET=whsec_...  # From webhook settings
+   ```
+
+3. **Verify Integration**
+   ```typescript
+   import { initStripe, isStripeConfigured } from "@/lib/integrations";
+   
+   const stripe = initStripe();
+   if (isStripeConfigured()) {
+     console.log("Stripe configured!");
+   }
+   ```
+
+## Environment Variables
+
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `STRIPE_PUBLIC_KEY` | Yes | Your Stripe publishable key |
+| `STRIPE_SECRET_KEY` | Yes | Your Stripe secret key (server-side only) |
+| `STRIPE_WEBHOOK_SECRET` | No | Webhook signing secret for verification |
+
+## Features
+
+- **Payment Processing**: Secure card payments
+- **Subscriptions**: Recurring billing management
+- **Webhooks**: Event handling for payment events
+- **Customer Portal**: Self-service subscription management
+
+</div>
+

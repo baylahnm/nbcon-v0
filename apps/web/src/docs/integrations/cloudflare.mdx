@@ -1,0 +1,48 @@
+# Cloudflare Integration
+
+<div className="prose prose-slate dark:prose-invert max-w-none">
+
+## Overview
+
+Cloudflare provides CDN, security, and edge computing capabilities for NBCON PRO. This integration enables fast content delivery, DDoS protection, and edge function deployment.
+
+## Setup Instructions
+
+1. **Create a Cloudflare Account**
+   - Go to [cloudflare.com](https://cloudflare.com)
+   - Create an account and add your domain
+   - Generate an API token
+
+2. **Configure Environment Variables**
+   Add the following to your `.env.local`:
+   ```bash
+   CLOUDFLARE_API_TOKEN=your_api_token
+   CLOUDFLARE_ACCOUNT_ID=your_account_id
+   ```
+
+3. **Verify Integration**
+   ```typescript
+   import { initCloudflare, isCloudflareConfigured } from "@/lib/integrations";
+   
+   const cloudflare = initCloudflare();
+   if (isCloudflareConfigured()) {
+     console.log("Cloudflare configured!");
+   }
+   ```
+
+## Environment Variables
+
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `CLOUDFLARE_API_TOKEN` | Yes | Your Cloudflare API token |
+| `CLOUDFLARE_ACCOUNT_ID` | Yes | Your Cloudflare account ID |
+
+## Features
+
+- **CDN**: Fast content delivery worldwide
+- **Security**: DDoS protection and WAF
+- **Edge Functions**: Deploy serverless functions
+- **Analytics**: Performance and security insights
+
+</div>
+

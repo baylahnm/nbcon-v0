@@ -1,11 +1,11 @@
 import * as Sentry from "@sentry/nextjs";
 
 function getSentryDsn(): string | undefined {
-  return (
+  const dsn =
     (typeof process !== "undefined" && process.env?.SENTRY_DSN) ||
-    (typeof import.meta !== "undefined" && 
-      (import.meta as { env?: { SENTRY_DSN?: string } }).env?.SENTRY_DSN)
-  );
+    (typeof import.meta !== "undefined" &&
+      (import.meta as { env?: { SENTRY_DSN?: string } }).env?.SENTRY_DSN);
+  return typeof dsn === "string" ? dsn : undefined;
 }
 
 export function initSentry() {

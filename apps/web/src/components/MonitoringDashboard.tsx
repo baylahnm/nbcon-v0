@@ -70,7 +70,7 @@ export default function MonitoringDashboard() {
         );
         
         if (aiLogs.length > 0) {
-          const latencies = aiLogs.map(log => log.metadata.latency_ms || 0);
+          const latencies = aiLogs.map(log => log.metadata?.latency_ms || 0);
           const sorted = [...latencies].sort((a, b) => a - b);
           const p95Index = Math.floor(sorted.length * 0.95);
           

@@ -18,6 +18,9 @@ export function GeneralSettings() {
   const [mounted, setMounted] = React.useState(false);
   const [showAdditionalModels, setShowAdditionalModels] = React.useState(true);
   const [voice, setVoice] = React.useState("Cove");
+  const [accentColor, setAccentColor] = React.useState("default");
+  const [language, setLanguage] = React.useState("en-US");
+  const [spokenLanguage, setSpokenLanguage] = React.useState("en");
 
   React.useEffect(() => {
     setMounted(true);

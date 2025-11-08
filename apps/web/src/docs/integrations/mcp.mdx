@@ -1,0 +1,46 @@
+# MCP Server Integration
+
+<div className="prose prose-slate dark:prose-invert max-w-none">
+
+## Overview
+
+MCP (Model Context Protocol) enables integration with external tools and services. This integration allows NBCON PRO to connect to MCP servers for enhanced AI capabilities and tool access.
+
+## Setup Instructions
+
+1. **Set Up MCP Server**
+   - Deploy or configure your MCP server
+   - Obtain server URL and authentication token
+
+2. **Configure Environment Variables**
+   Add the following to your `.env.local`:
+   ```bash
+   MCP_SERVER_URL=https://your-mcp-server.com
+   MCP_SERVER_TOKEN=your_auth_token
+   ```
+
+3. **Verify Integration**
+   ```typescript
+   import { initMCPConnection, isMCPConfigured } from "@/lib/integrations";
+   
+   const mcp = initMCPConnection();
+   if (isMCPConfigured()) {
+     console.log("MCP configured!");
+   }
+   ```
+
+## Environment Variables
+
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `MCP_SERVER_URL` | Yes | Your MCP server URL |
+| `MCP_SERVER_TOKEN` | Yes | Authentication token for MCP server |
+
+## Features
+
+- **Tool Access**: Connect to external tools and services
+- **Context Sharing**: Share context between AI models
+- **Enhanced AI**: Extended capabilities through MCP protocol
+
+</div>
+

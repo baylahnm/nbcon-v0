@@ -1,0 +1,54 @@
+# Supabase Integration
+
+<div className="prose prose-slate dark:prose-invert max-w-none">
+
+## Overview
+
+Supabase provides authentication, database, and realtime features for NBCON PRO. This integration enables user authentication, data storage, and real-time synchronization.
+
+## Setup Instructions
+
+1. **Create a Supabase Project**
+   - Go to [supabase.com](https://supabase.com)
+   - Create a new project
+   - Note your project URL and API keys
+
+2. **Configure Environment Variables**
+   Add the following to your `.env.local`:
+   ```bash
+   NEXT_PUBLIC_SUPABASE_URL=your_project_url
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key
+   SUPABASE_ACCESS_TOKEN=your_access_token  # For server-side operations
+   SUPABASE_DB_PASSWORD=your_db_password    # For migrations
+   ```
+
+3. **Verify Integration**
+   ```typescript
+   import { createSupabaseClient } from "@/lib/integrations";
+   
+   const supabase = createSupabaseClient();
+   if (supabase) {
+     console.log("Supabase connected!");
+   }
+   ```
+
+## Environment Variables
+
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `NEXT_PUBLIC_SUPABASE_URL` | Yes | Your Supabase project URL |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Yes | Your Supabase anonymous key |
+| `VITE_SUPABASE_URL` | No | Alternative URL (for Vite compatibility) |
+| `VITE_SUPABASE_ANON_KEY` | No | Alternative key (for Vite compatibility) |
+| `SUPABASE_ACCESS_TOKEN` | No | Access token for server-side operations |
+| `SUPABASE_DB_PASSWORD` | No | Database password for migrations |
+
+## Features
+
+- **Authentication**: User signup, login, and session management
+- **Database**: PostgreSQL database with Row Level Security
+- **Realtime**: Real-time subscriptions and updates
+- **Storage**: File storage and management
+
+</div>
+

@@ -29,7 +29,7 @@ export function useJobs() {
         // In the future, you can create a dedicated jobs table
         const { data: jobsData, error } = await supabase
           .from('ai_logs')
-          .select('id, input, created_at, updated_at, user_id')
+          .select('id, input, created_at, user_id')
           .eq('user_id', user.id)
           .order('created_at', { ascending: false })
           .limit(20);

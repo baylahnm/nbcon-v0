@@ -138,9 +138,15 @@ importers:
       '@lobehub/icons':
         specifier: ^2.43.1
         version: 2.43.1(@babel/core@7.28.5)(@types/react-dom@18.3.7)(@types/react@18.3.26)(antd@5.28.0)(framer-motion@12.23.24)(micromark@4.0.2)(react-dom@19.2.0)(react@19.2.0)
+      '@nbcon/ai-core':
+        specifier: workspace:*
+        version: link:../../packages/ai-core
       '@nbcon/config':
         specifier: workspace:*
         version: link:../../packages/config
+      '@nbcon/enterprise-sdk':
+        specifier: workspace:*
+        version: link:../../packages/enterprise-sdk
       '@radix-ui/react-accordion':
         specifier: ^1.2.12
         version: 1.2.12(@types/react-dom@18.3.7)(@types/react@18.3.26)(react-dom@19.2.0)(react@19.2.0)
@@ -235,6 +241,9 @@ importers:
       '@types/node':
         specifier: ^20.19.24
         version: 20.19.24
+      '@types/react':
+        specifier: ^18.3.26
+        version: 18.3.26
       autoprefixer:
         specifier: ^10.4.19
         version: 10.4.21(postcss@8.5.6)
@@ -253,25 +262,36 @@ importers:
       tailwindcss-animate:
         specifier: ^1.0.7
         version: 1.0.7(tailwindcss@3.4.18)
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
 
-  packages/ai-core: {}
+  packages/ai-core:
+    dependencies:
+      zod:
+        specifier: ^3.22.4
+        version: 3.25.76
+    devDependencies:
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
 
   packages/api: {}
 
   packages/config:
     dependencies:
       '@supabase/supabase-js':
-        specifier: ^2.39.0
+        specifier: ^2.78.0
         version: 2.78.0
       stripe:
-        specifier: ^14.0.0
+        specifier: ^14.25.0
         version: 14.25.0
     devDependencies:
       '@types/node':
         specifier: ^20.0.0
         version: 20.19.24
       typescript:
-        specifier: ^5.0.0
+        specifier: ^5.9.3
         version: 5.9.3
 
   packages/enterprise-sdk:
@@ -292,6 +312,9 @@ importers:
       '@types/jsonwebtoken':
         specifier: ^9.0.7
         version: 9.0.10
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
 
   packages/types: {}
 
@@ -12245,6 +12268,10 @@ packages:
     dependencies:
       zod: 4.1.12
     dev: true
+
+  /zod@3.25.76:
+    resolution: {integrity: sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ==}
+    dev: false
 
   /zod@4.1.12:
     resolution: {integrity: sha512-JInaHOamG8pt5+Ey8kGmdcAcg3OL9reK8ltczgHTAwNhMys/6ThXHityHxVV2p3fkw/c+MAvBHFVYHFZDmjMCQ==}

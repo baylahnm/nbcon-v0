@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { supabase } from "@nbcon/config";
-import { track } from "@nbcon/enterprise-sdk/telemetry";
+import { track } from "@nbcon/enterprise-sdk";
 
 export function useUpgradeFlow(userId: string) {
   useEffect(() => {

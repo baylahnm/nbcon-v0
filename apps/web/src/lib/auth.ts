@@ -1,4 +1,4 @@
-import { supabase } from "./supabase-client";
+import { supabase } from "@nbcon/config";
 import type { AuthError } from "@supabase/supabase-js";
 
 export interface SignupData {
@@ -26,12 +26,7 @@ export interface AuthResponse {
  * Sign up a new user with email and password
  */
 export async function signUp({ email, password, fullName }: SignupData): Promise<AuthResponse> {
-  if (!supabase) {
-    return {
-      success: false,
-      error: "Supabase client is not configured. Please check your environment variables.",
-    };
-  }
+  // @nbcon/config client throws if env vars are missing, so we don't need null check
 
   try {
     const { data, error } = await supabase.auth.signUp({
@@ -72,12 +67,7 @@ export async function signUp({ email, password, fullName }: SignupData): Promise
  * Sign in with email and password
  */
 export async function signIn({ email, password }: LoginData): Promise<AuthResponse> {
-  if (!supabase) {
-    return {
-      success: false,
-      error: "Supabase client is not configured. Please check your environment variables.",
-    };
-  }
+  // @nbcon/config client throws if env vars are missing, so we don't need null check
 
   try {
     const { data, error } = await supabase.auth.signInWithPassword({
@@ -111,12 +101,7 @@ export async function signIn({ email, password }: LoginData): Promise<AuthRespon
  * Verify OTP code sent to email
  */
 export async function verifyOTP(email: string, token: string, type: "signup" | "email" = "signup"): Promise<AuthResponse> {
-  if (!supabase) {
-    return {
-      success: false,
-      error: "Supabase client is not configured. Please check your environment variables.",
-    };
-  }
+  // @nbcon/config client throws if env vars are missing, so we don't need null check
 
   try {
     const { data, error } = await supabase.auth.verifyOtp({
@@ -151,16 +136,14 @@ export async function verifyOTP(email: string, token: string, type: "signup" | "
  * Resend OTP code to email
  */
 export async function resendOTP(email: string, type: "signup" | "email" = "signup"): Promise<AuthResponse> {
-  if (!supabase) {
-    return {
-      success: false,
-      error: "Supabase client is not configured. Please check your environment variables.",
-    };
-  }
+  // @nbcon/config client throws if env vars are missing, so we don't need null check
 
   try {
+    // Map our internal type to Supabase's expected type
+    const supabaseType: "signup" | "email_change" = type === "email" ? "email_change" : "signup";
+    
     const { error } = await supabase.auth.resend({
-      type,
+      type: supabaseType,
       email,
       options: {
         emailRedirectTo: `${window.location.origin}/auth/otp`,
@@ -189,12 +172,7 @@ export async function resendOTP(email: string, type: "signup" | "email" = "signu
  * Sign out current user
  */
 export async function signOut(): Promise<AuthResponse> {
-  if (!supabase) {
-    return {
-      success: false,
-      error: "Supabase client is not configured. Please check your environment variables.",
-    };
-  }
+  // @nbcon/config client throws if env vars are missing, so we don't need null check
 
   try {
     const { error } = await supabase.auth.signOut();
@@ -221,9 +199,7 @@ export async function signOut(): Promise<AuthResponse> {
  * Get current session
  */
 export async function getSession() {
-  if (!supabase) {
-    return { data: null, error: new Error("Supabase client is not configured") };
-  }
+  // @nbcon/config client throws if env vars are missing, so we don't need null check
   const { data, error } = await supabase.auth.getSession();
   return { data, error };
 }
@@ -232,9 +208,7 @@ export async function getSession() {
  * Get current user
  */
 export async function getUser() {
-  if (!supabase) {
-    return { data: null, error: new Error("Supabase client is not configured") };
-  }
+  // @nbcon/config client throws if env vars are missing, so we don't need null check
   const { data, error } = await supabase.auth.getUser();
   return { data, error };
 }

@@ -44,6 +44,9 @@ jobs:
       - name: Run tests
         run: pnpm test
 
+      - name: Build packages
+        run: pnpm -r --filter "./packages/*" build
+
       - name: Build application
         run: pnpm --filter @nbcon/web build
 

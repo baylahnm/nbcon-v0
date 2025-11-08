@@ -18,6 +18,7 @@ export function PersonalizationSettings() {
   const [accentColor, setAccentColor] = React.useState("default");
   const [layoutDensity, setLayoutDensity] = React.useState("comfortable");
   const [fontSize, setFontSize] = React.useState("medium");
+  const [language, setLanguage] = React.useState("en-US");
 
   React.useEffect(() => {
     setMounted(true);

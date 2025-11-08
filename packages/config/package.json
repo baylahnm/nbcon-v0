@@ -15,15 +15,15 @@
     }
   },
   "scripts": {
-    "build": "tsc",
+    "build": "node build.js",
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.39.0",
-    "stripe": "^14.0.0"
+    "@supabase/supabase-js": "^2.78.0",
+    "stripe": "^14.25.0"
   },
   "devDependencies": {
-    "typescript": "^5.0.0",
-    "@types/node": "^20.0.0"
+    "@types/node": "^20.0.0",
+    "typescript": "^5.9.3"
   }
 }

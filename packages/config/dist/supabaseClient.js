@@ -13,12 +13,6 @@ function getEnvVar(key) {
         if (value)
             return value;
     }
-    // Fallback: Check import.meta.env (for Vite)
-    if (typeof import.meta !== 'undefined') {
-        const value = import.meta.env?.[key];
-        if (value)
-            return value;
-    }
     return undefined;
 }
 // Support both VITE_ (Vite) and NEXT_PUBLIC_ (Next.js) prefixes

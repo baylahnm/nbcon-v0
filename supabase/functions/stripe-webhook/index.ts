@@ -75,6 +75,16 @@ serve(async (req) => {
           console.error('Error updating profile:', profileError);
         }
 
+        // Initialize or update user credits with new tier limits
+        const { error: creditsError } = await supabase.rpc('initialize_user_credits', {
+          p_user_id: userId,
+          p_tier: tier,
+        });
+
+        if (creditsError) {
+          console.error('Error initializing credits:', creditsError);
+        }
+
         // Log billing event
         const { error: eventError } = await supabase
           .from('billing_events')
@@ -89,7 +99,7 @@ serve(async (req) => {
           console.error('Error logging billing event:', eventError);
         }
 
-        console.log(`Updated user ${userId} to tier ${tier}`);
+        console.log(`Updated user ${userId} to tier ${tier} and initialized credits`);
       }
     }
 
@@ -109,6 +119,16 @@ serve(async (req) => {
           console.error('Error updating profile:', profileError);
         }
 
+        // Update user credits to free tier limits
+        const { error: creditsError } = await supabase.rpc('initialize_user_credits', {
+          p_user_id: userId,
+          p_tier: 'free',
+        });
+
+        if (creditsError) {
+          console.error('Error updating credits:', creditsError);
+        }
+
         // Log cancellation event
         const { error: eventError } = await supabase
           .from('billing_events')
@@ -123,7 +143,7 @@ serve(async (req) => {
           console.error('Error logging billing event:', eventError);
         }
 
-        console.log(`Reset user ${userId} to free tier`);
+        console.log(`Reset user ${userId} to free tier and updated credits`);
       }
     }
 

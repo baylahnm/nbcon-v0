@@ -29,7 +29,7 @@ const components = {
       // Get text from sibling nodes or use a hash of the position
       const textContent = props.value || props.children || "";
       // Create stable ID from text content (or generate from context)
-      const textHash = textContent 
+      const textHash = textContent && typeof textContent === "string"
         ? textContent.slice(0, 50).replace(/[^a-z0-9]/gi, "-").toLowerCase()
         : Math.random().toString(36).substr(2, 9);
       const id = `task-${textHash}`;

@@ -7,6 +7,14 @@ const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
 serve(async () => {
   try {
+    // Reset daily credits at midnight UTC
+    const { error: resetError } = await supabase.rpc('reset_daily_credits');
+    if (resetError) {
+      console.error('Error resetting daily credits:', resetError);
+    } else {
+      console.log('Daily credits reset completed');
+    }
+
     // Fetch all profiles with subscription tiers
     const { data: profiles, error } = await supabase
       .from("profiles")
@@ -115,6 +123,7 @@ serve(async () => {
     return new Response(
       JSON.stringify({
         message: "Lifecycle check complete",
+        credits_reset: resetError ? "failed" : "completed",
         profiles_checked: profiles.length,
         downgraded: downgradedCount,
         churn_report: churnData,

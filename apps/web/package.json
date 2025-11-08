@@ -4,15 +4,17 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "pnpm --filter @nbcon/config build && next dev",
-    "build": "pnpm --filter @nbcon/config build && next build",
-    "start": "next start",
+    "dev": "pnpm --filter @nbcon/config build && pnpm --filter @nbcon/web exec next dev",
+    "build": "pnpm --filter @nbcon/config build && pnpm --filter @nbcon/web exec next build",
+    "start": "pnpm --filter @nbcon/web exec next start",
     "lint": "eslint . --ext .ts,.tsx --max-warnings=0",
     "prebuild": "pnpm --filter @nbcon/config build"
   },
   "dependencies": {
     "@lobehub/icons": "^2.43.1",
     "@nbcon/config": "workspace:*",
+    "@nbcon/enterprise-sdk": "workspace:*",
+    "@nbcon/ai-core": "workspace:*",
     "@radix-ui/react-accordion": "^1.2.12",
     "@radix-ui/react-avatar": "^1.1.10",
     "@radix-ui/react-collapsible": "^1.1.12",
@@ -46,11 +48,13 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.1",
     "@types/node": "^20.19.24",
+    "@types/react": "^18.3.26",
     "autoprefixer": "^10.4.19",
     "eslint": "^9.39.0",
     "null-loader": "^4.0.1",
     "postcss": "^8.4.38",
     "tailwindcss": "^3.4.4",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "typescript": "^5.9.3"
   }
 }

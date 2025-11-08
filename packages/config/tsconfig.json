@@ -8,9 +8,12 @@
     "sourceMap": true,
     "noEmit": false,
     "composite": true,
+    "incremental": true,
+    "tsBuildInfoFile": "./dist/.tsbuildinfo",
     "skipLibCheck": true,
-    "types": [],
-    "typeRoots": []
+    "moduleResolution": "bundler",
+    "baseUrl": "../../",
+    "types": []
   },
   "include": [
     "*.ts",

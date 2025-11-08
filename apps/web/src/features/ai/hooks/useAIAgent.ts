@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { agentRegistry } from "../registry/agentRegistry";
 import { supabase } from "@nbcon/config";
-import { track } from "@nbcon/enterprise-sdk/telemetry";
+import { track } from "@nbcon/enterprise-sdk";
 import type { AgentRequest, AgentResponse } from "@nbcon/ai-core";
 
 type AgentKey = keyof typeof agentRegistry;
@@ -32,6 +32,25 @@ export function useAIAgent(agentKey: AgentKey) {
 
       user = authUser;
 
+      // Check credit balance before execution
+      const { data: creditsData, error: creditsError } = await supabase
+        .from('user_credits')
+        .select('daily_tokens_used, daily_tokens_limit, subscription_tier')
+        .eq('user_id', user.id)
+        .single();
+
+      if (creditsError && creditsError.code !== 'PGRST116') {
+        console.error('Error fetching credits:', creditsError);
+        // Continue without credit check if table doesn't exist yet
+      } else if (creditsData) {
+        const { daily_tokens_used = 0, daily_tokens_limit, subscription_tier } = creditsData;
+        
+        // Check if user has exceeded daily limit (enterprise has unlimited)
+        if (subscription_tier !== 'enterprise' && daily_tokens_used >= daily_tokens_limit) {
+          throw new Error('Daily credit limit exceeded. Please upgrade your plan or wait until midnight UTC for reset.');
+        }
+      }
+
       const body = {
         model: agent.model,
         messages: [
@@ -61,6 +80,19 @@ export function useAIAgent(agentKey: AgentKey) {
       }
 
       const data: AgentResponse = await res.json();
+
+      // Deduct tokens from user credits
+      if (data.tokens && data.tokens > 0) {
+        const { error: deductError } = await supabase.rpc('deduct_user_credits', {
+          p_user_id: user!.id,
+          p_tokens: data.tokens,
+        });
+
+        if (deductError) {
+          console.error('Error deducting credits:', deductError);
+          // Continue even if credit deduction fails (log error but don't block)
+        }
+      }
 
       // Log to Supabase
       const { data: logData, error: logError } = await supabase.from("ai_logs").insert({
@@ -110,7 +142,7 @@ export function useAIAgent(agentKey: AgentKey) {
         user_id: user?.id,
       });
 
-      setError(err.message);
+      setError(err instanceof Error ? err.message : "An error occurred");
       setLoading(false);
       throw err;
     }

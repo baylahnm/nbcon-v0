@@ -14,12 +14,6 @@ function getEnvVar(key: string): string | undefined {
     if (value) return value;
   }
   
-  // Fallback: Check import.meta.env (for Vite)
-  if (typeof import.meta !== 'undefined') {
-    const value = (import.meta as any).env?.[key];
-    if (value) return value;
-  }
-  
   return undefined;
 }
 

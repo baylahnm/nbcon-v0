@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { track, initTelemetry, identify } from "@nbcon/enterprise-sdk/telemetry";
+import { track, initTelemetry, identify } from "@nbcon/enterprise-sdk";
 import { usePortalAccess } from "./usePortalAccess";
 
 export function useMonitoring() {

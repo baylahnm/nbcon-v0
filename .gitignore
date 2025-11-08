@@ -61,5 +61,12 @@ next-env.d.ts
 *.swo
 *~
 
-# docs
-docs/
+# docs (keep docs/ directory, only ignore specific subdirectories)
+docs/cursor_chats/
+docs/gpt_chats/
+docs/plan_nbcon_v0/
+docs/how_to_start/
+
+# build outputs
+dist/
+.turbo/

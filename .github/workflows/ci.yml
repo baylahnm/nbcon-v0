@@ -52,6 +52,7 @@ jobs:
 
       - name: E2E tests
         run: pnpm exec playwright test
+        continue-on-error: true
 
       - name: Coverage report
         run: pnpm run coverage

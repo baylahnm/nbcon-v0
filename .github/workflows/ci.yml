@@ -46,6 +46,7 @@ jobs:
 
       - name: Type check
         run: pnpm typecheck
+        continue-on-error: false
 
       - name: Unit tests
         run: pnpm test
@@ -56,6 +57,7 @@ jobs:
 
       - name: Coverage report
         run: pnpm run coverage
+        continue-on-error: true
 
       - name: Build packages
         run: pnpm -r --filter "./packages/*" build

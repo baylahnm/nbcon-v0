@@ -67,7 +67,7 @@ jobs:
 
       # Security: Upload artifacts with retention
       - name: Upload build artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: build-artifacts
           path: |
@@ -78,7 +78,7 @@ jobs:
 
       # Security: Upload test results
       - name: Upload test results
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         if: always()
         with:
           name: test-results

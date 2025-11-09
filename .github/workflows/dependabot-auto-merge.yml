@@ -17,35 +17,54 @@ jobs:
       - name: Check if PR is safe to auto-merge
         id: check
         run: |
-          # Only auto-merge patch and minor updates
-          # Major updates require manual review
+          # Auto-merge policy: Only patch updates (security fixes)
+          # Minor and major updates require manual review
           PR_TITLE="${{ github.event.pull_request.title }}"
           
-          # Check if it's a patch update (0.0.x)
-          if echo "$PR_TITLE" | grep -qE "bump.*from.*to.*\.[0-9]+\.[0-9]+"; then
-            echo "safe=true" >> $GITHUB_OUTPUT
-            echo "✅ Patch update detected - safe to auto-merge"
+          # Extract version numbers from PR title
+          # Dependabot format: "Bump {package} from X.Y.Z to A.B.C"
+          FROM_VERSION=$(echo "$PR_TITLE" | grep -oE "from [0-9]+\.[0-9]+\.[0-9]+" | cut -d' ' -f2)
+          TO_VERSION=$(echo "$PR_TITLE" | grep -oE "to [0-9]+\.[0-9]+\.[0-9]+" | cut -d' ' -f2)
+          
+          if [ -z "$FROM_VERSION" ] || [ -z "$TO_VERSION" ]; then
+            echo "safe=false" >> $GITHUB_OUTPUT
+            echo "⚠️ Could not parse version numbers - requires manual review"
             exit 0
           fi
           
-          # Check if it's a minor update (0.x.0)
-          if echo "$PR_TITLE" | grep -qE "bump.*from.*\.[0-9]+\.[0-9]+.*to.*\.[0-9]+\.[0-9]+"; then
-            # Extract version numbers
-            FROM_VERSION=$(echo "$PR_TITLE" | grep -oE "from [0-9]+\.[0-9]+\.[0-9]+" | cut -d' ' -f2)
-            TO_VERSION=$(echo "$PR_TITLE" | grep -oE "to [0-9]+\.[0-9]+\.[0-9]+" | cut -d' ' -f2)
-            
-            FROM_MAJOR=$(echo "$FROM_VERSION" | cut -d'.' -f1)
-            TO_MAJOR=$(echo "$TO_VERSION" | cut -d'.' -f1)
-            
-            if [ "$FROM_MAJOR" = "$TO_MAJOR" ]; then
-              echo "safe=true" >> $GITHUB_OUTPUT
-              echo "✅ Minor update detected - safe to auto-merge"
-              exit 0
-            fi
+          # Parse semantic version components (MAJOR.MINOR.PATCH)
+          FROM_MAJOR=$(echo "$FROM_VERSION" | cut -d'.' -f1)
+          FROM_MINOR=$(echo "$FROM_VERSION" | cut -d'.' -f2)
+          FROM_PATCH=$(echo "$FROM_VERSION" | cut -d'.' -f3)
+          
+          TO_MAJOR=$(echo "$TO_VERSION" | cut -d'.' -f1)
+          TO_MINOR=$(echo "$TO_VERSION" | cut -d'.' -f2)
+          TO_PATCH=$(echo "$TO_VERSION" | cut -d'.' -f3)
+          
+          # Check if it's a patch update (0.0.x) - only MAJOR and MINOR stay the same
+          if [ "$FROM_MAJOR" = "$TO_MAJOR" ] && [ "$FROM_MINOR" = "$TO_MINOR" ] && [ "$FROM_PATCH" != "$TO_PATCH" ]; then
+            echo "safe=true" >> $GITHUB_OUTPUT
+            echo "✅ Patch update detected ($FROM_VERSION → $TO_VERSION) - safe to auto-merge"
+            exit 0
           fi
           
+          # Check if it's a minor update (0.x.0) - requires manual review
+          if [ "$FROM_MAJOR" = "$TO_MAJOR" ] && [ "$FROM_MINOR" != "$TO_MINOR" ]; then
+            echo "safe=false" >> $GITHUB_OUTPUT
+            echo "⚠️ Minor update detected ($FROM_VERSION → $TO_VERSION) - requires manual review"
+            exit 0
+          fi
+          
+          # Check if it's a major update (x.0.0) - requires manual review
+          if [ "$FROM_MAJOR" != "$TO_MAJOR" ]; then
+            echo "safe=false" >> $GITHUB_OUTPUT
+            echo "🛑 Major update detected ($FROM_VERSION → $TO_VERSION) - requires manual review"
+            exit 0
+          fi
+          
+          # Fallback: unknown version change pattern
           echo "safe=false" >> $GITHUB_OUTPUT
-          echo "⚠️ Major update detected - requires manual review"
+          echo "⚠️ Unknown version change pattern ($FROM_VERSION → $TO_VERSION) - requires manual review"
           exit 0
 
       - name: Wait for checks to pass

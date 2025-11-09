@@ -50,7 +50,7 @@ jobs:
 
       - name: Wait for checks to pass
         if: steps.check.outputs.safe == 'true'
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             const maxWait = 300; // 5 minutes
@@ -81,7 +81,7 @@ jobs:
 
       - name: Auto-merge PR
         if: steps.check.outputs.safe == 'true'
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             await github.rest.pulls.merge({

@@ -53,7 +53,7 @@ jobs:
       # Security: Only use secrets on trusted branches (not forks)
       - name: Upload coverage
         if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: ./coverage/lcov.info

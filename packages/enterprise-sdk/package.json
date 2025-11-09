@@ -27,7 +27,7 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.39.0",
+    "@supabase/supabase-js": "^2.80.0",
     "jsonwebtoken": "^9.0.2",
     "posthog-js": "^1.146.1",
     "stripe": "^14.0.0"

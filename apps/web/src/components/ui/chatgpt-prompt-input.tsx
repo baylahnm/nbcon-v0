@@ -209,14 +209,65 @@ const toolsList = [
 ];
 
 const modelsList = [
-  { id: "opus-4.1", name: "Opus 4.1", description: "Deep brainstorming model. Consumes usage faster.", requiresUpgrade: true },
-  { id: "sonnet-4.5", name: "Sonnet 4.5", description: "Smartest for everyday tasks.", requiresUpgrade: false },
-  { id: "haiku-4.5", name: "Haiku 4.5", description: "Fastest for quick answers.", requiresUpgrade: false },
+  // Top performers based on 2025 HumanEval Pass@1 benchmarks
+  { id: "gemini-2.5-pro", name: "Gemini 2.5 Pro", description: "Top performer (~99% HumanEval). Large context window, best accuracy.", requiresUpgrade: true },
+  { id: "claude-sonnet-4.5", name: "Claude Sonnet 4.5", description: "Top coding model (~95% HumanEval). Strong in complex projects.", requiresUpgrade: true },
+  { id: "claude-opus-4", name: "Claude Opus 4", description: "Premium model (~94% HumanEval). Deep code analysis.", requiresUpgrade: true },
+  { id: "gpt-4o", name: "GPT-4o", description: "Fast, widely used (~90% HumanEval). GitHub Copilot standard.", requiresUpgrade: true },
+  { id: "gpt-4.5-turbo", name: "GPT-4.5 Turbo", description: "Latest OpenAI model (~88% HumanEval). Excellent for structured tasks.", requiresUpgrade: true },
+  { id: "deepseek-r1", name: "DeepSeek R1", description: "Open-source leader (~98% HumanEval). Strong math/reasoning.", requiresUpgrade: false },
+  { id: "sonnet-4.5", name: "Sonnet 4.5", description: "Smartest for everyday tasks. Balanced performance.", requiresUpgrade: false },
+  { id: "haiku-4.5", name: "Haiku 4.5", description: "Fastest for quick answers. Cost-effective.", requiresUpgrade: false },
 ];
 
+const moreModelsList = [
+  // Anthropic Models
+  { id: "opus-4.1", name: "Opus 4.1", description: "Deep brainstorming model. Consumes usage faster.", requiresUpgrade: true, provider: "Anthropic" },
+  { id: "claude-3.7-sonnet", name: "Claude 3.7 Sonnet", description: "Extended Thinking mode (~86-92% HumanEval).", requiresUpgrade: true, provider: "Anthropic" },
+  { id: "claude-3.5-sonnet", name: "Claude 3.5 Sonnet", description: "Previous generation (~88% HumanEval).", requiresUpgrade: true, provider: "Anthropic" },
+  // OpenAI Models
+  { id: "gpt-5", name: "GPT-5", description: "Latest general model from OpenAI.", requiresUpgrade: true, provider: "OpenAI" },
+  { id: "gpt-4-turbo", name: "GPT-4 Turbo", description: "Faster GPT-4 with extended context.", requiresUpgrade: true, provider: "OpenAI" },
+  { id: "gpt-4", name: "GPT-4", description: "Advanced reasoning and understanding.", requiresUpgrade: true, provider: "OpenAI" },
+  { id: "gpt-3.5-turbo", name: "GPT-3.5 Turbo", description: "Fast and cost-effective (~72% HumanEval).", requiresUpgrade: false, provider: "OpenAI" },
+  { id: "o3-mini", name: "o3-mini", description: "Reasoning-focused (~83-88% HumanEval). Cost-efficient.", requiresUpgrade: false, provider: "OpenAI" },
+  { id: "gpt-4o-mini", name: "GPT-4o mini", description: "Cost-optimized variant (~87% HumanEval).", requiresUpgrade: false, provider: "OpenAI" },
+  // Google Models
+  { id: "gemini-2.0-flash", name: "Gemini 2.0 Flash", description: "Fast multimodal model (~88-90% HumanEval).", requiresUpgrade: false, provider: "Google" },
+  // xAI Models
+  { id: "grok-4", name: "Grok 4", description: "Reasoning + multimodal (~84-98% HumanEval).", requiresUpgrade: true, provider: "xAI" },
+  { id: "grok-3", name: "Grok 3", description: "Advanced reasoning capabilities.", requiresUpgrade: true, provider: "xAI" },
+  { id: "grok-mini", name: "Grok Mini", description: "Lightweight reasoning model.", requiresUpgrade: false, provider: "xAI" },
+  // Meta Models
+  { id: "llama-3.1-405b", name: "Llama 3.1 405B", description: "Open-source general model (~89% HumanEval).", requiresUpgrade: true, provider: "Meta" },
+  { id: "llama-3.1-70b", name: "Llama 3.1 70B", description: "Open-source general model.", requiresUpgrade: true, provider: "Meta" },
+  { id: "llama-3.1-8b", name: "Llama 3.1 8B", description: "Efficient open-source model.", requiresUpgrade: false, provider: "Meta" },
+  { id: "llama-4-maverick", name: "Llama 4 Maverick", description: "Latest Meta model (~62% HumanEval).", requiresUpgrade: true, provider: "Meta" },
+  // Mistral Models
+  { id: "mistral-large", name: "Mistral Large", description: "MoE, open-source model (~85-90% HumanEval).", requiresUpgrade: true, provider: "Mistral" },
+  { id: "mixtral-8x7b", name: "Mixtral 8x7B", description: "High-quality MoE model.", requiresUpgrade: true, provider: "Mistral" },
+  // DeepSeek Models
+  { id: "deepseek-v3", name: "DeepSeek V3", description: "Leading open-source (~91% HumanEval).", requiresUpgrade: false, provider: "DeepSeek" },
+  { id: "deepseek-chat", name: "DeepSeek Chat", description: "Efficient reasoning/coding (~88-90% HumanEval).", requiresUpgrade: false, provider: "DeepSeek" },
+  { id: "deepseek-coder-67b", name: "DeepSeek Coder 67B", description: "Strong in code and math (~88-90% HumanEval).", requiresUpgrade: false, provider: "DeepSeek" },
+  { id: "deepseek-coder-33b", name: "DeepSeek Coder 33B", description: "Fast, reliable (~78% HumanEval).", requiresUpgrade: false, provider: "DeepSeek" },
+  { id: "deepseek-coder", name: "DeepSeek Coder", description: "Specialized for code generation.", requiresUpgrade: false, provider: "DeepSeek" },
+  // Other Models
+  { id: "qwen-2.5-max", name: "Qwen 2.5 Max", description: "Top-tier open-source (~87-93% HumanEval).", requiresUpgrade: false, provider: "Alibaba" },
+  { id: "qwen-2.5-coder-32b", name: "Qwen 2.5 Coder 32B", description: "Strong on math/coding (~87-93% HumanEval).", requiresUpgrade: false, provider: "Alibaba" },
+  { id: "codestral", name: "Codestral", description: "High accuracy across 17 languages (~81% HumanEval).", requiresUpgrade: false, provider: "Mistral" },
+  { id: "phi-3-mini", name: "Phi-3 Mini", description: "On-device small LLM.", requiresUpgrade: false, provider: "Microsoft" },
+];
+
+// Extended props for PromptBox
+interface PromptBoxProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
+  selectedModel?: string;
+  onModelChange?: (model: string) => void;
+}
+
 // --- The Final, Self-Contained PromptBox Component ---
-export const PromptBox = React.forwardRef<HTMLTextAreaElement, React.TextareaHTMLAttributes<HTMLTextAreaElement>>(
-  ({ className, ...props }, ref) => {
+export const PromptBox = React.forwardRef<HTMLTextAreaElement, PromptBoxProps>(
+  ({ className, selectedModel: controlledModel, onModelChange, ...props }, ref) => {
     const internalTextareaRef = React.useRef<HTMLTextAreaElement>(null);
     const fileInputRef = React.useRef<HTMLInputElement>(null);
     const [value, setValue] = React.useState("");
@@ -224,9 +275,30 @@ export const PromptBox = React.forwardRef<HTMLTextAreaElement, React.TextareaHTM
     const [selectedTool, setSelectedTool] = React.useState<string | null>(null);
     const [isPopoverOpen, setIsPopoverOpen] = React.useState(false);
     const [isImageDialogOpen, setIsImageDialogOpen] = React.useState(false);
-    const [selectedModel, setSelectedModel] = React.useState<string>("sonnet-4.5");
+    const [internalSelectedModel, setInternalSelectedModel] = React.useState<string>("claude-sonnet-4.5");
+    
+    // Use controlled model if provided, otherwise use internal state
+    const selectedModel = controlledModel !== undefined ? controlledModel : internalSelectedModel;
+    
+    const handleModelChange = (newModel: string) => {
+      if (onModelChange) {
+        onModelChange(newModel);
+      } else {
+        setInternalSelectedModel(newModel);
+      }
+    };
+
+    // Use controlled value when provided, otherwise use internal state
+    const displayValue = props.value !== undefined ? props.value : value;
 
     React.useImperativeHandle(ref, () => internalTextareaRef.current!, []);
+
+    // Sync internal state when prop changes
+    React.useEffect(() => {
+      if (props.value !== undefined) {
+        setValue(props.value);
+      }
+    }, [props.value]);
 
     React.useEffect(() => {
       const textarea = internalTextareaRef.current;
@@ -235,10 +307,11 @@ export const PromptBox = React.forwardRef<HTMLTextAreaElement, React.TextareaHTM
         const newHeight = Math.min(textarea.scrollHeight, 200);
         textarea.style.height = `${newHeight}px`;
       }
-    }, [value]);
+    }, [displayValue]);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-      setValue(e.target.value);
+      const newValue = e.target.value;
+      setValue(newValue);
       if (props.onChange) props.onChange(e);
     };
 
@@ -266,7 +339,7 @@ export const PromptBox = React.forwardRef<HTMLTextAreaElement, React.TextareaHTM
       }
     };
 
-    const hasValue = value.trim().length > 0 || imagePreview;
+    const hasValue = displayValue.trim().length > 0 || imagePreview;
 
     const activeTool = selectedTool ? toolsList.find((t) => t.id === selectedTool) : null;
     const ActiveToolIcon = activeTool?.icon;
@@ -298,7 +371,7 @@ export const PromptBox = React.forwardRef<HTMLTextAreaElement, React.TextareaHTM
         <textarea
           ref={internalTextareaRef}
           rows={1}
-          value={value}
+          value={displayValue}
           onChange={handleInputChange}
           placeholder="Message..."
           className="custom-scrollbar w-full resize-none border-0 bg-transparent p-3 text-foreground dark:text-white placeholder:text-muted-foreground dark:placeholder:text-gray-300 focus:ring-0 focus-visible:outline-none min-h-12"
@@ -371,7 +444,7 @@ export const PromptBox = React.forwardRef<HTMLTextAreaElement, React.TextareaHTM
                     <div className="inline-flex gap-[3px] text-[14px] h-[14px] leading-none items-baseline">
                       <div className="flex items-center gap-[4px]">
                         <div className="whitespace-nowrap select-none">
-                          {modelsList.find((m) => m.id === selectedModel)?.name || "Sonnet 4.5"}
+                          {modelsList.find((m) => m.id === selectedModel)?.name || moreModelsList.find((m) => m.id === selectedModel)?.name || "Claude Sonnet 4.5"}
                         </div>
                       </div>
                     </div>
@@ -387,7 +460,7 @@ export const PromptBox = React.forwardRef<HTMLTextAreaElement, React.TextareaHTM
                   align="end"
                   className="z-50 bg-popover dark:bg-[#303030] border border-border dark:border-[#2d2d2d] backdrop-blur-xl rounded-xl min-w-[20rem] overflow-hidden p-1.5 text-popover-foreground dark:text-white shadow-lg max-h-[min(var(--radix-dropdown-menu-content-available-height),400px)] overflow-y-auto"
                 >
-                  <DropdownMenuRadioGroup value={selectedModel} onValueChange={setSelectedModel}>
+                  <DropdownMenuRadioGroup value={selectedModel} onValueChange={handleModelChange}>
                     {modelsList.map((model) => (
                       <DropdownMenuRadioItem
                         key={model.id}
@@ -423,8 +496,46 @@ export const PromptBox = React.forwardRef<HTMLTextAreaElement, React.TextareaHTM
                     <DropdownMenuSubTrigger className="py-1.5 px-2 rounded-lg cursor-pointer whitespace-nowrap overflow-hidden text-ellipsis grid grid-cols-[minmax(0,_1fr)_auto] gap-2 items-center outline-none select-none hover:bg-accent dark:hover:bg-[#515151] focus:bg-accent dark:focus:bg-[#515151] pl-2 gap-2">
                       <div className="group-hover:text-foreground dark:group-hover:text-white text-sm">More models</div>
                     </DropdownMenuSubTrigger>
-                    <DropdownMenuSubContent className="bg-popover dark:bg-[#303030] border border-border dark:border-[#2d2d2d] rounded-xl">
-                      <DropdownMenuItem className="py-1.5 px-2 text-sm">Coming soon...</DropdownMenuItem>
+                    <DropdownMenuSubContent 
+                      side="right" 
+                      align="start"
+                      sideOffset={4}
+                      className="bg-popover dark:bg-[#303030] border border-border dark:border-[#2d2d2d] rounded-xl min-w-[20rem] max-h-[400px] overflow-y-auto z-50"
+                    >
+                      <DropdownMenuRadioGroup value={selectedModel} onValueChange={handleModelChange}>
+                        {moreModelsList.map((model) => (
+                          <DropdownMenuRadioItem
+                            key={model.id}
+                            value={model.id}
+                            className="py-1.5 px-2 rounded-lg cursor-pointer whitespace-nowrap overflow-hidden text-ellipsis grid grid-cols-[minmax(0,_1fr)_auto] gap-2 items-center outline-none select-none hover:bg-accent dark:hover:bg-[#515151] focus:bg-accent dark:focus:bg-[#515151] group pr-1 pl-2 !pl-2 [&>span]:left-auto [&>span]:right-2 [&>span]:absolute"
+                          >
+                            <div>
+                              <div className="flex items-center">
+                                <div className="flex-1 text-sm">
+                                  <div className="flex items-center gap-1.5">
+                                    <div className="font-medium">{model.name}</div>
+                                    {model.provider && (
+                                      <span className="text-xs text-muted-foreground dark:text-gray-400">({model.provider})</span>
+                                    )}
+                                  </div>
+                                </div>
+                                {model.requiresUpgrade && (
+                                  <button
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      // Handle upgrade
+                                    }}
+                                    className="border border-border dark:border-[#515151] text-blue-600 dark:text-blue-400 px-1.5 py-px rounded-3xl text-xs cursor-pointer hover:border-border/80 dark:hover:border-[#666] transition-colors mt-0.5 ml-2 -mr-1 flex-shrink-0"
+                                  >
+                                    Upgrade
+                                  </button>
+                                )}
+                              </div>
+                              <div className="text-muted-foreground dark:text-gray-400 pr-4 text-xs mt-1">{model.description}</div>
+                            </div>
+                          </DropdownMenuRadioItem>
+                        ))}
+                      </DropdownMenuRadioGroup>
                     </DropdownMenuSubContent>
                   </DropdownMenuSub>
                 </DropdownMenuContent>

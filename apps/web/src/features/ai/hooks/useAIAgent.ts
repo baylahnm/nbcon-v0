@@ -6,7 +6,7 @@ import type { AgentRequest, AgentResponse } from "@nbcon/ai-core";
 
 type AgentKey = keyof typeof agentRegistry;
 
-export function useAIAgent(agentKey: AgentKey) {
+export function useAIAgent(agentKey: AgentKey, options?: { model?: string; provider?: string }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const agent = agentRegistry[agentKey];
@@ -15,7 +15,7 @@ export function useAIAgent(agentKey: AgentKey) {
     throw new Error(`Agent "${agentKey}" not found in registry`);
   }
 
-  const runAgent = async (params: AgentRequest): Promise<AgentResponse> => {
+  const runAgent = async (params: AgentRequest & { model?: string; provider?: string }): Promise<AgentResponse> => {
     setLoading(true);
     setError(null);
 
@@ -51,8 +51,12 @@ export function useAIAgent(agentKey: AgentKey) {
         }
       }
 
-      const body = {
-        model: agent.model,
+      // Use provided model or fall back to agent model
+      const model = params.model || options?.model || agent.model;
+      const provider = params.provider || options?.provider;
+
+      const body: any = {
+        model: model,
         messages: [
           {
             role: "system" as const,
@@ -66,6 +70,11 @@ export function useAIAgent(agentKey: AgentKey) {
         temperature: params.options?.temperature || agent.temperature || 0.3,
         max_tokens: params.options?.maxTokens || agent.maxTokens || 4000,
       };
+
+      // Add provider if explicitly provided
+      if (provider) {
+        body.provider = provider;
+      }
 
       // Call API route
       const res = await fetch("/api/ai/run", {
@@ -94,26 +103,49 @@ export function useAIAgent(agentKey: AgentKey) {
         }
       }
 
-      // Log to Supabase
-      const { data: logData, error: logError } = await supabase.from("ai_logs").insert({
+      // Log to Supabase with conversation_id if provided
+      const logData: any = {
         user_id: user!.id,
         agent: agent.id,
         input: params.prompt,
         output: data.output || "",
         tokens_used: data.tokens || 0,
-      }).select().single();
+      };
+
+      // Add conversation_id if provided (from params or type assertion)
+      if ((params as any).conversationId) {
+        logData.conversation_id = (params as any).conversationId;
+      }
+
+      const { data: insertedLogData, error: logError } = await supabase.from("ai_logs").insert(logData).select().single();
 
       if (logError) {
         console.error("Error logging AI request:", logError);
       } else {
+        // Save initial version to response_versions table
+        if (insertedLogData?.id && data.output) {
+          const { error: versionError } = await supabase.from("response_versions").insert({
+            message_id: insertedLogData.id,
+            version_number: 1,
+            content: data.output,
+            tokens_used: data.tokens || 0,
+          });
+
+          if (versionError) {
+            console.error("Error saving initial version:", versionError);
+            // Don't fail the request if version save fails
+          }
+        }
+
         // Track to PostHog for telemetry
         track("ai_agent_request", {
           agent_id: agent.id,
           agent_key: agentKey,
           agent_context: agent.context,
-          model: agent.model,
+          model: model, // Use actual model being used
+          provider: provider, // Include provider if provided
           tokens_used: data.tokens || 0,
-          log_id: logData?.id,
+          log_id: insertedLogData?.id,
           user_id: user!.id,
           prompt_length: params.prompt.length,
           response_length: data.output?.length || 0,
@@ -125,13 +157,18 @@ export function useAIAgent(agentKey: AgentKey) {
         track("ai_token_usage", {
           agent_id: agent.id,
           tokens: data.tokens || 0,
-          model: agent.model,
+          model: model, // Use actual model being used
+          provider: provider, // Include provider if provided
           user_id: user!.id,
         });
       }
 
       setLoading(false);
-      return data;
+      // Return data with logId for feedback tracking
+      return {
+        ...data,
+        logId: insertedLogData?.id,
+      };
     } catch (err: unknown) {
       // Track errors to PostHog
       const errorMessage = err instanceof Error ? err.message : "Unknown error";

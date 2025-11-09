@@ -11,10 +11,13 @@
     "prebuild": "pnpm --filter @nbcon/config build"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.68.0",
+    "@google/generative-ai": "^0.24.1",
     "@lobehub/icons": "^2.43.1",
+    "@mistralai/mistralai": "^1.10.0",
+    "@nbcon/ai-core": "workspace:*",
     "@nbcon/config": "workspace:*",
     "@nbcon/enterprise-sdk": "workspace:*",
-    "@nbcon/ai-core": "workspace:*",
     "@radix-ui/react-accordion": "^1.2.12",
     "@radix-ui/react-avatar": "^1.1.10",
     "@radix-ui/react-collapsible": "^1.1.12",

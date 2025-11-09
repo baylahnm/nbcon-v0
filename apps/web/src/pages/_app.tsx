@@ -5,6 +5,7 @@ import "@/styles/globals.css";
 import "@/styles/theme.css";
 import { I18nProvider } from "@/lib/i18n/context";
 import PublicLayout from "@/components/layout/PublicLayout";
+import { ToastProvider } from "@/components/ui/toast";
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -37,13 +38,15 @@ export default function App({ Component, pageProps }: AppProps) {
         enableSystem
         disableTransitionOnChange={false}
       >
-        {isPublicRoute ? (
-          <PublicLayout>
+        <ToastProvider>
+          {isPublicRoute ? (
+            <PublicLayout>
+              <Component {...pageProps} />
+            </PublicLayout>
+          ) : (
             <Component {...pageProps} />
-          </PublicLayout>
-        ) : (
-          <Component {...pageProps} />
-        )}
+          )}
+        </ToastProvider>
       </NextThemesProvider>
     </I18nProvider>
   );

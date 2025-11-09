@@ -20,26 +20,34 @@ import {
 } from "@/components/ui/sidebar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useUserProfile } from "@/hooks/useUserProfile";
-import { useJobs } from "@/hooks/useJobs";
+import { useConversations } from "@/hooks/useConversations";
 import { NbconLogo } from "@/components/ui/nbcon-logo";
 import { UserMenu } from "./UserMenu";
+import { useRouter } from "next/router";
 
 export function DashboardSidebar() {
   const { profile, isLoading: profileLoading } = useUserProfile();
-  const { jobs, isLoading: jobsLoading } = useJobs();
-  const [isCreatingJob, setIsCreatingJob] = React.useState(false);
+  const { conversations, isLoading: conversationsLoading, createConversation } = useConversations();
+  const router = useRouter();
+  const [isCreatingConversation, setIsCreatingConversation] = React.useState(false);
 
-  const handleNewJob = async () => {
-    setIsCreatingJob(true);
+  const handleNewChat = async () => {
+    setIsCreatingConversation(true);
     try {
-      // Create a new job/conversation
-      // For now, redirect to dashboard - in the future, create a job and navigate to it
-      // Create new job - for now just refresh
-      window.location.href = "/dashboard";
+      // Create a new conversation with default title
+      const newConversation = await createConversation("New Chat");
+      if (newConversation) {
+        // Navigate to the new conversation
+        router.push(`/dashboard?conversation=${newConversation.id}`);
+      } else {
+        // Fallback: just navigate to dashboard
+        router.push("/dashboard");
+      }
     } catch (error) {
-      console.error("Error creating job:", error);
+      console.error("Error creating conversation:", error);
+      router.push("/dashboard");
     } finally {
-      setIsCreatingJob(false);
+      setIsCreatingConversation(false);
     }
   };
 
@@ -68,13 +76,13 @@ export function DashboardSidebar() {
           <SidebarMenu>
             <SidebarMenuItem>
               <SidebarMenuButton
-                onClick={handleNewJob}
-                disabled={isCreatingJob}
+                onClick={handleNewChat}
+                disabled={isCreatingConversation}
                 className="w-full"
               >
                 <Plus className="h-4 w-4" />
                 <span className="group-data-[collapsible=icon]:hidden">
-                  New Chat
+                  {isCreatingConversation ? "Creating..." : "New Chat"}
                 </span>
               </SidebarMenuButton>
             </SidebarMenuItem>
@@ -96,28 +104,31 @@ export function DashboardSidebar() {
             Recent Chats
           </SidebarGroupLabel>
           <SidebarMenu>
-            {jobsLoading ? (
+            {conversationsLoading ? (
               <SidebarMenuItem>
                 <div className="px-2 py-1.5 text-sm text-muted-foreground">
                   Loading...
                 </div>
               </SidebarMenuItem>
-            ) : jobs.length === 0 ? (
+            ) : conversations.length === 0 ? (
               <SidebarMenuItem>
                 <div className="px-2 py-1.5 text-sm text-muted-foreground group-data-[collapsible=icon]:hidden">
                   No recent chats
                 </div>
               </SidebarMenuItem>
             ) : (
-              jobs.map((job) => (
-                <SidebarMenuItem key={job.id}>
-                  <SidebarMenuButton asChild>
-                    <a href={`/jobs/${job.id}`}>
-                      <MessageSquare className="h-4 w-4" />
-                      <span className="truncate group-data-[collapsible=icon]:hidden">
-                        {job.title}
-                      </span>
-                    </a>
+              conversations.map((conversation) => (
+                <SidebarMenuItem key={conversation.id}>
+                  <SidebarMenuButton
+                    onClick={() => {
+                      router.push(`/dashboard?conversation=${conversation.id}`);
+                    }}
+                    className="w-full"
+                  >
+                    <MessageSquare className="h-4 w-4" />
+                    <span className="truncate group-data-[collapsible=icon]:hidden">
+                      {conversation.title}
+                    </span>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))

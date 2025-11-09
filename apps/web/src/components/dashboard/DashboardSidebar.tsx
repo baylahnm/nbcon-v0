@@ -37,8 +37,8 @@ export function DashboardSidebar() {
       // Create a new conversation with default title
       const newConversation = await createConversation("New Chat");
       if (newConversation) {
-        // Navigate to the new conversation
-        router.push(`/dashboard?conversation=${newConversation.id}`);
+        // Navigate to the new conversation using dynamic route
+        router.push(`/chat/${newConversation.id}`);
       } else {
         // Fallback: just navigate to dashboard
         router.push("/dashboard");
@@ -121,7 +121,7 @@ export function DashboardSidebar() {
                 <SidebarMenuItem key={conversation.id}>
                   <SidebarMenuButton
                     onClick={() => {
-                      router.push(`/dashboard?conversation=${conversation.id}`);
+                      router.push(`/chat/${conversation.id}`);
                     }}
                     className="w-full"
                   >

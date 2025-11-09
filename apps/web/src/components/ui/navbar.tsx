@@ -138,41 +138,41 @@ export function Navbar() {
 
               {/* Features */}
               <NavigationMenuItem>
-                <Link href="/features" legacyBehavior passHref>
-                  <NavigationMenuLink className={cn(
+                <NavigationMenuLink asChild>
+                  <Link href="/features" className={cn(
                     "group inline-flex h-9 w-max items-center justify-center rounded-md px-3 py-1 text-sm font-medium transition-colors",
                     "text-foreground/80 hover:text-foreground hover:bg-accent hover:text-accent-foreground",
                     "focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50"
                   )}>
                     Features
-                  </NavigationMenuLink>
-                </Link>
+                  </Link>
+                </NavigationMenuLink>
               </NavigationMenuItem>
 
               {/* Enterprise */}
               <NavigationMenuItem>
-                <Link href="/enterprise" legacyBehavior passHref>
-                  <NavigationMenuLink className={cn(
+                <NavigationMenuLink asChild>
+                  <Link href="/enterprise" className={cn(
                     "group inline-flex h-9 w-max items-center justify-center rounded-md px-3 py-1 text-sm font-medium transition-colors",
                     "text-foreground/80 hover:text-foreground hover:bg-accent hover:text-accent-foreground",
                     "focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50"
                   )}>
                     Enterprise
-                  </NavigationMenuLink>
-                </Link>
+                  </Link>
+                </NavigationMenuLink>
               </NavigationMenuItem>
 
               {/* Pricing */}
               <NavigationMenuItem>
-                <Link href="/pricing" legacyBehavior passHref>
-                  <NavigationMenuLink className={cn(
+                <NavigationMenuLink asChild>
+                  <Link href="/pricing" className={cn(
                     "group inline-flex h-9 w-max items-center justify-center rounded-md px-3 py-1 text-sm font-medium transition-colors",
                     "text-foreground/80 hover:text-foreground hover:bg-accent hover:text-accent-foreground",
                     "focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50"
                   )}>
                     Pricing
-                  </NavigationMenuLink>
-                </Link>
+                  </Link>
+                </NavigationMenuLink>
               </NavigationMenuItem>
 
               {/* Resources Dropdown */}
@@ -274,41 +274,41 @@ export function Navbar() {
 
               {/* iOS */}
               <NavigationMenuItem>
-                <Link href="/ios" legacyBehavior passHref>
-                  <NavigationMenuLink className={cn(
+                <NavigationMenuLink asChild>
+                  <Link href="/ios" className={cn(
                     "group inline-flex h-9 w-max items-center justify-center rounded-md px-3 py-1 text-sm font-medium transition-colors",
                     "text-foreground/80 hover:text-foreground hover:bg-accent hover:text-accent-foreground",
                     "focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50"
                   )}>
                     iOS
-                  </NavigationMenuLink>
-                </Link>
+                  </Link>
+                </NavigationMenuLink>
               </NavigationMenuItem>
 
               {/* Students */}
               <NavigationMenuItem>
-                <Link href="/students" legacyBehavior passHref>
-                  <NavigationMenuLink className={cn(
+                <NavigationMenuLink asChild>
+                  <Link href="/students" className={cn(
                     "group inline-flex h-9 w-max items-center justify-center rounded-md px-3 py-1 text-sm font-medium transition-colors",
                     "text-foreground/80 hover:text-foreground hover:bg-accent hover:text-accent-foreground",
                     "focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50"
                   )}>
                     Students
-                  </NavigationMenuLink>
-                </Link>
+                  </Link>
+                </NavigationMenuLink>
               </NavigationMenuItem>
 
               {/* FAQ */}
               <NavigationMenuItem>
-                <Link href="/faq" legacyBehavior passHref>
-                  <NavigationMenuLink className={cn(
+                <NavigationMenuLink asChild>
+                  <Link href="/faq" className={cn(
                     "group inline-flex h-9 w-max items-center justify-center rounded-md px-3 py-1 text-sm font-medium transition-colors",
                     "text-foreground/80 hover:text-foreground hover:bg-accent hover:text-accent-foreground",
                     "focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50"
                   )}>
                     FAQ
-                  </NavigationMenuLink>
-                </Link>
+                  </Link>
+                </NavigationMenuLink>
               </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>

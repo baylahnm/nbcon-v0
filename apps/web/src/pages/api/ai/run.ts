@@ -3,7 +3,6 @@ import OpenAI from "openai";
 import Anthropic from "@anthropic-ai/sdk";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import MistralClient from "@mistralai/mistralai";
-import { AIRequestSchema } from "@nbcon/ai-core";
 import { z } from "zod";
 
 interface AIResponse {
@@ -12,6 +11,20 @@ interface AIResponse {
 }
 
 type Provider = "openai" | "anthropic" | "google" | "mistral" | "xai";
+
+// Create schema inline to avoid Zod version compatibility issues with @nbcon/ai-core
+// This matches the structure of AIRequestSchema from @nbcon/ai-core
+const AIRequestSchema = z.object({
+  model: z.string(),
+  messages: z.array(
+    z.object({
+      role: z.enum(["system", "user", "assistant"]),
+      content: z.string(),
+    })
+  ),
+  temperature: z.number().optional().default(0.3),
+  max_tokens: z.number().optional().default(4000),
+});
 
 // Extended schema to accept optional provider
 const ExtendedAIRequestSchema = AIRequestSchema.extend({

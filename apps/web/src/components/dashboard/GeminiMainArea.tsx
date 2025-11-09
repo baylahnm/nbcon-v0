@@ -54,31 +54,69 @@ export function GeminiMainArea() {
   const [messages, setMessages] = React.useState<Message[]>([]);
   const [currentConversationId, setCurrentConversationId] = React.useState<string | null>(null);
   const [isLoadingConversation, setIsLoadingConversation] = React.useState(false);
+  const [conversationError, setConversationError] = React.useState<string | null>(null);
 
-  // Get conversation ID from URL query params
-  const conversationIdFromUrl = router.query.conversation as string | undefined;
+  // Get conversation ID from URL - support both dynamic route (/chat/:id) and query param (?conversation=id)
+  const conversationIdFromRoute = router.query.conversationId as string | undefined;
+  const conversationIdFromQuery = router.query.conversation as string | undefined;
+  const conversationIdFromUrl = conversationIdFromRoute || conversationIdFromQuery;
 
-  // Load conversation when ID changes
+  // Load conversation when ID changes (only when router is ready)
   React.useEffect(() => {
     async function loadConversation() {
+      // Wait for router to be ready before accessing query params
+      if (!router.isReady) {
+        return;
+      }
+
       if (!conversationIdFromUrl) {
         setCurrentConversationId(null);
         setMessages([]);
+        setConversationError(null);
+        return;
+      }
+
+      // Prevent loading the same conversation twice
+      if (currentConversationId === conversationIdFromUrl) {
         return;
       }
 
       setIsLoadingConversation(true);
+      setConversationError(null);
+      
       try {
         const { data: { user } } = await supabase.auth.getUser();
-        if (!user) return;
+        if (!user) {
+          setConversationError("Authentication required");
+          setIsLoadingConversation(false);
+          return;
+        }
 
         const response = await fetch(`/api/conversations/${conversationIdFromUrl}`);
+        
         if (!response.ok) {
-          console.error("Failed to load conversation");
+          if (response.status === 404) {
+            setConversationError("Conversation not found");
+            // Clear invalid conversation ID from state
+            setCurrentConversationId(null);
+            setMessages([]);
+            // Optionally redirect to dashboard without conversation
+            router.replace("/dashboard", undefined, { shallow: true });
+          } else if (response.status === 401) {
+            setConversationError("Unauthorized to access this conversation");
+          } else {
+            setConversationError("Failed to load conversation");
+          }
           return;
         }
 
         const conversation = await response.json();
+        
+        if (!conversation || !conversation.id) {
+          setConversationError("Invalid conversation data");
+          return;
+        }
+
         setCurrentConversationId(conversation.id);
 
         // Convert conversation messages to Message format
@@ -86,18 +124,24 @@ export function GeminiMainArea() {
           role: msg.role,
           content: msg.content,
           timestamp: new Date(msg.created_at),
+          messageId: msg.id?.includes("-response") ? undefined : msg.id,
         }));
 
         setMessages(loadedMessages);
+        setConversationError(null);
       } catch (error) {
         console.error("Error loading conversation:", error);
+        setConversationError(error instanceof Error ? error.message : "Failed to load conversation");
+        setCurrentConversationId(null);
+        setMessages([]);
       } finally {
         setIsLoadingConversation(false);
       }
     }
 
     loadConversation();
-  }, [conversationIdFromUrl]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [conversationIdFromUrl, router.isReady, router.asPath]);
 
   const displayName = profile?.full_name || profile?.username || profile?.email?.split("@")[0] || "there";
   
@@ -172,8 +216,8 @@ export function GeminiMainArea() {
       if (newConversation) {
         conversationId = newConversation.id;
         setCurrentConversationId(conversationId);
-        // Update URL with conversation ID
-        router.push(`/dashboard?conversation=${conversationId}`, undefined, { shallow: true });
+        // Update URL with conversation ID using dynamic route
+        router.push(`/chat/${conversationId}`, undefined, { shallow: true });
       }
     } else {
       // Update conversation title if this is the first message
@@ -225,201 +269,329 @@ export function GeminiMainArea() {
     }
   };
 
+  const hasMessages = messages.length > 0;
+  const showCenteredLayout = !hasMessages && !isLoadingConversation && !conversationError;
+
   return (
-    <div className="flex flex-1 flex-col items-center justify-center p-8">
-      <div className="w-full max-w-3xl space-y-8">
-        {/* Plan Badge */}
-        <div className="flex justify-center">
-          <div className="ml-0.5 inline-flex items-center gap-1.5 rounded-lg h-8 px-2.5 text-center text-sm bg-[#fafafa] dark:bg-[#181818] text-muted-foreground select-none">
-            {tierLoading ? (
-              <span className="h-4 w-16 bg-muted-foreground/20 rounded animate-pulse" />
-            ) : (
-              <>
-                {planLabel}
-                <div className="size-[3px] bg-muted-foreground/30 rounded-full mt-0.5" />
-                {tier === "free" ? (
-                  <Link className="inline underline hover:no-underline cursor-pointer" href="/?settings=billing">
-                    Upgrade
+    <div className="flex flex-1 flex-col h-full overflow-hidden">
+      {hasMessages ? (
+        // Chat mode: Messages scrollable, input sticky at bottom
+        <>
+          <div className="flex-1 overflow-y-auto p-8">
+            <div className="w-full max-w-3xl mx-auto space-y-8">
+              {/* Plan Badge */}
+              <div className="flex justify-center">
+                <div className="ml-0.5 inline-flex items-center gap-1.5 rounded-lg h-8 px-2.5 text-center text-sm bg-[#fafafa] dark:bg-[#181818] text-muted-foreground select-none">
+                  {tierLoading ? (
+                    <span className="h-4 w-16 bg-muted-foreground/20 rounded animate-pulse" />
+                  ) : (
+                    <>
+                      {planLabel}
+                      <div className="size-[3px] bg-muted-foreground/30 rounded-full mt-0.5" />
+                      {tier === "free" ? (
+                        <Link className="inline underline hover:no-underline cursor-pointer" href="/?settings=billing">
+                          Upgrade
+                        </Link>
+                      ) : (
+                        <span className="text-xs opacity-70">Active</span>
+                      )}
+                    </>
+                  )}
+                </div>
+              </div>
+
+              {/* Messages Display */}
+              <div className="w-full space-y-4 p-4 border rounded-lg bg-background">
+                {messages.map((msg, idx) => (
+                  <div
+                    key={idx}
+                    className={`flex flex-col gap-2 ${msg.role === "user" ? "items-end" : "items-start"}`}
+                  >
+                    <div className={`flex items-start gap-2 ${msg.role === "user" ? "flex-row-reverse" : "flex-row"}`}>
+                      <div
+                        className={`max-w-[80%] rounded-lg p-3 ${
+                          msg.role === "user"
+                            ? "bg-primary text-primary-foreground"
+                            : "bg-muted text-foreground"
+                        }`}
+                      >
+                        <p className="text-sm whitespace-pre-wrap">{msg.content}</p>
+                      </div>
+                      <CopyButton
+                        text={msg.content}
+                        label={msg.role === "user" ? "Copy prompt" : "Copy response"}
+                      />
+                    </div>
+                    {msg.role === "assistant" && msg.messageId && (
+                      <div className="flex items-center gap-2">
+                        <FeedbackButtons messageId={msg.messageId} />
+                        <RegenerateButton
+                          messageId={msg.messageId}
+                          conversationId={currentConversationId || undefined}
+                          agentKey={selectedAgent}
+                          onRegenerated={(newVersion) => {
+                            // Update the message content with regenerated version
+                            setMessages((prev) =>
+                              prev.map((m) =>
+                                m.messageId === msg.messageId
+                                  ? {
+                                      ...m,
+                                      content: newVersion.output,
+                                      versionNumber: newVersion.version_number,
+                                    }
+                                  : m
+                              )
+                            );
+                          }}
+                        />
+                        {currentConversationId && (
+                          <ShareMenu
+                            conversationId={currentConversationId}
+                            conversationTitle={messages.find((m) => m.role === "user")?.content || "Conversation"}
+                          />
+                        )}
+                      </div>
+                    )}
+                  </div>
+                ))}
+                {agentLoading && (
+                  <div className="flex justify-start">
+                    <div className="bg-muted text-foreground rounded-lg p-3">
+                      <div className="flex items-center gap-2">
+                        <div className="h-2 w-2 bg-current rounded-full animate-pulse" />
+                        <span className="text-sm">Thinking...</span>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Error Display */}
+              {agentError && (
+                <div className="w-full p-4 bg-destructive/10 border border-destructive/20 rounded-lg flex items-center gap-2">
+                  <AlertCircle className="h-5 w-5 text-destructive" />
+                  <p className="text-sm text-destructive">{agentError}</p>
+                </div>
+              )}
+
+              {/* Credit Exhausted Warning */}
+              {!canUse && tier !== "enterprise" && !creditsLoading && (
+                <div className="w-full p-4 bg-yellow-500/10 border border-yellow-500/20 rounded-lg flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <AlertCircle className="h-5 w-5 text-yellow-600 dark:text-yellow-400" />
+                    <p className="text-sm text-yellow-600 dark:text-yellow-400">
+                      Daily credits exhausted ({creditsUsed}/{creditsLimit}). Upgrade to continue.
+                    </p>
+                  </div>
+                  <Link href="/?settings=billing">
+                    <Button size="sm" variant="outline">
+                      Upgrade
+                    </Button>
                   </Link>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Sticky Chat Input with Status Bar */}
+          <div className="sticky bottom-0 w-full bg-background border-t border-border pt-4 pb-4 px-8">
+            <div className="w-full max-w-3xl mx-auto">
+              <form onSubmit={handleSubmit} className="w-full">
+                <PromptBox
+                  value={inputValue}
+                  onChange={(e) => setInputValue(e.target.value)}
+                  selectedModel={selectedModel}
+                  onModelChange={setSelectedModel}
+                  className="w-full"
+                />
+              </form>
+
+              {/* Status Bar Footer */}
+              <div className="w-full max-w-[calc(100%-2rem)] mx-auto border-t border-border/50 relative z-0 px-3.5 m-0 rounded-b-[15px] border-t-0 pb-2 pt-2 bg-[#fafafa] dark:bg-[#181818] border-transparent mt-0">
+                <div className="w-full">
+                  <div className="flex w-full flex-col items-center md:flex-row gap-2">
+                    <div className="flex flex-row items-center gap-2 md:w-full text-muted-foreground">
+                      {creditsLoading ? (
+                        <div className="h-4 w-32 bg-muted-foreground/20 rounded animate-pulse" />
+                      ) : (
+                        <div className="text-xs font-normal">
+                          {tier === "enterprise" ? (
+                            "Unlimited credits"
+                          ) : (
+                            `Credits: ${creditsUsed}/${creditsLimit} ∙ Resets midnight UTC`
+                          )}
+                        </div>
+                      )}
+                    </div>
+                    {tier === "free" && (
+                      <div className="w-full whitespace-nowrap md:w-fit">
+                        <Link className="inline underline hover:no-underline cursor-pointer text-xs font-normal" href="/?settings=billing">
+                          Upgrade
+                        </Link>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </>
+      ) : (
+        // Initial mode: Centered layout with greeting, input, and quick actions
+        <div className="flex-1 flex flex-col items-center justify-center p-8">
+          <div className="w-full max-w-3xl space-y-8">
+            {/* Plan Badge */}
+            <div className="flex justify-center">
+              <div className="ml-0.5 inline-flex items-center gap-1.5 rounded-lg h-8 px-2.5 text-center text-sm bg-[#fafafa] dark:bg-[#181818] text-muted-foreground select-none">
+                {tierLoading ? (
+                  <span className="h-4 w-16 bg-muted-foreground/20 rounded animate-pulse" />
                 ) : (
-                  <span className="text-xs opacity-70">Active</span>
+                  <>
+                    {planLabel}
+                    <div className="size-[3px] bg-muted-foreground/30 rounded-full mt-0.5" />
+                    {tier === "free" ? (
+                      <Link className="inline underline hover:no-underline cursor-pointer" href="/?settings=billing">
+                        Upgrade
+                      </Link>
+                    ) : (
+                      <span className="text-xs opacity-70">Active</span>
+                    )}
+                  </>
+                )}
+              </div>
+            </div>
+
+            {/* Greeting */}
+            <div className="text-center space-y-2">
+              {isLoading ? (
+                <div className="h-8 w-64 bg-muted rounded animate-pulse mx-auto" />
+              ) : (
+                <h1 className="text-4xl md:text-5xl font-light text-foreground">
+                  Hello, {displayName}
+                </h1>
+              )}
+              <p className="text-lg text-muted-foreground">
+                How can I help you today?
+              </p>
+            </div>
+
+            {/* Conversation Error Display */}
+            {conversationError && (
+              <div className="w-full p-4 bg-destructive/10 border border-destructive/20 rounded-lg flex items-center gap-2">
+                <AlertCircle className="h-5 w-5 text-destructive" />
+                <div className="flex-1">
+                  <p className="text-sm text-destructive">{conversationError}</p>
+                  <button
+                    onClick={() => {
+                      setConversationError(null);
+                      router.push("/dashboard", undefined, { shallow: true });
+                    }}
+                    className="text-xs text-destructive underline mt-1 hover:no-underline"
+                  >
+                    Start new conversation
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* Loading Conversation */}
+            {isLoadingConversation && (
+              <div className="w-full p-4 text-center text-muted-foreground">
+                Loading conversation...
+              </div>
+            )}
+
+            {/* Centered Chat Input */}
+            {showCenteredLayout && (
+              <>
+                <div className="w-full">
+                  <form onSubmit={handleSubmit} className="w-full">
+                    <PromptBox
+                      value={inputValue}
+                      onChange={(e) => setInputValue(e.target.value)}
+                      selectedModel={selectedModel}
+                      onModelChange={setSelectedModel}
+                      className="w-full"
+                    />
+                  </form>
+
+                  {/* Status Bar Footer */}
+                  <div className="w-full max-w-[calc(100%-2rem)] mx-auto border-t border-border/50 relative z-0 px-3.5 m-0 rounded-b-[15px] border-t-0 pb-2 pt-2 bg-[#fafafa] dark:bg-[#181818] border-transparent mt-0">
+                    <div className="w-full">
+                      <div className="flex w-full flex-col items-center md:flex-row gap-2">
+                        <div className="flex flex-row items-center gap-2 md:w-full text-muted-foreground">
+                          {creditsLoading ? (
+                            <div className="h-4 w-32 bg-muted-foreground/20 rounded animate-pulse" />
+                          ) : (
+                            <div className="text-xs font-normal">
+                              {tier === "enterprise" ? (
+                                "Unlimited credits"
+                              ) : (
+                                `Credits: ${creditsUsed}/${creditsLimit} ∙ Resets midnight UTC`
+                              )}
+                            </div>
+                          )}
+                        </div>
+                        {tier === "free" && (
+                          <div className="w-full whitespace-nowrap md:w-fit">
+                            <Link className="inline underline hover:no-underline cursor-pointer text-xs font-normal" href="/?settings=billing">
+                              Upgrade
+                            </Link>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Quick Actions */}
+                <div className="flex flex-wrap items-center justify-center gap-2">
+                  {quickActions.map((action) => {
+                    const Icon = action.icon;
+                    return (
+                      <Button
+                        key={action.id}
+                        variant="outline"
+                        size="sm"
+                        onClick={action.onClick}
+                        className="h-9 rounded-full border-border bg-[#fafafa] dark:bg-[#181818] hover:bg-accent hover:text-accent-foreground"
+                      >
+                        <Icon className="mr-2 h-4 w-4" />
+                        {action.label}
+                      </Button>
+                    );
+                  })}
+                </div>
+
+                {/* Error Display */}
+                {agentError && (
+                  <div className="w-full p-4 bg-destructive/10 border border-destructive/20 rounded-lg flex items-center gap-2">
+                    <AlertCircle className="h-5 w-5 text-destructive" />
+                    <p className="text-sm text-destructive">{agentError}</p>
+                  </div>
+                )}
+
+                {/* Credit Exhausted Warning */}
+                {!canUse && tier !== "enterprise" && !creditsLoading && (
+                  <div className="w-full p-4 bg-yellow-500/10 border border-yellow-500/20 rounded-lg flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <AlertCircle className="h-5 w-5 text-yellow-600 dark:text-yellow-400" />
+                      <p className="text-sm text-yellow-600 dark:text-yellow-400">
+                        Daily credits exhausted ({creditsUsed}/{creditsLimit}). Upgrade to continue.
+                      </p>
+                    </div>
+                    <Link href="/?settings=billing">
+                      <Button size="sm" variant="outline">
+                        Upgrade
+                      </Button>
+                    </Link>
+                  </div>
                 )}
               </>
             )}
           </div>
         </div>
-
-        {/* Greeting */}
-        <div className="text-center space-y-2">
-          {isLoading ? (
-            <div className="h-8 w-64 bg-muted rounded animate-pulse mx-auto" />
-          ) : (
-            <h1 className="text-4xl md:text-5xl font-light text-foreground">
-              Hello, {displayName}
-            </h1>
-          )}
-          <p className="text-lg text-muted-foreground">
-            How can I help you today?
-          </p>
-        </div>
-
-        {/* Messages Display */}
-        {isLoadingConversation ? (
-          <div className="w-full p-4 text-center text-muted-foreground">
-            Loading conversation...
-          </div>
-        ) : messages.length > 0 ? (
-          <div className="w-full max-h-[400px] overflow-y-auto space-y-4 p-4 border rounded-lg bg-background">
-            {messages.map((msg, idx) => (
-              <div
-                key={idx}
-                className={`flex flex-col gap-2 ${msg.role === "user" ? "items-end" : "items-start"}`}
-              >
-                <div className={`flex items-start gap-2 ${msg.role === "user" ? "flex-row-reverse" : "flex-row"}`}>
-                  <div
-                    className={`max-w-[80%] rounded-lg p-3 ${
-                      msg.role === "user"
-                        ? "bg-primary text-primary-foreground"
-                        : "bg-muted text-foreground"
-                    }`}
-                  >
-                    <p className="text-sm whitespace-pre-wrap">{msg.content}</p>
-                  </div>
-                  <CopyButton
-                    text={msg.content}
-                    label={msg.role === "user" ? "Copy prompt" : "Copy response"}
-                  />
-                </div>
-                {msg.role === "assistant" && msg.messageId && (
-                  <div className="flex items-center gap-2">
-                    <FeedbackButtons messageId={msg.messageId} />
-                    <RegenerateButton
-                      messageId={msg.messageId}
-                      conversationId={currentConversationId || undefined}
-                      agentKey={selectedAgent}
-                      onRegenerated={(newVersion) => {
-                        // Update the message content with regenerated version
-                        setMessages((prev) =>
-                          prev.map((m) =>
-                            m.messageId === msg.messageId
-                              ? {
-                                  ...m,
-                                  content: newVersion.output,
-                                  versionNumber: newVersion.version_number,
-                                }
-                              : m
-                          )
-                        );
-                      }}
-                    />
-                    {currentConversationId && (
-                      <ShareMenu
-                        conversationId={currentConversationId}
-                        conversationTitle={messages.find((m) => m.role === "user")?.content || "Conversation"}
-                      />
-                    )}
-                  </div>
-                )}
-              </div>
-            ))}
-            {agentLoading && (
-              <div className="flex justify-start">
-                <div className="bg-muted text-foreground rounded-lg p-3">
-                  <div className="flex items-center gap-2">
-                    <div className="h-2 w-2 bg-current rounded-full animate-pulse" />
-                    <span className="text-sm">Thinking...</span>
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-        ) : null}
-
-        {/* Error Display */}
-        {agentError && (
-          <div className="w-full p-4 bg-destructive/10 border border-destructive/20 rounded-lg flex items-center gap-2">
-            <AlertCircle className="h-5 w-5 text-destructive" />
-            <p className="text-sm text-destructive">{agentError}</p>
-          </div>
-        )}
-
-        {/* Credit Exhausted Warning */}
-        {!canUse && tier !== "enterprise" && !creditsLoading && (
-          <div className="w-full p-4 bg-yellow-500/10 border border-yellow-500/20 rounded-lg flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <AlertCircle className="h-5 w-5 text-yellow-600 dark:text-yellow-400" />
-              <p className="text-sm text-yellow-600 dark:text-yellow-400">
-                Daily credits exhausted ({creditsUsed}/{creditsLimit}). Upgrade to continue.
-              </p>
-            </div>
-            <Link href="/?settings=billing">
-              <Button size="sm" variant="outline">
-                Upgrade
-              </Button>
-            </Link>
-          </div>
-        )}
-
-        {/* Chat Input with Status Bar */}
-        <div className="w-full">
-          <form onSubmit={handleSubmit} className="w-full">
-            <PromptBox
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
-              selectedModel={selectedModel}
-              onModelChange={setSelectedModel}
-              className="w-full"
-            />
-          </form>
-
-          {/* Status Bar Footer */}
-          <div className="w-full max-w-[calc(100%-2rem)] mx-auto border-t border-border/50 relative z-0 px-3.5 m-0 rounded-b-[15px] border-t-0 pb-2 pt-2 bg-[#fafafa] dark:bg-[#181818] border-transparent mt-0">
-            <div className="w-full">
-              <div className="flex w-full flex-col items-center md:flex-row gap-2">
-                <div className="flex flex-row items-center gap-2 md:w-full text-muted-foreground">
-                  {creditsLoading ? (
-                    <div className="h-4 w-32 bg-muted-foreground/20 rounded animate-pulse" />
-                  ) : (
-                    <div className="text-xs font-normal">
-                      {tier === "enterprise" ? (
-                        "Unlimited credits"
-                      ) : (
-                        `Credits: ${creditsUsed}/${creditsLimit} ∙ Resets midnight UTC`
-                      )}
-                    </div>
-                  )}
-                </div>
-                {tier === "free" && (
-                  <div className="w-full whitespace-nowrap md:w-fit">
-                    <Link className="inline underline hover:no-underline cursor-pointer text-xs font-normal" href="/?settings=billing">
-                      Upgrade
-                    </Link>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Quick Actions */}
-        <div className="flex flex-wrap items-center justify-center gap-2 mt-4">
-          {quickActions.map((action) => {
-            const Icon = action.icon;
-            return (
-              <Button
-                key={action.id}
-                variant="outline"
-                size="sm"
-                onClick={action.onClick}
-                className="h-9 rounded-full border-border bg-[#fafafa] dark:bg-[#181818] hover:bg-accent hover:text-accent-foreground"
-              >
-                <Icon className="mr-2 h-4 w-4" />
-                {action.label}
-              </Button>
-            );
-          })}
-        </div>
-      </div>
+      )}
     </div>
   );
 }

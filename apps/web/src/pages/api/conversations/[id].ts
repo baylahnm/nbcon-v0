@@ -1,21 +1,30 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { createClient } from "@supabase/supabase-js";
 
-// Initialize Supabase client with service role key for server-side operations
-const getSupabaseClient = () => {
+// Initialize Supabase client - use anon key with cookies for auth, service role for admin operations
+const getSupabaseClient = (req: NextApiRequest) => {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
   const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
-  if (!supabaseUrl || !supabaseServiceKey) {
+  if (!supabaseUrl || !supabaseAnonKey) {
     return null;
   }
 
-  return createClient(supabaseUrl, supabaseServiceKey, {
+  // Create client with anon key that can read cookies
+  const client = createClient(supabaseUrl, supabaseAnonKey, {
     auth: {
       autoRefreshToken: false,
       persistSession: false,
     },
+    global: {
+      headers: {
+        Cookie: req.headers.cookie || "",
+      },
+    },
   });
+
+  return client;
 };
 
 interface Conversation {
@@ -44,27 +53,29 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Conversation | Conversation[] | ConversationWithMessages | { error: string }>
 ) {
-  const supabase = getSupabaseClient();
+  const supabase = getSupabaseClient(req);
   if (!supabase) {
     return res.status(500).json({ error: "Supabase not configured" });
   }
 
-  // Get user from Authorization header or session
+  // Get user from Authorization header or session cookie
   const authHeader = req.headers.authorization;
   let userId: string | null = null;
 
+  // Try Authorization header first
   if (authHeader?.startsWith("Bearer ")) {
     const token = authHeader.substring(7);
     const { data: { user }, error } = await supabase.auth.getUser(token);
     if (!error && user) {
       userId = user.id;
     }
-  }
-
-  // Fallback: try to get user from session cookie
-  if (!userId) {
-    const { data: { user } } = await supabase.auth.getUser();
-    userId = user?.id || null;
+  } else {
+    // Try to get user from session cookie
+    // The client with cookies should automatically handle session
+    const { data: { user }, error } = await supabase.auth.getUser();
+    if (!error && user) {
+      userId = user.id;
+    }
   }
 
   if (!userId) {

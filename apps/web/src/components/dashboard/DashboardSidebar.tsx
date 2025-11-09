@@ -117,21 +117,25 @@ export function DashboardSidebar() {
                 </div>
               </SidebarMenuItem>
             ) : (
-              conversations.map((conversation) => (
-                <SidebarMenuItem key={conversation.id}>
-                  <SidebarMenuButton
-                    onClick={() => {
-                      router.push(`/chat/${conversation.id}`);
-                    }}
-                    className="w-full"
-                  >
-                    <MessageSquare className="h-4 w-4" />
-                    <span className="truncate group-data-[collapsible=icon]:hidden">
-                      {conversation.title}
-                    </span>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))
+              conversations.map((conversation) => {
+                const isActive = router.query.conversationId === conversation.id || router.query.conversation === conversation.id;
+                return (
+                  <SidebarMenuItem key={conversation.id}>
+                    <SidebarMenuButton
+                      onClick={() => {
+                        router.push(`/chat/${conversation.id}`);
+                      }}
+                      className={`w-full ${isActive ? "bg-sidebar-accent text-sidebar-accent-foreground" : ""}`}
+                      isActive={isActive}
+                    >
+                      <MessageSquare className="h-4 w-4" />
+                      <span className="truncate group-data-[collapsible=icon]:hidden">
+                        {conversation.title}
+                      </span>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                );
+              })
             )}
           </SidebarMenu>
         </SidebarGroup>

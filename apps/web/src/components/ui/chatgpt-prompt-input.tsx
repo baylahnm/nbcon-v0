@@ -373,7 +373,7 @@ export const PromptBox = React.forwardRef<HTMLTextAreaElement, PromptBoxProps>(
           rows={1}
           value={displayValue}
           onChange={handleInputChange}
-          placeholder="Message..."
+          placeholder="Ask me anything..."
           className="custom-scrollbar w-full resize-none border-0 bg-transparent p-3 text-foreground dark:text-white placeholder:text-muted-foreground dark:placeholder:text-gray-300 focus:ring-0 focus-visible:outline-none min-h-12"
           {...props}
         />

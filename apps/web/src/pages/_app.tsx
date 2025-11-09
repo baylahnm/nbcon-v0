@@ -14,6 +14,7 @@ export default function App({ Component, pageProps }: AppProps) {
   const excludedRoutes = [
     "/auth",
     "/dashboard",
+    "/chat", // Chat routes should use dashboard layout
     "/billing",
     "/projects",
     "/reports",

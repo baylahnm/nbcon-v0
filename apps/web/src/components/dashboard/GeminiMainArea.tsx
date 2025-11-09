@@ -15,6 +15,7 @@ import { FeedbackButtons } from "@/components/ui/feedback-buttons";
 import { RegenerateButton } from "@/components/ui/regenerate-button";
 import { CopyButton } from "@/components/ui/copy-button";
 import { ShareMenu } from "@/components/ui/share-menu";
+import { MarkdownRenderer } from "@/components/ui/markdown-renderer";
 
 type AgentKey = keyof typeof agentRegistry;
 import Link from "next/link";
@@ -55,6 +56,16 @@ export function GeminiMainArea() {
   const [currentConversationId, setCurrentConversationId] = React.useState<string | null>(null);
   const [isLoadingConversation, setIsLoadingConversation] = React.useState(false);
   const [conversationError, setConversationError] = React.useState<string | null>(null);
+  const messagesEndRef = React.useRef<HTMLDivElement>(null);
+  const lastLoadedConversationIdRef = React.useRef<string | null>(null); // Track last loaded conversation to prevent duplicate loads
+  const isLoadingRef = React.useRef<string | null>(null); // Track currently loading conversation ID to prevent duplicate requests
+
+  // Auto-scroll to latest message
+  React.useEffect(() => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages, agentLoading]);
 
   // Get conversation ID from URL - support both dynamic route (/chat/:id) and query param (?conversation=id)
   const conversationIdFromRoute = router.query.conversationId as string | undefined;
@@ -63,6 +74,9 @@ export function GeminiMainArea() {
 
   // Load conversation when ID changes (only when router is ready)
   React.useEffect(() => {
+    // AbortController to cancel in-flight requests when conversation ID changes
+    const abortController = new AbortController();
+
     async function loadConversation() {
       // Wait for router to be ready before accessing query params
       if (!router.isReady) {
@@ -70,35 +84,70 @@ export function GeminiMainArea() {
       }
 
       if (!conversationIdFromUrl) {
+        // Clear state when no conversation ID in URL
         setCurrentConversationId(null);
+        lastLoadedConversationIdRef.current = null; // Reset ref
+        isLoadingRef.current = null; // Clear loading ref
         setMessages([]);
         setConversationError(null);
+        setIsLoadingConversation(false);
         return;
       }
 
-      // Prevent loading the same conversation twice
-      if (currentConversationId === conversationIdFromUrl) {
+      // If conversation ID changed, clear previous conversation state immediately
+      // This ensures UI updates immediately when switching threads
+      if (lastLoadedConversationIdRef.current !== conversationIdFromUrl) {
+        setMessages([]); // Clear messages immediately for better UX
+        setConversationError(null);
+      }
+
+      // Prevent loading the same conversation twice (only if already loaded)
+      if (lastLoadedConversationIdRef.current === conversationIdFromUrl && messages.length > 0) {
+        return;
+      }
+
+      // Prevent duplicate concurrent requests (React Strict Mode double-invocation guard)
+      if (isLoadingRef.current === conversationIdFromUrl) {
         return;
       }
 
       setIsLoadingConversation(true);
-      setConversationError(null);
+      isLoadingRef.current = conversationIdFromUrl; // Mark as loading
       
       try {
         const { data: { user } } = await supabase.auth.getUser();
         if (!user) {
           setConversationError("Authentication required");
           setIsLoadingConversation(false);
+          isLoadingRef.current = null; // Clear loading ref on auth failure
           return;
         }
 
-        const response = await fetch(`/api/conversations/${conversationIdFromUrl}`);
+        // Get session token for API request
+        const { data: { session } } = await supabase.auth.getSession();
+        const headers: HeadersInit = {};
+        if (session?.access_token) {
+          headers["Authorization"] = `Bearer ${session.access_token}`;
+        }
+
+        const response = await fetch(`/api/conversations/${conversationIdFromUrl}`, {
+          headers,
+          signal: abortController.signal, // Add abort signal to cancel request
+        });
+        
+        // Check if request was aborted
+        if (abortController.signal.aborted) {
+          return;
+        }
         
         if (!response.ok) {
           if (response.status === 404) {
+            // Don't log 404 errors to console - they're expected for invalid/deleted conversations
             setConversationError("Conversation not found");
             // Clear invalid conversation ID from state
             setCurrentConversationId(null);
+            lastLoadedConversationIdRef.current = null; // Reset ref
+            isLoadingRef.current = null; // Clear loading ref
             setMessages([]);
             // Optionally redirect to dashboard without conversation
             router.replace("/dashboard", undefined, { shallow: true });
@@ -112,12 +161,19 @@ export function GeminiMainArea() {
 
         const conversation = await response.json();
         
+        // Check if request was aborted after JSON parsing
+        if (abortController.signal.aborted) {
+          return;
+        }
+        
         if (!conversation || !conversation.id) {
           setConversationError("Invalid conversation data");
           return;
         }
 
         setCurrentConversationId(conversation.id);
+        lastLoadedConversationIdRef.current = conversation.id; // Update ref after successful load
+        isLoadingRef.current = null; // Clear loading ref after successful load
 
         // Convert conversation messages to Message format
         const loadedMessages: Message[] = (conversation.messages || []).map((msg: any) => ({
@@ -130,16 +186,35 @@ export function GeminiMainArea() {
         setMessages(loadedMessages);
         setConversationError(null);
       } catch (error) {
-        console.error("Error loading conversation:", error);
-        setConversationError(error instanceof Error ? error.message : "Failed to load conversation");
-        setCurrentConversationId(null);
-        setMessages([]);
+        // Ignore AbortError - it's expected when conversation ID changes
+        if (error instanceof Error && error.name === "AbortError") {
+          return;
+        }
+        // Only log unexpected errors
+        if (!abortController.signal.aborted) {
+          console.error("Error loading conversation:", error);
+          setConversationError(error instanceof Error ? error.message : "Failed to load conversation");
+          setCurrentConversationId(null);
+          lastLoadedConversationIdRef.current = null; // Reset ref on error
+          isLoadingRef.current = null; // Clear loading ref on error
+          setMessages([]);
+        }
       } finally {
-        setIsLoadingConversation(false);
+        // Only update loading state if request wasn't aborted
+        if (!abortController.signal.aborted) {
+          setIsLoadingConversation(false);
+          isLoadingRef.current = null; // Clear loading ref when done
+        }
       }
     }
 
     loadConversation();
+
+    // Cleanup: cancel in-flight request when conversation ID changes or component unmounts
+    return () => {
+      abortController.abort();
+      isLoadingRef.current = null; // Clear loading ref on cleanup
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [conversationIdFromUrl, router.isReady, router.asPath]);
 
@@ -227,9 +302,18 @@ export function GeminiMainArea() {
           : userMessage;
         
         try {
+          // Get session token for API request
+          const { data: { session } } = await supabase.auth.getSession();
+          const headers: HeadersInit = {
+            "Content-Type": "application/json",
+          };
+          if (session?.access_token) {
+            headers["Authorization"] = `Bearer ${session.access_token}`;
+          }
+
           await fetch(`/api/conversations/${conversationId}`, {
             method: "PATCH",
-            headers: { "Content-Type": "application/json" },
+            headers,
             body: JSON.stringify({ title }),
           });
         } catch (error) {
@@ -315,7 +399,11 @@ export function GeminiMainArea() {
                             : "bg-muted text-foreground"
                         }`}
                       >
-                        <p className="text-sm whitespace-pre-wrap">{msg.content}</p>
+                        {msg.role === "assistant" ? (
+                          <MarkdownRenderer content={msg.content} className="text-sm" />
+                        ) : (
+                          <p className="text-sm whitespace-pre-wrap">{msg.content}</p>
+                        )}
                       </div>
                       <CopyButton
                         text={msg.content}
@@ -358,12 +446,18 @@ export function GeminiMainArea() {
                   <div className="flex justify-start">
                     <div className="bg-muted text-foreground rounded-lg p-3">
                       <div className="flex items-center gap-2">
-                        <div className="h-2 w-2 bg-current rounded-full animate-pulse" />
+                        <div className="flex gap-1">
+                          <div className="h-2 w-2 bg-current rounded-full animate-bounce [animation-delay:-0.3s]" />
+                          <div className="h-2 w-2 bg-current rounded-full animate-bounce [animation-delay:-0.15s]" />
+                          <div className="h-2 w-2 bg-current rounded-full animate-bounce" />
+                        </div>
                         <span className="text-sm">Thinking...</span>
                       </div>
                     </div>
                   </div>
                 )}
+                {/* Auto-scroll anchor */}
+                <div ref={messagesEndRef} />
               </div>
 
               {/* Error Display */}
@@ -496,8 +590,11 @@ export function GeminiMainArea() {
 
             {/* Loading Conversation */}
             {isLoadingConversation && (
-              <div className="w-full p-4 text-center text-muted-foreground">
-                Loading conversation...
+              <div className="w-full p-4 text-center">
+                <div className="inline-flex items-center gap-2">
+                  <div className="h-4 w-4 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+                  <span className="text-sm text-muted-foreground">Loading conversation...</span>
+                </div>
               </div>
             )}
 

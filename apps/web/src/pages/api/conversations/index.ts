@@ -101,25 +101,35 @@ export default async function handler(
         console.error("Error fetching messages:", messagesError);
       }
 
+      // Build messages array with proper typing
+      const userMessages = (messages || []).map((log) => ({
+        id: log.id,
+        role: "user" as const,
+        content: log.input,
+        created_at: log.created_at,
+      }));
+
+      const assistantMessages = (messages || [])
+        .filter((log) => log.output)
+        .map((log) => ({
+          id: `${log.id}-response`,
+          role: "assistant" as const,
+          content: log.output || "",
+          created_at: log.created_at,
+        }));
+
+      const allMessages: Array<{
+        id: string;
+        role: "user" | "assistant";
+        content: string;
+        created_at: string;
+      }> = [...userMessages, ...assistantMessages].sort(
+        (a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
+      );
+
       const conversationWithMessages: ConversationWithMessages = {
         ...conversation,
-        messages: (messages || []).map((log) => ({
-          id: log.id,
-          role: "user" as const,
-          content: log.input,
-          created_at: log.created_at,
-        })).concat(
-          (messages || [])
-            .filter((log) => log.output)
-            .map((log) => ({
-              id: `${log.id}-response`,
-              role: "assistant" as const,
-              content: log.output || "",
-              created_at: log.created_at,
-            }))
-        ).sort((a, b) => 
-          new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
-        ),
+        messages: allMessages,
       };
 
       return res.status(200).json(conversationWithMessages);

@@ -31,11 +31,13 @@ export function ConversationActionsMenu({
   onShare,
 }: ConversationActionsMenuProps) {
   const [isDeleting, setIsDeleting] = React.useState(false);
+  const [open, setOpen] = React.useState(false);
 
   const handleDelete = () => {
     if (window.confirm("Are you sure you want to delete this conversation? This action cannot be undone.")) {
       setIsDeleting(true);
       onDelete();
+      setOpen(false);
       // Reset deleting state after a short delay
       setTimeout(() => setIsDeleting(false), 1000);
     }
@@ -43,10 +45,21 @@ export function ConversationActionsMenu({
 
   const handlePin = () => {
     onPin(!isPinned);
+    setOpen(false);
+  };
+
+  const handleShare = () => {
+    onShare();
+    setOpen(false);
+  };
+
+  const handleRename = () => {
+    onRename();
+    setOpen(false);
   };
 
   return (
-    <DropdownMenu>
+    <DropdownMenu open={open} onOpenChange={setOpen}>
       <DropdownMenuTrigger asChild>
         <Button
           variant="ghost"
@@ -63,40 +76,31 @@ export function ConversationActionsMenu({
       <DropdownMenuContent 
         align="end" 
         className="w-56 rounded-xl border border-sidebar-border bg-surface dark:bg-surface p-1 text-popover-foreground shadow-md"
+        onCloseAutoFocus={(e) => {
+          e.preventDefault();
+        }}
       >
         <DropdownMenuItem
-          onClick={(e) => {
-            e.stopPropagation();
-            onShare();
-          }}
+          onSelect={handleShare}
         >
           <Share2 className="mr-2 h-4 w-4" />
           Share
         </DropdownMenuItem>
         <DropdownMenuItem
-          onClick={(e) => {
-            e.stopPropagation();
-            handlePin();
-          }}
+          onSelect={handlePin}
         >
           <Pin className={`mr-2 h-4 w-4 ${isPinned ? "fill-current" : ""}`} />
           {isPinned ? "Unpin" : "Pin"}
         </DropdownMenuItem>
         <DropdownMenuItem
-          onClick={(e) => {
-            e.stopPropagation();
-            onRename();
-          }}
+          onSelect={handleRename}
         >
           <Edit className="mr-2 h-4 w-4" />
           Rename
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem
-          onClick={(e) => {
-            e.stopPropagation();
-            handleDelete();
-          }}
+          onSelect={handleDelete}
           disabled={isDeleting}
           className="text-destructive focus:text-destructive"
         >

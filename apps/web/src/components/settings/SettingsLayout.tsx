@@ -39,7 +39,7 @@ export function SettingsLayout() {
         className="flex h-screen w-full"
       >
         <SettingsSidebar />
-        <SidebarInset className="flex flex-col h-screen bg-background dark:bg-[#212121]">
+        <SidebarInset className="flex flex-col h-screen bg-background dark:bg-surface-elevated">
           <header className="flex shrink-0 items-center gap-2 border-b border-border px-4 py-2">
             <SidebarTrigger className="-ml-1" />
             <Separator orientation="vertical" className="mr-2 h-4" />
@@ -47,7 +47,7 @@ export function SettingsLayout() {
               <ToggleTheme />
             </div>
           </header>
-          <main className="flex flex-1 flex-col overflow-hidden bg-background dark:bg-[#212121]">
+          <main className="flex flex-1 flex-col overflow-hidden bg-background dark:bg-surface-elevated">
             <SettingsContent activeTab={activeTab} />
           </main>
         </SidebarInset>

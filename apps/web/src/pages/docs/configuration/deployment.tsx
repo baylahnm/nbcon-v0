@@ -131,12 +131,12 @@ supabase db push
           <p>Update <code>supabase/functions/stripe-webhook/index.ts</code>:</p>
           <CodeBlock language="typescript">
 {`const tierMap: Record<string, string> = {
-  "price_free": "free",
-  "price_basic": "basic",
-  "price_pro": "pro",
-  "price_enterprise": "enterprise"
+  "price_basic_sar": "basic",  // 49 SAR/month
+  "price_pro_sar": "pro",      // 149 SAR/month
+  // Free and Enterprise handled separately (no Stripe checkout)
 };`}
           </CodeBlock>
+          <p><strong>Note:</strong> Price IDs must match your Stripe dashboard. Free tier has no price ID (no payment), and Enterprise uses custom pricing (no checkout).</p>
 
           <h3>3. Configure Webhook</h3>
           <ol>

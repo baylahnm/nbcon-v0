@@ -7,6 +7,7 @@ export interface Conversation {
   title: string;
   created_at: string;
   updated_at: string;
+  pinned?: boolean;
 }
 
 export function useConversations() {
@@ -29,8 +30,9 @@ export function useConversations() {
 
         const { data, error: fetchError } = await supabase
           .from('conversations')
-          .select('id, title, created_at, updated_at')
+          .select('id, user_id, title, created_at, updated_at, pinned')
           .eq('user_id', user.id)
+          .order('pinned', { ascending: false })
           .order('updated_at', { ascending: false });
 
         if (fetchError) {
@@ -92,8 +94,9 @@ export function useConversations() {
       // Refresh conversations list
       const { data: updatedConversations } = await supabase
         .from('conversations')
-        .select('id, title, created_at, updated_at')
+        .select('id, user_id, title, created_at, updated_at, pinned')
         .eq('user_id', user.id)
+        .order('pinned', { ascending: false })
         .order('updated_at', { ascending: false });
 
       if (updatedConversations) {
@@ -124,8 +127,9 @@ export function useConversations() {
       if (user) {
         const { data: updatedConversations } = await supabase
           .from('conversations')
-          .select('id, title, created_at, updated_at')
+          .select('id, user_id, title, created_at, updated_at, pinned')
           .eq('user_id', user.id)
+          .order('pinned', { ascending: false })
           .order('updated_at', { ascending: false });
 
         if (updatedConversations) {
@@ -141,12 +145,104 @@ export function useConversations() {
     }
   };
 
+  const renameConversation = async (id: string, title: string): Promise<boolean> => {
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session?.access_token) {
+        throw new Error('User not authenticated');
+      }
+
+      const response = await fetch(`/api/conversations/${id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${session.access_token}`,
+        },
+        body: JSON.stringify({ title: title.trim() }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to rename conversation');
+      }
+
+      // Refresh conversations list
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) {
+        const { data: updatedConversations } = await supabase
+          .from('conversations')
+          .select('id, user_id, title, created_at, updated_at, pinned')
+          .eq('user_id', user.id)
+          .order('pinned', { ascending: false })
+          .order('updated_at', { ascending: false });
+
+        if (updatedConversations) {
+          setConversations(updatedConversations);
+        }
+      }
+
+      return true;
+    } catch (err) {
+      console.error('Error renaming conversation:', err);
+      setError(err instanceof Error ? err : new Error('Failed to rename conversation'));
+      return false;
+    }
+  };
+
+  const pinConversation = async (id: string, pinned: boolean): Promise<boolean> => {
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session?.access_token) {
+        throw new Error('User not authenticated');
+      }
+
+      const response = await fetch(`/api/conversations/${id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${session.access_token}`,
+        },
+        body: JSON.stringify({ pinned }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({ error: 'Unknown error' }));
+        const errorMessage = errorData?.error || `HTTP ${response.status}: ${response.statusText}`;
+        console.error('API error response:', errorMessage);
+        throw new Error(`Failed to pin conversation: ${errorMessage}`);
+      }
+
+      // Refresh conversations list
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) {
+        const { data: updatedConversations } = await supabase
+          .from('conversations')
+          .select('id, user_id, title, created_at, updated_at, pinned')
+          .eq('user_id', user.id)
+          .order('pinned', { ascending: false })
+          .order('updated_at', { ascending: false });
+
+        if (updatedConversations) {
+          setConversations(updatedConversations);
+        }
+      }
+
+      return true;
+    } catch (err) {
+      console.error('Error pinning conversation:', err);
+      const errorMessage = err instanceof Error ? err.message : 'Failed to pin conversation';
+      setError(new Error(errorMessage));
+      return false;
+    }
+  };
+
   return {
     conversations,
     isLoading,
     error,
     createConversation,
     deleteConversation,
+    renameConversation,
+    pinConversation,
   };
 }
 

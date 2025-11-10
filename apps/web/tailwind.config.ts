@@ -65,18 +65,26 @@ const config: Config = {
   				border: 'hsl(var(--sidebar-border))',
   				ring: 'hsl(var(--sidebar-ring))'
   			},
-  			brand: {
-  				primary: 'hsl(var(--brand-primary))',
-  				surface: 'hsl(var(--brand-surface))',
-  				text: 'hsl(var(--brand-text))',
-  				muted: 'hsl(var(--brand-muted))',
-  				border: 'hsl(var(--brand-border))',
-  				'tiger-primary': 'hsl(var(--brand-tiger-primary))',
-  				twilight: 'hsl(var(--brand-twilight))',
-  				'twilight-foreground': 'hsl(var(--brand-twilight-foreground))'
-  			},
-  			'muted-active': 'hsl(var(--muted-active))'
-  		},
+			brand: {
+				primary: 'hsl(var(--brand-primary))',
+				surface: 'hsl(var(--brand-surface))',
+				text: 'hsl(var(--brand-text))',
+				muted: 'hsl(var(--brand-muted))',
+				border: 'hsl(var(--brand-border))',
+				'tiger-primary': 'hsl(var(--brand-tiger-primary))',
+				twilight: 'hsl(var(--brand-twilight))',
+				'twilight-foreground': 'hsl(var(--brand-twilight-foreground))'
+			},
+			'muted-active': 'hsl(var(--muted-active))',
+			// Surface system
+			surface: {
+				DEFAULT: 'hsl(var(--surface))',
+				elevated: 'hsl(var(--surface-elevated))',
+				hover: 'hsl(var(--surface-hover))',
+			},
+			'border-elevated': 'hsl(var(--border-elevated))',
+			'chat-input': 'hsl(var(--chat-input))',
+		},
 		borderRadius: {
 			lg: 'var(--radius)',
 			md: 'calc(var(--radius) - 2px)',

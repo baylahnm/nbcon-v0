@@ -92,7 +92,7 @@ export function OrdersSettings() {
   if (isLoading) {
     return (
       <section className="relative mb-4">
-        <div className="min-h-[60px] flex items-center py-3 border-border dark:border-[#2d2d2d] border-b">
+        <div className="min-h-[60px] flex items-center py-3 border-border dark:border-border-elevated border-b">
           <h3 className="w-full text-lg font-normal">
             <div className="truncate select-none">Orders</div>
           </h3>
@@ -105,7 +105,7 @@ export function OrdersSettings() {
   return (
     <section className="relative mb-4">
       {/* Header */}
-      <div className="min-h-[60px] flex items-center py-3 border-border dark:border-[#2d2d2d] border-b">
+      <div className="min-h-[60px] flex items-center py-3 border-border dark:border-border-elevated border-b">
         <h3 className="w-full text-lg font-normal">
           <div className="truncate select-none">Orders</div>
         </h3>
@@ -130,7 +130,7 @@ export function OrdersSettings() {
       </div>
 
       {/* Orders Table */}
-      <div className="border border-border dark:border-[#2d2d2d] rounded-lg overflow-hidden">
+      <div className="border border-border dark:border-border-elevated rounded-lg overflow-hidden">
         <table className="w-full">
           <thead className="bg-muted/50">
             <tr>
@@ -153,7 +153,7 @@ export function OrdersSettings() {
               filteredOrders.map((order) => (
                 <tr
                   key={order.id}
-                  className="border-t border-border dark:border-[#2d2d2d] hover:bg-muted/50"
+                  className="border-t border-border dark:border-border-elevated hover:bg-muted/50"
                 >
                   <td className="p-3 text-sm">{order.id}</td>
                   <td className="p-3 text-sm">{order.service}</td>
@@ -206,7 +206,7 @@ export function OrdersSettings() {
                   <p className="font-medium">{selectedOrder.date}</p>
                 </div>
               </div>
-              <div className="flex gap-2 pt-4 border-t border-border dark:border-[#2d2d2d]">
+              <div className="flex gap-2 pt-4 border-t border-border dark:border-border-elevated">
                 <Button variant="outline" size="sm">
                   <FileText className="mr-2 h-4 w-4" />
                   View Invoice

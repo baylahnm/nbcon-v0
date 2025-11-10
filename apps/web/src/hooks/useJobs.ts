@@ -45,7 +45,7 @@ export function useJobs() {
           id: log.id,
           title: log.input?.substring(0, 50) || 'Untitled Job',
           created_at: log.created_at,
-          updated_at: log.updated_at || log.created_at,
+          updated_at: log.created_at, // ai_logs doesn't have updated_at, use created_at
           user_id: log.user_id,
         }));
 

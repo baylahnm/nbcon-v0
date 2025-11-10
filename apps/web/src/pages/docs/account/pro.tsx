@@ -44,7 +44,7 @@ export default function ProPage() {
           </ul>
 
           <h2>Pricing</h2>
-          <p>Starting at $99/month or $990/year (save 17%)</p>
+          <p>149 SAR/month</p>
 
           <h2>Upgrade</h2>
           <p>Upgrade to Enterprise for custom solutions and dedicated support.</p>

@@ -47,7 +47,8 @@ export function useAIAgent(agentKey: AgentKey, options?: { model?: string; provi
         
         // Check if user has exceeded daily limit (enterprise has unlimited)
         if (subscription_tier !== 'enterprise' && daily_tokens_used >= daily_tokens_limit) {
-          throw new Error('Daily credit limit exceeded. Please upgrade your plan or wait until midnight UTC for reset.');
+          const errorMessage = `Daily credit limit exceeded (${daily_tokens_used}/${daily_tokens_limit}). Please upgrade your plan at /billing or wait until midnight UTC for reset.`;
+          throw new Error(errorMessage);
         }
       }
 

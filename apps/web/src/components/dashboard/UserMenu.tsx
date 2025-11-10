@@ -33,6 +33,7 @@ import { Button } from "@/components/ui/button";
 import { useTheme } from "next-themes";
 import { useUserProfile } from "@/hooks/useUserProfile";
 import { useSubscriptionTier } from "@/hooks/useSubscriptionTier";
+import { useCredits } from "@/hooks/useCredits";
 
 interface UserMenuProps {
   trigger: React.ReactNode;
@@ -45,6 +46,7 @@ export function UserMenu({ trigger, side = "right", align = "end" }: UserMenuPro
   const { profile, isLoading: profileLoading } = useUserProfile();
   const { tier, isLoading: tierLoading } = useSubscriptionTier();
   const { theme, setTheme } = useTheme();
+  const { used: creditsUsed, limit: creditsLimit, isLoading: creditsLoading } = useCredits();
 
   const displayName = profile?.full_name || profile?.username || profile?.email?.split("@")[0] || "User";
   const initials = displayName
@@ -60,12 +62,14 @@ export function UserMenu({ trigger, side = "right", align = "end" }: UserMenuPro
   };
 
   const isPro = tier === "pro" || tier === "enterprise";
+  const creditsRemaining = Math.max(0, creditsLimit - creditsUsed);
+  const creditsPercentage = creditsLimit > 0 ? (creditsUsed / creditsLimit) * 100 : 0;
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>{trigger}</DropdownMenuTrigger>
       <DropdownMenuContent
-        className="z-[10000] min-w-32 overflow-hidden rounded-xl border border-sidebar-border bg-[#fafafa] dark:bg-[#181818] p-1 text-popover-foreground shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 origin-[var(--radix-dropdown-menu-content-transform-origin)] max-h-[calc(100vh-64px)] w-[280px] overflow-y-auto"
+        className="z-[10000] min-w-32 overflow-hidden rounded-xl border border-sidebar-border bg-surface dark:bg-surface p-1 text-popover-foreground shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 origin-[var(--radix-dropdown-menu-content-transform-origin)] max-h-[calc(100vh-64px)] w-[280px] overflow-y-auto"
         side={side}
         align={align}
         sideOffset={4}
@@ -107,7 +111,7 @@ export function UserMenu({ trigger, side = "right", align = "end" }: UserMenuPro
         {/* Turn Pro Section */}
         {!isPro && (
           <div className="px-1.5 pb-1.5">
-            <div className="flex w-full items-center justify-between rounded-md bg-[#fafafa] dark:bg-[#212121] px-3 py-2 text-foreground">
+            <div className="flex w-full items-center justify-between rounded-md bg-surface-elevated dark:bg-surface-elevated px-3 py-2 text-foreground">
               <span className="flex items-center gap-1 text-sm">
                 <Crown className="shrink-0 h-4 w-4" />
                 Turn Pro
@@ -125,18 +129,34 @@ export function UserMenu({ trigger, side = "right", align = "end" }: UserMenuPro
 
         {/* Credits Section */}
         <div className="flex flex-col gap-1 px-1.5 pb-1.5 pt-1">
-          <div className="flex flex-col gap-2.5 rounded-xl bg-[#fafafa] dark:bg-[#212121] p-4 md:rounded-md md:p-3">
-            <div className="flex items-center justify-between cursor-pointer transition-all duration-150 ease-in-out hover:opacity-80">
+          <div 
+            className="flex flex-col gap-2.5 rounded-xl bg-muted p-4 md:rounded-md md:p-3 cursor-pointer transition-all duration-150 ease-in-out hover:opacity-80"
+            onClick={() => router.push("/?settings=billing")}
+          >
+            <div className="flex items-center justify-between">
               <p className="text-base font-medium text-foreground md:text-sm">Credits</p>
               <div className="flex items-center gap-px">
-                <p className="text-base font-normal md:text-sm text-foreground">Upgrade</p>
-                <ChevronRight className="shrink-0 h-4 w-4 text-foreground" />
+                {creditsLoading ? (
+                  <span className="text-base font-normal md:text-sm text-muted-foreground">...</span>
+                ) : (
+                  <>
+                    <p className="text-base font-normal md:text-sm text-muted-foreground">{creditsRemaining} left</p>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" width="100%" height="100%" className="shrink-0 h-4 w-4 text-muted-foreground">
+                      <path fill="currentColor" d="M9.47 6.47a.75.75 0 0 1 1.06 0l5 5a.75.75 0 0 1 0 1.06l-5 5a.75.75 0 1 1-1.06-1.06L13.94 12 9.47 7.53a.75.75 0 0 1 0-1.06"></path>
+                    </svg>
+                  </>
+                )}
               </div>
             </div>
             <div className="flex w-full items-center gap-2">
               <div className="relative flex-1 overflow-hidden rounded-lg bg-muted-active" style={{ height: "11px" }}>
-                {/* Progress bar - can be enhanced with actual credit data */}
-                <div className="h-full w-0 bg-brand-primary transition-all" />
+                <div 
+                  className="absolute h-full cursor-pointer bg-blue-800 transition-all rounded-bl-lg rounded-tl-lg rounded-br-lg rounded-tr-lg" 
+                  style={{ 
+                    left: "0%", 
+                    width: creditsLimit > 0 && creditsRemaining > 0 ? `${Math.min(100, creditsPercentage)}%` : "0%" 
+                  }} 
+                />
               </div>
             </div>
             <div className="flex items-center gap-1.5">
@@ -151,10 +171,10 @@ export function UserMenu({ trigger, side = "right", align = "end" }: UserMenuPro
           <Button
             variant="outline"
             size="sm"
-            className="h-8 rounded-md px-[11px] py-2 border border-input bg-[#fafafa] dark:bg-[#212121] hover:bg-accent hover:border-accent"
+            className="flex-1 h-8 rounded-md px-[11px] py-2 border border-input bg-surface-elevated dark:bg-surface-elevated hover:bg-accent hover:border-accent"
             asChild
           >
-            <a href="/settings" className="flex items-center gap-2">
+            <a href="/settings" className="flex items-center justify-center gap-2">
               <Settings className="h-4 w-4" />
               <span>Settings</span>
             </a>
@@ -162,7 +182,7 @@ export function UserMenu({ trigger, side = "right", align = "end" }: UserMenuPro
           <Button
             variant="outline"
             size="sm"
-            className="h-8 rounded-md px-[11px] py-2 border border-input bg-[#fafafa] dark:bg-[#212121] hover:bg-accent hover:border-accent"
+            className="flex-1 h-8 rounded-md px-[11px] py-2 border border-input bg-surface-elevated dark:bg-surface-elevated hover:bg-accent hover:border-accent"
           >
             <UserPlus className="h-4 w-4" />
             <span>Invite</span>
@@ -223,7 +243,7 @@ export function UserMenu({ trigger, side = "right", align = "end" }: UserMenuPro
             <Moon className="h-5 w-5" />
             <p>Appearance</p>
           </DropdownMenuSubTrigger>
-          <DropdownMenuSubContent className="rounded-xl border border-sidebar-border bg-[#fafafa] dark:bg-[#181818]">
+          <DropdownMenuSubContent className="rounded-xl border border-sidebar-border bg-surface dark:bg-surface">
             <DropdownMenuRadioGroup value={theme} onValueChange={(value) => setTheme(value as "light" | "dark" | "system")}>
               <DropdownMenuRadioItem value="system">
                 <Monitor className="mr-2 h-4 w-4" />

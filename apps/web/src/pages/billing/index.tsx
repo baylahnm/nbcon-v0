@@ -6,48 +6,7 @@ import { createCheckoutSession } from "./checkout";
 import { Check, ExternalLink } from "lucide-react";
 import { supabase } from "@nbcon/config";
 import { Button } from "../../components/ui/button";
-
-const plans = [
-  {
-    name: "Free",
-    tier: "free" as const,
-    price: "$0",
-    features: ["Dashboard", "Basic Projects", "Community Support"],
-    priceId: "price_free",
-  },
-  {
-    name: "Basic",
-    tier: "basic" as const,
-    price: "$29",
-    features: ["Everything in Free", "Unlimited Projects", "Email Support"],
-    priceId: "price_basic",
-  },
-  {
-    name: "Pro",
-    tier: "pro" as const,
-    price: "$99",
-    features: [
-      "Everything in Basic",
-      "AI Co-Pilot",
-      "Team Collaboration",
-      "Advanced Reports",
-      "Priority Support",
-    ],
-    priceId: "price_pro",
-  },
-  {
-    name: "Enterprise",
-    tier: "enterprise" as const,
-    price: "Custom",
-    features: [
-      "Everything in Pro",
-      "Custom Integrations",
-      "Dedicated Support",
-      "SLA Guarantee",
-    ],
-    priceId: "price_enterprise",
-  },
-];
+import { PLANS } from "../../config/plans";
 
 export default function BillingPage() {
   const { tier: currentTier, isLoading } = useSubscriptionTier();
@@ -143,15 +102,15 @@ export default function BillingPage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {plans.map((plan) => {
-            const isCurrent = plan.tier === currentTier;
+          {PLANS.map((plan) => {
+            const isCurrent = plan.key === currentTier;
+            const tierOrder = ["free", "basic", "pro", "enterprise"] as const;
             const isUpgrade =
-              ["free", "basic", "pro", "enterprise"].indexOf(plan.tier) >
-              ["free", "basic", "pro", "enterprise"].indexOf(currentTier);
+              tierOrder.indexOf(plan.key) > tierOrder.indexOf(currentTier as typeof tierOrder[number]);
 
             return (
               <div
-                key={plan.tier}
+                key={plan.key}
                 className={`border rounded-lg p-6 ${
                   isCurrent
                     ? "border-primary bg-primary/5"
@@ -159,7 +118,7 @@ export default function BillingPage() {
                 }`}
               >
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-xl font-semibold">{plan.name}</h3>
+                  <h3 className="text-xl font-semibold">{plan.label}</h3>
                   {isCurrent && (
                     <span className="text-xs bg-primary text-primary-foreground px-2 py-1 rounded">
                       {t("billing.currentPlanBadge")}
@@ -167,8 +126,13 @@ export default function BillingPage() {
                   )}
                 </div>
                 <div className="mb-6">
-                  <span className="text-3xl font-bold">{plan.price}</span>
-                  {plan.price !== "Custom" && (
+                  <span className="text-3xl font-bold">
+                    {plan.sar === null ? "Custom" : plan.sar.toString()}
+                  </span>
+                  {plan.currency && plan.sar !== null && (
+                    <span className="text-muted-foreground ml-1">{plan.currency}</span>
+                  )}
+                  {plan.sar !== null && (
                     <span className="text-muted-foreground">/month</span>
                   )}
                 </div>
@@ -180,23 +144,32 @@ export default function BillingPage() {
                     </li>
                   ))}
                 </ul>
-                <button
-                  onClick={() => handleUpgrade(plan.priceId)}
-                  disabled={isCurrent || loading !== null}
-                  className={`w-full py-2 px-4 rounded-md font-medium transition-colors ${
-                    isCurrent
-                      ? "bg-muted text-muted-foreground cursor-not-allowed"
-                      : "bg-primary text-primary-foreground hover:bg-primary/90"
-                  }`}
-                >
-                  {loading === plan.priceId
-                    ? t("common.loading")
-                    : isCurrent
-                    ? t("billing.currentPlan")
-                    : isUpgrade
-                    ? t("billing.upgrade")
-                    : t("billing.selectPlan")}
-                </button>
+                {plan.isEnterprise ? (
+                  <a
+                    href="/enterprise"
+                    className="w-full py-2 px-4 rounded-md font-medium transition-colors bg-primary text-primary-foreground hover:bg-primary/90 text-center inline-block"
+                  >
+                    Contact Sales
+                  </a>
+                ) : (
+                  <button
+                    onClick={() => plan.priceId && handleUpgrade(plan.priceId)}
+                    disabled={isCurrent || loading !== null || !plan.priceId}
+                    className={`w-full py-2 px-4 rounded-md font-medium transition-colors ${
+                      isCurrent
+                        ? "bg-muted text-muted-foreground cursor-not-allowed"
+                        : "bg-primary text-primary-foreground hover:bg-primary/90"
+                    }`}
+                  >
+                    {loading === plan.priceId
+                      ? t("common.loading")
+                      : isCurrent
+                      ? t("billing.currentPlan")
+                      : isUpgrade
+                      ? t("billing.upgrade")
+                      : t("billing.selectPlan")}
+                  </button>
+                )}
               </div>
             );
           })}

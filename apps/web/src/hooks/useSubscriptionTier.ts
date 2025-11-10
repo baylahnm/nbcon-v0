@@ -9,11 +9,12 @@ export function useSubscriptionTier() {
   useEffect(() => {
     async function fetchTier() {
       try {
+        // Use getSession() instead of getUser() for better caching
         const {
-          data: { user },
-        } = await supabase.auth.getUser();
+          data: { session },
+        } = await supabase.auth.getSession();
 
-        if (!user) {
+        if (!session?.user) {
           setIsLoading(false);
           return;
         }
@@ -21,7 +22,7 @@ export function useSubscriptionTier() {
         const { data: profile, error } = await supabase
           .from('profiles')
           .select('subscription_tier')
-          .eq('id', user.id)
+          .eq('id', session.user.id)
           .single();
 
         if (error) {
@@ -41,7 +42,7 @@ export function useSubscriptionTier() {
               event: '*',
               schema: 'public',
               table: 'profiles',
-              filter: `id=eq.${user.id}`,
+              filter: `id=eq.${session.user.id}`,
             },
             (payload) => {
               const newTier = (payload.new as { subscription_tier?: string })?.subscription_tier;

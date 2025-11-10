@@ -16,6 +16,8 @@ import { RegenerateButton } from "@/components/ui/regenerate-button";
 import { CopyButton } from "@/components/ui/copy-button";
 import { ShareMenu } from "@/components/ui/share-menu";
 import { MarkdownRenderer } from "@/components/ui/markdown-renderer";
+import { ConversationSkeleton } from "@/components/ui/conversation-skeleton";
+import { LoadingSpinner } from "@/components/ui/loading-spinner";
 
 type AgentKey = keyof typeof agentRegistry;
 import Link from "next/link";
@@ -49,7 +51,7 @@ export function GeminiMainArea() {
   const { used: creditsUsed, limit: creditsLimit, isLoading: creditsLoading, canUse } = useCredits();
   const { createConversation } = useConversations();
   const [selectedAgent, setSelectedAgent] = React.useState<AgentKey>("civil");
-  const [selectedModel, setSelectedModel] = React.useState<string>("claude-sonnet-4.5");
+  const [selectedModel, setSelectedModel] = React.useState<string>("gemini-2.5-pro");
   const { runAgent, loading: agentLoading, error: agentError } = useAIAgent(selectedAgent, { model: selectedModel });
   const [inputValue, setInputValue] = React.useState("");
   const [messages, setMessages] = React.useState<Message[]>([]);
@@ -57,8 +59,14 @@ export function GeminiMainArea() {
   const [isLoadingConversation, setIsLoadingConversation] = React.useState(false);
   const [conversationError, setConversationError] = React.useState<string | null>(null);
   const messagesEndRef = React.useRef<HTMLDivElement>(null);
+  const inputRef = React.useRef<HTMLTextAreaElement>(null);
   const lastLoadedConversationIdRef = React.useRef<string | null>(null); // Track last loaded conversation to prevent duplicate loads
   const isLoadingRef = React.useRef<string | null>(null); // Track currently loading conversation ID to prevent duplicate requests
+
+  // Get conversation ID from URL - support both dynamic route (/chat/:id) and query param (?conversation=id)
+  const conversationIdFromRoute = router.query.conversationId as string | undefined;
+  const conversationIdFromQuery = router.query.conversation as string | undefined;
+  const conversationIdFromUrl = conversationIdFromRoute || conversationIdFromQuery;
 
   // Auto-scroll to latest message
   React.useEffect(() => {
@@ -67,10 +75,19 @@ export function GeminiMainArea() {
     }
   }, [messages, agentLoading]);
 
-  // Get conversation ID from URL - support both dynamic route (/chat/:id) and query param (?conversation=id)
-  const conversationIdFromRoute = router.query.conversationId as string | undefined;
-  const conversationIdFromQuery = router.query.conversation as string | undefined;
-  const conversationIdFromUrl = conversationIdFromRoute || conversationIdFromQuery;
+  // Auto-focus input on mount and when conversation loads
+  React.useEffect(() => {
+    // Only auto-focus if we're not loading a conversation and there's no error
+    if (!isLoadingConversation && !conversationError && !agentLoading) {
+      // Small delay to ensure DOM is ready
+      const timer = setTimeout(() => {
+        if (inputRef.current) {
+          inputRef.current.focus();
+        }
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [isLoadingConversation, conversationError, agentLoading, conversationIdFromUrl]);
 
   // Load conversation when ID changes (only when router is ready)
   React.useEffect(() => {
@@ -365,7 +382,7 @@ export function GeminiMainArea() {
             <div className="w-full max-w-3xl mx-auto space-y-8">
               {/* Plan Badge */}
               <div className="flex justify-center">
-                <div className="ml-0.5 inline-flex items-center gap-1.5 rounded-lg h-8 px-2.5 text-center text-sm bg-[#fafafa] dark:bg-[#181818] text-muted-foreground select-none">
+                <div className="ml-0.5 inline-flex items-center gap-1.5 rounded-lg h-8 px-2.5 text-center text-sm bg-surface dark:bg-surface text-muted-foreground select-none">
                   {tierLoading ? (
                     <span className="h-4 w-16 bg-muted-foreground/20 rounded animate-pulse" />
                   ) : (
@@ -389,7 +406,7 @@ export function GeminiMainArea() {
                 {messages.map((msg, idx) => (
                   <div
                     key={idx}
-                    className={`flex flex-col gap-2 ${msg.role === "user" ? "items-end" : "items-start"}`}
+                    className={`flex flex-col gap-2 ${msg.role === "user" ? "items-end" : "items-start"} animate-in fade-in slide-in-from-bottom-2 duration-300`}
                   >
                     <div className={`flex items-start gap-2 ${msg.role === "user" ? "flex-row-reverse" : "flex-row"}`}>
                       <div
@@ -467,23 +484,6 @@ export function GeminiMainArea() {
                   <p className="text-sm text-destructive">{agentError}</p>
                 </div>
               )}
-
-              {/* Credit Exhausted Warning */}
-              {!canUse && tier !== "enterprise" && !creditsLoading && (
-                <div className="w-full p-4 bg-yellow-500/10 border border-yellow-500/20 rounded-lg flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <AlertCircle className="h-5 w-5 text-yellow-600 dark:text-yellow-400" />
-                    <p className="text-sm text-yellow-600 dark:text-yellow-400">
-                      Daily credits exhausted ({creditsUsed}/{creditsLimit}). Upgrade to continue.
-                    </p>
-                  </div>
-                  <Link href="/?settings=billing">
-                    <Button size="sm" variant="outline">
-                      Upgrade
-                    </Button>
-                  </Link>
-                </div>
-              )}
             </div>
           </div>
 
@@ -492,6 +492,7 @@ export function GeminiMainArea() {
             <div className="w-full max-w-3xl mx-auto">
               <form onSubmit={handleSubmit} className="w-full">
                 <PromptBox
+                  ref={inputRef}
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
                   selectedModel={selectedModel}
@@ -500,33 +501,25 @@ export function GeminiMainArea() {
                 />
               </form>
 
-              {/* Status Bar Footer */}
-              <div className="w-full max-w-[calc(100%-2rem)] mx-auto border-t border-border/50 relative z-0 px-3.5 m-0 rounded-b-[15px] border-t-0 pb-2 pt-2 bg-[#fafafa] dark:bg-[#181818] border-transparent mt-0">
-                <div className="w-full">
-                  <div className="flex w-full flex-col items-center md:flex-row gap-2">
-                    <div className="flex flex-row items-center gap-2 md:w-full text-muted-foreground">
-                      {creditsLoading ? (
-                        <div className="h-4 w-32 bg-muted-foreground/20 rounded animate-pulse" />
-                      ) : (
+              {/* Status Bar Footer - Only show when limits reached */}
+              {!canUse && tier !== "enterprise" && !creditsLoading && (
+                <div className="w-full max-w-[calc(100%-2rem)] mx-auto border-t border-border/50 relative z-0 px-3.5 m-0 rounded-b-[15px] border-t-0 pb-2 pt-2 bg-surface dark:bg-surface border-transparent mt-0">
+                  <div className="w-full">
+                    <div className="flex w-full flex-col items-center md:flex-row gap-2">
+                      <div className="flex flex-row items-center gap-2 md:w-full text-muted-foreground">
                         <div className="text-xs font-normal">
-                          {tier === "enterprise" ? (
-                            "Unlimited credits"
-                          ) : (
-                            `Credits: ${creditsUsed}/${creditsLimit} ∙ Resets midnight UTC`
-                          )}
+                          Credits: {creditsUsed}/{creditsLimit} ∙ Resets midnight UTC
                         </div>
-                      )}
-                    </div>
-                    {tier === "free" && (
+                      </div>
                       <div className="w-full whitespace-nowrap md:w-fit">
                         <Link className="inline underline hover:no-underline cursor-pointer text-xs font-normal" href="/?settings=billing">
                           Upgrade
                         </Link>
                       </div>
-                    )}
+                    </div>
                   </div>
                 </div>
-              </div>
+              )}
             </div>
           </div>
         </>
@@ -536,7 +529,7 @@ export function GeminiMainArea() {
           <div className="w-full max-w-3xl space-y-8">
             {/* Plan Badge */}
             <div className="flex justify-center">
-              <div className="ml-0.5 inline-flex items-center gap-1.5 rounded-lg h-8 px-2.5 text-center text-sm bg-[#fafafa] dark:bg-[#181818] text-muted-foreground select-none">
+              <div className="ml-0.5 inline-flex items-center gap-1.5 rounded-lg h-8 px-2.5 text-center text-sm bg-surface dark:bg-surface text-muted-foreground select-none">
                 {tierLoading ? (
                   <span className="h-4 w-16 bg-muted-foreground/20 rounded animate-pulse" />
                 ) : (
@@ -590,11 +583,8 @@ export function GeminiMainArea() {
 
             {/* Loading Conversation */}
             {isLoadingConversation && (
-              <div className="w-full p-4 text-center">
-                <div className="inline-flex items-center gap-2">
-                  <div className="h-4 w-4 border-2 border-primary border-t-transparent rounded-full animate-spin" />
-                  <span className="text-sm text-muted-foreground">Loading conversation...</span>
-                </div>
+              <div className="w-full animate-in fade-in duration-200">
+                <ConversationSkeleton />
               </div>
             )}
 
@@ -604,6 +594,7 @@ export function GeminiMainArea() {
                 <div className="w-full">
                   <form onSubmit={handleSubmit} className="w-full">
                     <PromptBox
+                      ref={inputRef}
                       value={inputValue}
                       onChange={(e) => setInputValue(e.target.value)}
                       selectedModel={selectedModel}
@@ -612,33 +603,25 @@ export function GeminiMainArea() {
                     />
                   </form>
 
-                  {/* Status Bar Footer */}
-                  <div className="w-full max-w-[calc(100%-2rem)] mx-auto border-t border-border/50 relative z-0 px-3.5 m-0 rounded-b-[15px] border-t-0 pb-2 pt-2 bg-[#fafafa] dark:bg-[#181818] border-transparent mt-0">
-                    <div className="w-full">
-                      <div className="flex w-full flex-col items-center md:flex-row gap-2">
-                        <div className="flex flex-row items-center gap-2 md:w-full text-muted-foreground">
-                          {creditsLoading ? (
-                            <div className="h-4 w-32 bg-muted-foreground/20 rounded animate-pulse" />
-                          ) : (
+                  {/* Status Bar Footer - Only show when limits reached */}
+                  {!canUse && tier !== "enterprise" && !creditsLoading && (
+                    <div className="w-full max-w-[calc(100%-2rem)] mx-auto border-t border-border/50 relative z-0 px-3.5 m-0 rounded-b-[15px] border-t-0 pb-2 pt-2 bg-surface dark:bg-surface border-transparent mt-0">
+                      <div className="w-full">
+                        <div className="flex w-full flex-col items-center md:flex-row gap-2">
+                          <div className="flex flex-row items-center gap-2 md:w-full text-muted-foreground">
                             <div className="text-xs font-normal">
-                              {tier === "enterprise" ? (
-                                "Unlimited credits"
-                              ) : (
-                                `Credits: ${creditsUsed}/${creditsLimit} ∙ Resets midnight UTC`
-                              )}
+                              Credits: {creditsUsed}/{creditsLimit} ∙ Resets midnight UTC
                             </div>
-                          )}
-                        </div>
-                        {tier === "free" && (
+                          </div>
                           <div className="w-full whitespace-nowrap md:w-fit">
                             <Link className="inline underline hover:no-underline cursor-pointer text-xs font-normal" href="/?settings=billing">
                               Upgrade
                             </Link>
                           </div>
-                        )}
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  )}
                 </div>
 
                 {/* Quick Actions */}
@@ -651,7 +634,7 @@ export function GeminiMainArea() {
                         variant="outline"
                         size="sm"
                         onClick={action.onClick}
-                        className="h-9 rounded-full border-border bg-[#fafafa] dark:bg-[#181818] hover:bg-accent hover:text-accent-foreground"
+                        className="h-9 rounded-full border-border bg-surface dark:bg-surface hover:bg-accent hover:text-accent-foreground"
                       >
                         <Icon className="mr-2 h-4 w-4" />
                         {action.label}
@@ -665,23 +648,6 @@ export function GeminiMainArea() {
                   <div className="w-full p-4 bg-destructive/10 border border-destructive/20 rounded-lg flex items-center gap-2">
                     <AlertCircle className="h-5 w-5 text-destructive" />
                     <p className="text-sm text-destructive">{agentError}</p>
-                  </div>
-                )}
-
-                {/* Credit Exhausted Warning */}
-                {!canUse && tier !== "enterprise" && !creditsLoading && (
-                  <div className="w-full p-4 bg-yellow-500/10 border border-yellow-500/20 rounded-lg flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <AlertCircle className="h-5 w-5 text-yellow-600 dark:text-yellow-400" />
-                      <p className="text-sm text-yellow-600 dark:text-yellow-400">
-                        Daily credits exhausted ({creditsUsed}/{creditsLimit}). Upgrade to continue.
-                      </p>
-                    </div>
-                    <Link href="/?settings=billing">
-                      <Button size="sm" variant="outline">
-                        Upgrade
-                      </Button>
-                    </Link>
                   </div>
                 )}
               </>

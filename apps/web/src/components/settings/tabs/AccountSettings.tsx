@@ -114,7 +114,7 @@ export function AccountSettings() {
     value?: string;
     children?: React.ReactNode;
   }) => (
-    <div className="border-border dark:border-[#2d2d2d] flex min-h-[60px] items-center border-b py-2 last-of-type:border-none">
+    <div className="border-border dark:border-border-elevated flex min-h-[60px] items-center border-b py-2 last-of-type:border-none">
       <div className="w-full">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
@@ -133,7 +133,7 @@ export function AccountSettings() {
   if (profileLoading) {
     return (
       <section className="relative mb-4">
-        <div className="min-h-[60px] flex items-center py-3 border-border dark:border-[#2d2d2d] border-b">
+        <div className="min-h-[60px] flex items-center py-3 border-border dark:border-border-elevated border-b">
           <h3 className="w-full text-lg font-normal">
             <div className="truncate select-none">Account</div>
           </h3>
@@ -146,7 +146,7 @@ export function AccountSettings() {
   return (
     <section className="relative mb-4">
       {/* Header */}
-      <div className="min-h-[60px] flex items-center py-3 border-border dark:border-[#2d2d2d] border-b">
+      <div className="min-h-[60px] flex items-center py-3 border-border dark:border-border-elevated border-b">
         <h3 className="w-full text-lg font-normal">
           <div className="truncate select-none">Account</div>
         </h3>

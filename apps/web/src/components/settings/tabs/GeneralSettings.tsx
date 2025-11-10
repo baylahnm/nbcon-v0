@@ -43,7 +43,7 @@ export function GeneralSettings() {
     children: React.ReactNode;
     description?: string;
   }) => (
-    <div className="border-border dark:border-[#2d2d2d] flex min-h-[60px] items-center border-b py-2 last-of-type:border-none">
+    <div className="border-border dark:border-border-elevated flex min-h-[60px] items-center border-b py-2 last-of-type:border-none">
       <div className="w-full">
         <div className="flex items-center justify-between">
           <div>{label}</div>
@@ -59,7 +59,7 @@ export function GeneralSettings() {
   return (
     <section className="relative mb-4">
       {/* Header */}
-      <div className="min-h-[60px] flex items-center py-3 border-border dark:border-[#2d2d2d] border-b">
+      <div className="min-h-[60px] flex items-center py-3 border-border dark:border-border-elevated border-b">
         <h3 className="w-full text-lg font-normal">
           <div className="truncate select-none">General</div>
         </h3>
@@ -71,14 +71,14 @@ export function GeneralSettings() {
           <DropdownMenuTrigger asChild>
             <Button
               variant="outline"
-              className="border-transparent inline-flex h-9 items-center justify-center gap-1 rounded-lg bg-white dark:bg-transparent px-3 text-sm leading-none outline-hidden cursor-pointer hover:bg-[#fafafa] dark:hover:bg-[#2a2a2a] text-foreground"
+              className="border-transparent inline-flex h-9 items-center justify-center gap-1 rounded-lg bg-white dark:bg-transparent px-3 text-sm leading-none outline-hidden cursor-pointer hover:bg-surface-hover dark:hover:bg-surface-hover text-foreground"
             >
               <span>{getThemeLabel()}</span>
               <ChevronDown className="h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent
-            className="bg-[#fafafa] dark:bg-[#181818] border-[#2d2d2d] min-w-[120px]"
+            className="bg-surface dark:bg-surface border-border-elevated min-w-[120px]"
             align="end"
           >
             <DropdownMenuItem
@@ -112,7 +112,7 @@ export function GeneralSettings() {
           <DropdownMenuTrigger asChild>
             <Button
               variant="outline"
-              className="border-transparent inline-flex h-9 items-center justify-center gap-1 rounded-lg bg-white dark:bg-transparent px-3 text-sm leading-none outline-hidden cursor-pointer hover:bg-[#fafafa] dark:hover:bg-[#2a2a2a] text-foreground"
+              className="border-transparent inline-flex h-9 items-center justify-center gap-1 rounded-lg bg-white dark:bg-transparent px-3 text-sm leading-none outline-hidden cursor-pointer hover:bg-surface-hover dark:hover:bg-surface-hover text-foreground"
             >
               <div className="flex items-center gap-1.5">
                 <div className="flex h-3.5 w-3.5 items-center justify-center">
@@ -124,7 +124,7 @@ export function GeneralSettings() {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent
-            className="bg-[#fafafa] dark:bg-[#181818] border-[#2d2d2d] min-w-[120px]"
+            className="bg-surface dark:bg-surface border-border-elevated min-w-[120px]"
             align="end"
           >
             <DropdownMenuItem
@@ -146,14 +146,14 @@ export function GeneralSettings() {
           <DropdownMenuTrigger asChild>
             <Button
               variant="outline"
-              className="border-transparent inline-flex h-9 items-center justify-center gap-1 rounded-lg bg-white dark:bg-transparent px-3 text-sm leading-none outline-hidden cursor-pointer hover:bg-[#fafafa] dark:hover:bg-[#2a2a2a] text-foreground"
+              className="border-transparent inline-flex h-9 items-center justify-center gap-1 rounded-lg bg-white dark:bg-transparent px-3 text-sm leading-none outline-hidden cursor-pointer hover:bg-surface-hover dark:hover:bg-surface-hover text-foreground"
             >
               <span>English (US)</span>
               <ChevronDown className="h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent
-            className="bg-[#fafafa] dark:bg-[#181818] border-[#2d2d2d] min-w-[140px]"
+            className="bg-surface dark:bg-surface border-border-elevated min-w-[140px]"
             align="end"
           >
             <DropdownMenuItem
@@ -181,14 +181,14 @@ export function GeneralSettings() {
           <DropdownMenuTrigger asChild>
             <Button
               variant="outline"
-              className="border-transparent inline-flex h-9 items-center justify-center gap-1 rounded-lg bg-white dark:bg-transparent px-3 text-sm leading-none outline-hidden cursor-pointer hover:bg-[#fafafa] dark:hover:bg-[#2a2a2a] text-foreground"
+              className="border-transparent inline-flex h-9 items-center justify-center gap-1 rounded-lg bg-white dark:bg-transparent px-3 text-sm leading-none outline-hidden cursor-pointer hover:bg-surface-hover dark:hover:bg-surface-hover text-foreground"
             >
               <span>English</span>
               <ChevronDown className="h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent
-            className="bg-[#fafafa] dark:bg-[#181818] border-[#2d2d2d] min-w-[120px]"
+            className="bg-surface dark:bg-surface border-border-elevated min-w-[120px]"
             align="end"
           >
             <DropdownMenuItem
@@ -213,24 +213,24 @@ export function GeneralSettings() {
           <Button
             variant="ghost"
             size="sm"
-            className="border-none h-9 px-3 hover:bg-[#fafafa] dark:hover:bg-[#2a2a2a]"
+            className="border-none h-9 px-3 hover:bg-surface-hover dark:hover:bg-surface-hover"
           >
             <Play className="h-4 w-4" />
             <span className="ml-1.5">Play</span>
           </Button>
-          <Separator orientation="vertical" className="h-4 bg-[#2d2d2d]" />
+          <Separator orientation="vertical" className="h-4 bg-border-elevated" />
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button
                 variant="outline"
-                className="border-transparent inline-flex h-9 items-center justify-center gap-1 rounded-lg bg-white dark:bg-transparent px-3 text-sm leading-none outline-hidden cursor-pointer hover:bg-[#fafafa] dark:hover:bg-[#2a2a2a] text-foreground"
+                className="border-transparent inline-flex h-9 items-center justify-center gap-1 rounded-lg bg-white dark:bg-transparent px-3 text-sm leading-none outline-hidden cursor-pointer hover:bg-surface-hover dark:hover:bg-surface-hover text-foreground"
               >
                 <span>{voice}</span>
                 <ChevronDown className="h-4 w-4" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent
-              className="bg-[#fafafa] dark:bg-[#181818] border-[#2d2d2d] min-w-[120px]"
+              className="bg-surface dark:bg-surface border-border-elevated min-w-[120px]"
               align="end"
             >
               <DropdownMenuItem

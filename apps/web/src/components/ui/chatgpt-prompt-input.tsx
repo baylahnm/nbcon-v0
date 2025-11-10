@@ -57,7 +57,7 @@ const PopoverContent = React.forwardRef<
       align={align}
       sideOffset={sideOffset}
       className={cn(
-        "z-50 w-64 rounded-xl bg-popover dark:bg-[#303030] p-2 text-popover-foreground dark:text-white shadow-md outline-none animate-in data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 data-[state=open]:zoom-in-95 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
+        "z-50 w-64 rounded-xl bg-popover dark:bg-surface-elevated p-2 text-popover-foreground dark:text-white shadow-md outline-none animate-in data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 data-[state=open]:zoom-in-95 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
         className
       )}
       {...props}
@@ -99,9 +99,9 @@ const DialogContent = React.forwardRef<
       )}
       {...props}
     >
-      <div className="relative bg-card dark:bg-[#303030] rounded-[28px] overflow-hidden shadow-2xl p-1">
+      <div className="relative bg-card dark:bg-surface-elevated rounded-[28px] overflow-hidden shadow-2xl p-1">
         {children}
-        <DialogPrimitive.Close className="absolute right-3 top-3 z-10 rounded-full bg-background/50 dark:bg-[#303030] p-1 hover:bg-accent dark:hover:bg-[#515151] transition-all">
+        <DialogPrimitive.Close className="absolute right-3 top-3 z-10 rounded-full bg-background/50 dark:bg-surface-elevated p-1 hover:bg-accent dark:hover:bg-surface-hover transition-all">
           <XIcon className="h-5 w-5 text-muted-foreground dark:text-gray-200 hover:text-foreground dark:hover:text-white" />
           <span className="sr-only">Close</span>
         </DialogPrimitive.Close>
@@ -275,7 +275,7 @@ export const PromptBox = React.forwardRef<HTMLTextAreaElement, PromptBoxProps>(
     const [selectedTool, setSelectedTool] = React.useState<string | null>(null);
     const [isPopoverOpen, setIsPopoverOpen] = React.useState(false);
     const [isImageDialogOpen, setIsImageDialogOpen] = React.useState(false);
-    const [internalSelectedModel, setInternalSelectedModel] = React.useState<string>("claude-sonnet-4.5");
+    const [internalSelectedModel, setInternalSelectedModel] = React.useState<string>("gemini-2.5-pro");
     
     // Use controlled model if provided, otherwise use internal state
     const selectedModel = controlledModel !== undefined ? controlledModel : internalSelectedModel;
@@ -345,7 +345,7 @@ export const PromptBox = React.forwardRef<HTMLTextAreaElement, PromptBoxProps>(
     const ActiveToolIcon = activeTool?.icon;
 
     return (
-      <div className={cn("flex flex-col rounded-[28px] p-2 shadow-sm transition-colors bg-white border dark:bg-[#303030] dark:border-transparent cursor-text", className)}>
+      <div className={cn("flex flex-col rounded-[28px] p-2 shadow-sm transition-colors bg-chat-input border dark:bg-chat-input dark:border-transparent cursor-text", className)}>
         <input type="file" ref={fileInputRef} onChange={handleFileChange} className="hidden" accept="image/*" />
 
         {imagePreview && (
@@ -356,7 +356,7 @@ export const PromptBox = React.forwardRef<HTMLTextAreaElement, PromptBoxProps>(
               </button>
               <button
                 onClick={handleRemoveImage}
-                className="absolute right-2 top-2 z-10 flex h-4 w-4 items-center justify-center rounded-full bg-white/50 dark:bg-[#303030] text-black dark:text-white transition-colors hover:bg-accent dark:hover:bg-[#515151]"
+                className="absolute right-2 top-2 z-10 flex h-4 w-4 items-center justify-center rounded-full bg-white/50 dark:bg-surface-elevated text-black dark:text-white transition-colors hover:bg-accent dark:hover:bg-surface-hover"
                 aria-label="Remove image"
               >
                 <XIcon className="h-4 w-4" />
@@ -386,7 +386,7 @@ export const PromptBox = React.forwardRef<HTMLTextAreaElement, PromptBoxProps>(
                   <button
                     type="button"
                     onClick={handlePlusClick}
-                    className="flex h-8 w-8 items-center justify-center rounded-full text-foreground dark:text-white transition-colors hover:bg-accent dark:hover:bg-[#515151] focus-visible:outline-none"
+                    className="flex h-8 w-8 items-center justify-center rounded-full text-foreground dark:text-white transition-colors hover:bg-accent dark:hover:bg-surface-hover focus-visible:outline-none"
                   >
                     <PlusIcon className="h-6 w-6" />
                     <span className="sr-only">Attach image</span>
@@ -403,7 +403,7 @@ export const PromptBox = React.forwardRef<HTMLTextAreaElement, PromptBoxProps>(
                     <PopoverTrigger asChild>
                       <button
                         type="button"
-                        className="flex h-8 items-center gap-2 rounded-full p-2 text-sm text-foreground dark:text-white transition-colors hover:bg-accent dark:hover:bg-[#515151] focus-visible:outline-none focus-visible:ring-ring"
+                        className="flex h-8 items-center gap-2 rounded-full p-2 text-sm text-foreground dark:text-white transition-colors hover:bg-accent dark:hover:bg-surface-hover focus-visible:outline-none focus-visible:ring-ring"
                       >
                         <Settings2Icon className="h-4 w-4" />
                         {!selectedTool && "Tools"}
@@ -423,7 +423,7 @@ export const PromptBox = React.forwardRef<HTMLTextAreaElement, PromptBoxProps>(
                           setSelectedTool(tool.id);
                           setIsPopoverOpen(false);
                         }}
-                        className="flex w-full items-center gap-2 rounded-md p-2 text-left text-sm hover:bg-accent dark:hover:bg-[#515151]"
+                        className="flex w-full items-center gap-2 rounded-md p-2 text-left text-sm hover:bg-accent dark:hover:bg-surface-hover"
                       >
                         <tool.icon className="h-4 w-4" />
                         <span>{tool.name}</span>
@@ -439,12 +439,12 @@ export const PromptBox = React.forwardRef<HTMLTextAreaElement, PromptBoxProps>(
                   <button
                     type="button"
                     title="Select AI model"
-                    className="inline-flex items-center justify-center relative shrink-0 select-none disabled:pointer-events-none disabled:opacity-50 border-transparent transition font-base duration-300 ease-smooth h-8 rounded-md px-3 min-w-[4rem] active:scale-[0.985] whitespace-nowrap text-xs pl-2.5 pr-2 gap-1 text-foreground dark:text-white hover:bg-accent dark:hover:bg-[#515151] focus-visible:outline-none"
+                    className="inline-flex items-center justify-center relative shrink-0 select-none disabled:pointer-events-none disabled:opacity-50 border-transparent transition font-base duration-300 ease-smooth h-8 rounded-md px-3 min-w-[4rem] active:scale-[0.985] whitespace-nowrap text-xs pl-2.5 pr-2 gap-1 text-foreground dark:text-white hover:bg-accent dark:hover:bg-surface-hover focus-visible:outline-none"
                   >
                     <div className="inline-flex gap-[3px] text-[14px] h-[14px] leading-none items-baseline">
                       <div className="flex items-center gap-[4px]">
                         <div className="whitespace-nowrap select-none">
-                          {modelsList.find((m) => m.id === selectedModel)?.name || moreModelsList.find((m) => m.id === selectedModel)?.name || "Claude Sonnet 4.5"}
+                          {modelsList.find((m) => m.id === selectedModel)?.name || moreModelsList.find((m) => m.id === selectedModel)?.name || "Gemini 2.5 Pro"}
                         </div>
                       </div>
                     </div>
@@ -458,14 +458,14 @@ export const PromptBox = React.forwardRef<HTMLTextAreaElement, PromptBoxProps>(
                 <DropdownMenuContent
                   side="bottom"
                   align="end"
-                  className="z-50 bg-popover dark:bg-[#303030] border border-border dark:border-[#2d2d2d] backdrop-blur-xl rounded-xl min-w-[20rem] overflow-hidden p-1.5 text-popover-foreground dark:text-white shadow-lg max-h-[min(var(--radix-dropdown-menu-content-available-height),400px)] overflow-y-auto"
+                  className="z-50 bg-popover dark:bg-surface-elevated border border-border dark:border-border-elevated backdrop-blur-xl rounded-xl min-w-[20rem] overflow-hidden p-1.5 text-popover-foreground dark:text-white shadow-lg max-h-[min(var(--radix-dropdown-menu-content-available-height),400px)] overflow-y-auto"
                 >
                   <DropdownMenuRadioGroup value={selectedModel} onValueChange={handleModelChange}>
                     {modelsList.map((model) => (
                       <DropdownMenuRadioItem
                         key={model.id}
                         value={model.id}
-                        className="py-1.5 px-2 rounded-lg cursor-pointer whitespace-nowrap overflow-hidden text-ellipsis grid grid-cols-[minmax(0,_1fr)_auto] gap-2 items-center outline-none select-none hover:bg-accent dark:hover:bg-[#515151] focus:bg-accent dark:focus:bg-[#515151] group pr-1 pl-2 !pl-2 [&>span]:left-auto [&>span]:right-2 [&>span]:absolute"
+                        className="py-1.5 px-2 rounded-lg cursor-pointer whitespace-nowrap overflow-hidden text-ellipsis grid grid-cols-[minmax(0,_1fr)_auto] gap-2 items-center outline-none select-none hover:bg-accent dark:hover:bg-surface-hover focus:bg-accent dark:focus:bg-surface-hover group pr-1 pl-2 !pl-2 [&>span]:left-auto [&>span]:right-2 [&>span]:absolute"
                       >
                         <div>
                           <div className="flex items-center">
@@ -480,7 +480,7 @@ export const PromptBox = React.forwardRef<HTMLTextAreaElement, PromptBoxProps>(
                                   e.stopPropagation();
                                   // Handle upgrade
                                 }}
-                                className="border border-border dark:border-[#515151] text-blue-600 dark:text-blue-400 px-1.5 py-px rounded-3xl text-xs cursor-pointer hover:border-border/80 dark:hover:border-[#666] transition-colors mt-0.5 ml-2 -mr-1 flex-shrink-0"
+                                className="border border-border dark:border-border-elevated text-blue-600 dark:text-blue-400 px-1.5 py-px rounded-3xl text-xs cursor-pointer hover:border-border/80 dark:hover:border-border-elevated transition-colors mt-0.5 ml-2 -mr-1 flex-shrink-0"
                               >
                                 Upgrade
                               </button>
@@ -491,23 +491,23 @@ export const PromptBox = React.forwardRef<HTMLTextAreaElement, PromptBoxProps>(
                       </DropdownMenuRadioItem>
                     ))}
                   </DropdownMenuRadioGroup>
-                  <DropdownMenuSeparator className="h-0 border-t border-border dark:border-[#2d2d2d] m-1" />
+                  <DropdownMenuSeparator className="h-0 border-t border-border dark:border-border-elevated m-1" />
                   <DropdownMenuSub>
-                    <DropdownMenuSubTrigger className="py-1.5 px-2 rounded-lg cursor-pointer whitespace-nowrap overflow-hidden text-ellipsis grid grid-cols-[minmax(0,_1fr)_auto] gap-2 items-center outline-none select-none hover:bg-accent dark:hover:bg-[#515151] focus:bg-accent dark:focus:bg-[#515151] pl-2 gap-2">
+                    <DropdownMenuSubTrigger className="py-1.5 px-2 rounded-lg cursor-pointer whitespace-nowrap overflow-hidden text-ellipsis grid grid-cols-[minmax(0,_1fr)_auto] gap-2 items-center outline-none select-none hover:bg-accent dark:hover:bg-surface-hover focus:bg-accent dark:focus:bg-surface-hover pl-2 gap-2">
                       <div className="group-hover:text-foreground dark:group-hover:text-white text-sm">More models</div>
                     </DropdownMenuSubTrigger>
                     <DropdownMenuSubContent 
                       side="right" 
                       align="start"
                       sideOffset={4}
-                      className="bg-popover dark:bg-[#303030] border border-border dark:border-[#2d2d2d] rounded-xl min-w-[20rem] max-h-[400px] overflow-y-auto z-50"
+                      className="bg-popover dark:bg-surface-elevated border border-border dark:border-border-elevated rounded-xl min-w-[20rem] max-h-[400px] overflow-y-auto z-50"
                     >
                       <DropdownMenuRadioGroup value={selectedModel} onValueChange={handleModelChange}>
                         {moreModelsList.map((model) => (
                           <DropdownMenuRadioItem
                             key={model.id}
                             value={model.id}
-                            className="py-1.5 px-2 rounded-lg cursor-pointer whitespace-nowrap overflow-hidden text-ellipsis grid grid-cols-[minmax(0,_1fr)_auto] gap-2 items-center outline-none select-none hover:bg-accent dark:hover:bg-[#515151] focus:bg-accent dark:focus:bg-[#515151] group pr-1 pl-2 !pl-2 [&>span]:left-auto [&>span]:right-2 [&>span]:absolute"
+                            className="py-1.5 px-2 rounded-lg cursor-pointer whitespace-nowrap overflow-hidden text-ellipsis grid grid-cols-[minmax(0,_1fr)_auto] gap-2 items-center outline-none select-none hover:bg-accent dark:hover:bg-surface-hover focus:bg-accent dark:focus:bg-surface-hover group pr-1 pl-2 !pl-2 [&>span]:left-auto [&>span]:right-2 [&>span]:absolute"
                           >
                             <div>
                               <div className="flex items-center">
@@ -525,7 +525,7 @@ export const PromptBox = React.forwardRef<HTMLTextAreaElement, PromptBoxProps>(
                                       e.stopPropagation();
                                       // Handle upgrade
                                     }}
-                                    className="border border-border dark:border-[#515151] text-blue-600 dark:text-blue-400 px-1.5 py-px rounded-3xl text-xs cursor-pointer hover:border-border/80 dark:hover:border-[#666] transition-colors mt-0.5 ml-2 -mr-1 flex-shrink-0"
+                                    className="border border-border dark:border-border-elevated text-blue-600 dark:text-blue-400 px-1.5 py-px rounded-3xl text-xs cursor-pointer hover:border-border/80 dark:hover:border-border-elevated transition-colors mt-0.5 ml-2 -mr-1 flex-shrink-0"
                                   >
                                     Upgrade
                                   </button>
@@ -561,7 +561,7 @@ export const PromptBox = React.forwardRef<HTMLTextAreaElement, PromptBoxProps>(
                   <TooltipTrigger asChild>
                     <button
                       type="button"
-                      className="flex h-8 w-8 items-center justify-center rounded-full text-foreground dark:text-white transition-colors hover:bg-accent dark:hover:bg-[#515151] focus-visible:outline-none"
+                      className="flex h-8 w-8 items-center justify-center rounded-full text-foreground dark:text-white transition-colors hover:bg-accent dark:hover:bg-surface-hover focus-visible:outline-none"
                     >
                       <MicIcon className="h-5 w-5" />
                       <span className="sr-only">Record voice</span>
@@ -577,7 +577,7 @@ export const PromptBox = React.forwardRef<HTMLTextAreaElement, PromptBoxProps>(
                     <button
                       type="submit"
                       disabled={!hasValue}
-                      className="flex h-8 w-8 items-center justify-center rounded-full text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none bg-black text-white hover:bg-black/80 dark:bg-white dark:text-black dark:hover:bg-white/80 disabled:bg-black/40 dark:disabled:bg-[#515151]"
+                      className="flex h-8 w-8 items-center justify-center rounded-full text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none bg-black text-white hover:bg-black/80 dark:bg-white dark:text-black dark:hover:bg-white/80 disabled:bg-black/40 dark:disabled:bg-surface-hover"
                     >
                       <SendIcon className="h-6 w-6 text-bold" />
                       <span className="sr-only">Send message</span>

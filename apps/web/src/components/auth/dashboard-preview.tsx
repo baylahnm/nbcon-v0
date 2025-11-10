@@ -14,7 +14,7 @@ export function DashboardPreview() {
       </div>
 
       {/* Dashboard Card */}
-      <div className="bg-card dark:bg-[#212121] rounded-2xl shadow-2xl overflow-hidden border border-border">
+      <div className="bg-card dark:bg-surface-elevated rounded-2xl shadow-2xl overflow-hidden border border-border">
         {/* Browser Header */}
         <div className="bg-gradient-to-r from-muted/50 to-muted/30 px-6 py-4 border-b border-border flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -38,7 +38,7 @@ export function DashboardPreview() {
           {/* Stats Grid */}
           <div className="grid grid-cols-2 gap-4">
             {/* Productive Time Card */}
-            <div className="bg-card dark:bg-[#212121] rounded-xl p-4">
+            <div className="bg-card dark:bg-surface-elevated rounded-xl p-4">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-xs text-muted-foreground">Productive Time</span>
                 <div className="flex items-center gap-1">
@@ -57,7 +57,7 @@ export function DashboardPreview() {
             </div>
 
             {/* Projects Card */}
-            <div className="bg-card dark:bg-[#212121] rounded-xl p-4">
+            <div className="bg-card dark:bg-surface-elevated rounded-xl p-4">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-xs text-muted-foreground">Projects</span>
                 <div className="flex items-center gap-1">
@@ -71,7 +71,7 @@ export function DashboardPreview() {
           </div>
 
           {/* Team Utilization */}
-          <div className="bg-card dark:bg-[#181818] rounded-xl p-4">
+          <div className="bg-card dark:bg-surface rounded-xl p-4">
             <div className="flex items-center justify-between mb-3">
               <span className="text-sm font-semibold text-foreground">Team Utilization</span>
               <button className="inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground rounded-md px-3 h-6 text-xs">

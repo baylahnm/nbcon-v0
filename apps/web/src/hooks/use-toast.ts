@@ -1,7 +1,15 @@
 "use client";
 
 import * as React from "react";
-import { toast as sonnerToast } from "sonner";
+
+// Optional sonner import - only use if available
+let sonnerToast: any = null;
+try {
+  const sonner = require("sonner");
+  sonnerToast = sonner.toast;
+} catch {
+  // sonner not installed, will use fallback
+}
 
 type ToastActionElement = React.ReactElement<typeof ToastAction>;
 
@@ -21,6 +29,8 @@ type ToasterToast = ToastProps & {
   title?: React.ReactNode;
   description?: React.ReactNode;
   action?: ToastActionElement;
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
 };
 
 const actionTypes = {
@@ -194,27 +204,32 @@ function useToast() {
   };
 }
 
-// Simple toast function using sonner
+// Simple toast function using sonner (if available) or console fallback
 export function showToast(message: string, type: "success" | "error" | "info" = "success") {
-  if (type === "success") {
-    sonnerToast.success(message);
-  } else if (type === "error") {
-    sonnerToast.error(message);
+  if (sonnerToast) {
+    if (type === "success") {
+      sonnerToast.success(message);
+    } else if (type === "error") {
+      sonnerToast.error(message);
+    } else {
+      sonnerToast.info(message);
+    }
   } else {
-    sonnerToast.info(message);
+    // Fallback to console if sonner is not available
+    console.log(`[${type.toUpperCase()}] ${message}`);
   }
 }
 
 const ToastAction = React.forwardRef<
   HTMLButtonElement,
   React.ButtonHTMLAttributes<HTMLButtonElement>
->(({ className, ...props }, ref) => (
-  <button
-    ref={ref}
-    className={className}
-    {...props}
-  />
-));
+>(({ className, ...props }, ref) =>
+  React.createElement("button", {
+    ref,
+    className,
+    ...props,
+  })
+);
 ToastAction.displayName = "ToastAction";
 
 export { useToast, ToastAction };

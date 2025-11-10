@@ -11,10 +11,17 @@ const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
 const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
 const tierMap: Record<string, string> = {
-  price_free: 'free',
-  price_basic: 'basic',
-  price_pro: 'pro',
-  price_enterprise: 'enterprise',
+  price_basic_sar: 'basic',
+  price_pro_sar: 'pro',
+  // Free and Enterprise handled separately (no Stripe checkout)
+};
+
+// Tier limits matching config/plans.ts
+const tierLimits: Record<string, number> = {
+  free: 50,
+  basic: 500,
+  pro: 2000,
+  enterprise: 999_999,
 };
 
 serve(async (req) => {
@@ -65,6 +72,25 @@ serve(async (req) => {
       const tier = priceId ? tierMap[priceId] || 'free' : 'free';
 
       if (userId) {
+        // Check for idempotency: verify event hasn't been processed recently
+        // Note: Requires stripe_event_id column migration for full idempotency
+        const { data: recentEvents } = await supabase
+          .from('billing_events')
+          .select('id')
+          .eq('user_id', userId)
+          .eq('stripe_event', eventType)
+          .eq('tier', tier)
+          .gte('created_at', new Date(Date.now() - 60000).toISOString()) // Within last minute
+          .limit(1);
+
+        if (recentEvents && recentEvents.length > 0) {
+          console.log(`Event ${eventType} for user ${userId} already processed recently, skipping`);
+          return new Response(JSON.stringify({ received: true, skipped: true }), {
+            status: 200,
+            headers: { 'Content-Type': 'application/json' },
+          });
+        }
+
         // Update profile subscription tier
         const { error: profileError } = await supabase
           .from('profiles')
@@ -73,6 +99,7 @@ serve(async (req) => {
 
         if (profileError) {
           console.error('Error updating profile:', profileError);
+          throw new Error(`Failed to update profile: ${profileError.message}`);
         }
 
         // Initialize or update user credits with new tier limits
@@ -83,9 +110,11 @@ serve(async (req) => {
 
         if (creditsError) {
           console.error('Error initializing credits:', creditsError);
+          throw new Error(`Failed to initialize credits: ${creditsError.message}`);
         }
 
         // Log billing event
+        // TODO: Add stripe_event_id column to billing_events for full idempotency
         const { error: eventError } = await supabase
           .from('billing_events')
           .insert({
@@ -97,6 +126,7 @@ serve(async (req) => {
 
         if (eventError) {
           console.error('Error logging billing event:', eventError);
+          // Don't throw - event processing succeeded even if logging failed
         }
 
         console.log(`Updated user ${userId} to tier ${tier} and initialized credits`);

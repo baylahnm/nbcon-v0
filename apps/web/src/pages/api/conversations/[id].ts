@@ -51,7 +51,7 @@ interface ConversationWithMessages extends Conversation {
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Conversation | Conversation[] | ConversationWithMessages | { error: string }>
+  res: NextApiResponse<Conversation | Conversation[] | ConversationWithMessages | { error: string } | { success: boolean }>
 ) {
   const supabase = getSupabaseClient(req);
   if (!supabase) {
@@ -110,25 +110,35 @@ export default async function handler(
         console.error("Error fetching messages:", messagesError);
       }
 
+      // Build messages array with proper typing
+      const userMessages = (messages || []).map((log) => ({
+        id: log.id,
+        role: "user" as const,
+        content: log.input,
+        created_at: log.created_at,
+      }));
+
+      const assistantMessages = (messages || [])
+        .filter((log) => log.output)
+        .map((log) => ({
+          id: `${log.id}-response`,
+          role: "assistant" as const,
+          content: log.output || "",
+          created_at: log.created_at,
+        }));
+
+      const allMessages: Array<{
+        id: string;
+        role: "user" | "assistant";
+        content: string;
+        created_at: string;
+      }> = [...userMessages, ...assistantMessages].sort(
+        (a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
+      );
+
       const conversationWithMessages: ConversationWithMessages = {
         ...conversation,
-        messages: (messages || []).map((log) => ({
-          id: log.id,
-          role: "user" as const,
-          content: log.input,
-          created_at: log.created_at,
-        })).concat(
-          (messages || [])
-            .filter((log) => log.output)
-            .map((log) => ({
-              id: `${log.id}-response`,
-              role: "assistant" as const,
-              content: log.output || "",
-              created_at: log.created_at,
-            }))
-        ).sort((a, b) => 
-          new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
-        ),
+        messages: allMessages,
       };
 
       return res.status(200).json(conversationWithMessages);
@@ -143,7 +153,7 @@ export default async function handler(
     try {
       const { data, error } = await supabase
         .from("conversations")
-        .select("id, title, created_at, updated_at")
+        .select("id, user_id, title, created_at, updated_at")
         .eq("user_id", userId)
         .order("updated_at", { ascending: false });
 
@@ -189,18 +199,36 @@ export default async function handler(
     }
   }
 
-  // PATCH /api/conversations/[id] - Update conversation (e.g., title)
+  // PATCH /api/conversations/[id] - Update conversation (e.g., title, pinned)
   if (req.method === "PATCH") {
     try {
-      const { title } = req.body;
+      const { title, pinned } = req.body;
 
-      if (!title || typeof title !== "string" || title.trim().length === 0) {
-        return res.status(400).json({ error: "Title is required" });
+      // Build update object with only provided fields
+      const updateData: { title?: string; pinned?: boolean } = {};
+      
+      if (title !== undefined) {
+        if (typeof title !== "string" || title.trim().length === 0) {
+          return res.status(400).json({ error: "Title must be a non-empty string" });
+        }
+        updateData.title = title.trim();
+      }
+
+      if (pinned !== undefined) {
+        if (typeof pinned !== "boolean") {
+          return res.status(400).json({ error: "Pinned must be a boolean" });
+        }
+        updateData.pinned = pinned;
+      }
+
+      // At least one field must be provided
+      if (Object.keys(updateData).length === 0) {
+        return res.status(400).json({ error: "At least one field (title or pinned) must be provided" });
       }
 
       const { data, error } = await supabase
         .from("conversations")
-        .update({ title: title.trim() })
+        .update(updateData)
         .eq("id", id)
         .eq("user_id", userId)
         .select()
@@ -208,7 +236,15 @@ export default async function handler(
 
       if (error) {
         console.error("Error updating conversation:", error);
-        return res.status(500).json({ error: "Failed to update conversation" });
+        // Check if it's a column doesn't exist error
+        if (error.code === '42703' || error.message?.includes('column') && error.message?.includes('does not exist')) {
+          return res.status(400).json({ 
+            error: `Database column missing: ${error.message}. Please add the 'pinned' column to the conversations table.` 
+          });
+        }
+        return res.status(500).json({ 
+          error: `Failed to update conversation: ${error.message || error.code || 'Unknown error'}` 
+        });
       }
 
       if (!data) {

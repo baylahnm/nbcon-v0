@@ -44,7 +44,7 @@ export function ToggleTheme() {
 			initial={{ opacity: 0 }}
 			animate={{ opacity: 1 }}
 			transition={{ duration: 0.3 }}
-			className="bg-[#fafafa] dark:bg-[#181818] inline-flex items-center overflow-hidden rounded-md border border-sidebar-border"
+			className="bg-surface dark:bg-surface inline-flex items-center overflow-hidden rounded-md border border-sidebar-border"
 			role="radiogroup"
 		>
 			{THEME_OPTIONS.map((option) => (

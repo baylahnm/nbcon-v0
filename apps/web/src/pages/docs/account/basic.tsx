@@ -42,7 +42,7 @@ export default function BasicPage() {
           </ul>
 
           <h2>Pricing</h2>
-          <p>Starting at $29/month or $290/year (save 17%)</p>
+          <p>49 SAR/month</p>
 
           <h2>Upgrade</h2>
           <p>Upgrade to Pro for advanced features or Enterprise for custom solutions.</p>

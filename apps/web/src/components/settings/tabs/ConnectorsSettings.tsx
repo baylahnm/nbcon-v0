@@ -200,7 +200,7 @@ export function ConnectorsSettings() {
     const isConnecting = connecting === integration.id;
 
     return (
-      <div className="border-border dark:border-[#2d2d2d] border rounded-lg p-4">
+      <div className="border-border dark:border-border-elevated border rounded-lg p-4">
         <div className="flex items-start justify-between">
           <div className="flex items-start gap-3 flex-1">
             <div className="p-2 rounded-lg bg-muted">
@@ -249,7 +249,7 @@ export function ConnectorsSettings() {
   if (isLoading) {
     return (
       <section className="relative mb-4">
-        <div className="min-h-[60px] flex items-center py-3 border-border dark:border-[#2d2d2d] border-b">
+        <div className="min-h-[60px] flex items-center py-3 border-border dark:border-border-elevated border-b">
           <h3 className="w-full text-lg font-normal">
             <div className="truncate select-none">Apps & Connectors</div>
           </h3>
@@ -262,7 +262,7 @@ export function ConnectorsSettings() {
   return (
     <section className="relative mb-4">
       {/* Header */}
-      <div className="min-h-[60px] flex items-center py-3 border-border dark:border-[#2d2d2d] border-b">
+      <div className="min-h-[60px] flex items-center py-3 border-border dark:border-border-elevated border-b">
         <h3 className="w-full text-lg font-normal">
           <div className="truncate select-none">Apps & Connectors</div>
         </h3>
@@ -276,7 +276,7 @@ export function ConnectorsSettings() {
       </div>
 
       {/* Info */}
-      <div className="mt-6 p-4 rounded-lg border border-border dark:border-[#2d2d2d] bg-muted/50">
+      <div className="mt-6 p-4 rounded-lg border border-border dark:border-border-elevated bg-muted/50">
         <div className="flex items-start gap-2">
           <ExternalLink className="h-4 w-4 text-muted-foreground mt-0.5" />
           <div>

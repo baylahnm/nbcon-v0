@@ -19,17 +19,22 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useUserProfile } from "@/hooks/useUserProfile";
 import { useConversations } from "@/hooks/useConversations";
 import { NbconLogo } from "@/components/ui/nbcon-logo";
 import { UserMenu } from "./UserMenu";
+import { ConversationActionsMenu } from "./ConversationActionsMenu";
+import { RenameConversationDialog } from "./RenameConversationDialog";
 import { useRouter } from "next/router";
 
 export function DashboardSidebar() {
   const { profile, isLoading: profileLoading } = useUserProfile();
-  const { conversations, isLoading: conversationsLoading, createConversation } = useConversations();
+  const { conversations, isLoading: conversationsLoading, createConversation, deleteConversation, renameConversation, pinConversation } = useConversations();
   const router = useRouter();
   const [isCreatingConversation, setIsCreatingConversation] = React.useState(false);
+  const [renameDialogOpen, setRenameDialogOpen] = React.useState(false);
+  const [conversationToRename, setConversationToRename] = React.useState<{ id: string; title: string } | null>(null);
 
   const handleNewChat = async () => {
     setIsCreatingConversation(true);
@@ -51,6 +56,49 @@ export function DashboardSidebar() {
     }
   };
 
+
+  const handleRename = (conversationId: string, currentTitle: string) => {
+    setConversationToRename({ id: conversationId, title: currentTitle });
+    setRenameDialogOpen(true);
+  };
+
+  const handleRenameSave = async (newTitle: string) => {
+    if (conversationToRename) {
+      await renameConversation(conversationToRename.id, newTitle);
+      setRenameDialogOpen(false);
+      setConversationToRename(null);
+    }
+  };
+
+  const handleDelete = async (conversationId: string) => {
+    await deleteConversation(conversationId);
+    // If deleted conversation was active, navigate to dashboard
+    if (router.query.conversationId === conversationId || router.query.conversation === conversationId) {
+      router.push("/dashboard");
+    }
+  };
+
+  const handlePin = async (conversationId: string, pinned: boolean) => {
+    await pinConversation(conversationId, pinned);
+  };
+
+  const handleShare = (conversationId: string, conversationTitle: string) => {
+    // Trigger share functionality
+    const shareUrl = `${window.location.origin}/chat/${conversationId}`;
+    if (navigator.share) {
+      navigator.share({
+        title: conversationTitle,
+        text: `Check out this AI conversation: ${conversationTitle}`,
+        url: shareUrl,
+      }).catch(() => {
+        // User cancelled or error - fallback to clipboard
+        navigator.clipboard.writeText(shareUrl);
+      });
+    } else {
+      // Fallback: Copy to clipboard
+      navigator.clipboard.writeText(shareUrl);
+    }
+  };
 
   const displayName = profile?.full_name || profile?.username || profile?.email?.split("@")[0] || "User";
   const initials = displayName
@@ -105,11 +153,16 @@ export function DashboardSidebar() {
           </SidebarGroupLabel>
           <SidebarMenu>
             {conversationsLoading ? (
-              <SidebarMenuItem>
-                <div className="px-2 py-1.5 text-sm text-muted-foreground">
-                  Loading...
-                </div>
-              </SidebarMenuItem>
+              <>
+                {[1, 2, 3].map((i) => (
+                  <SidebarMenuItem key={i}>
+                    <div className="px-2 py-1.5 flex items-center gap-2">
+                      <Skeleton className="h-4 w-4 rounded" />
+                      <Skeleton className="h-4 flex-1 rounded group-data-[collapsible=icon]:hidden" />
+                    </div>
+                  </SidebarMenuItem>
+                ))}
+              </>
             ) : conversations.length === 0 ? (
               <SidebarMenuItem>
                 <div className="px-2 py-1.5 text-sm text-muted-foreground group-data-[collapsible=icon]:hidden">
@@ -121,18 +174,36 @@ export function DashboardSidebar() {
                 const isActive = router.query.conversationId === conversation.id || router.query.conversation === conversation.id;
                 return (
                   <SidebarMenuItem key={conversation.id}>
-                    <SidebarMenuButton
-                      onClick={() => {
-                        router.push(`/chat/${conversation.id}`);
-                      }}
-                      className={`w-full ${isActive ? "bg-sidebar-accent text-sidebar-accent-foreground" : ""}`}
-                      isActive={isActive}
-                    >
-                      <MessageSquare className="h-4 w-4" />
-                      <span className="truncate group-data-[collapsible=icon]:hidden">
-                        {conversation.title}
-                      </span>
-                    </SidebarMenuButton>
+                    <div className="flex items-center w-full" onClick={(e) => {
+                      // Prevent navigation when clicking on the actions menu
+                      if ((e.target as HTMLElement).closest('[role="menu"]')) {
+                        e.stopPropagation();
+                      }
+                    }}>
+                      <SidebarMenuButton
+                        onClick={() => {
+                          router.push(`/chat/${conversation.id}`);
+                        }}
+                        className={`flex-1 ${isActive ? "bg-sidebar-accent text-sidebar-accent-foreground" : ""}`}
+                        isActive={isActive}
+                      >
+                        <MessageSquare className="h-4 w-4" />
+                        <span className="truncate group-data-[collapsible=icon]:hidden">
+                          {conversation.title}
+                        </span>
+                      </SidebarMenuButton>
+                      <div onClick={(e) => e.stopPropagation()}>
+                        <ConversationActionsMenu
+                          conversationId={conversation.id}
+                          conversationTitle={conversation.title}
+                          isPinned={conversation.pinned}
+                          onRename={() => handleRename(conversation.id, conversation.title)}
+                          onDelete={() => handleDelete(conversation.id)}
+                          onPin={(pinned) => handlePin(conversation.id, pinned)}
+                          onShare={() => handleShare(conversation.id, conversation.title)}
+                        />
+                      </div>
+                    </div>
                   </SidebarMenuItem>
                 );
               })
@@ -178,6 +249,17 @@ export function DashboardSidebar() {
         />
       </SidebarFooter>
       <SidebarRail />
+      {conversationToRename && (
+        <RenameConversationDialog
+          open={renameDialogOpen}
+          currentTitle={conversationToRename.title}
+          onClose={() => {
+            setRenameDialogOpen(false);
+            setConversationToRename(null);
+          }}
+          onSave={handleRenameSave}
+        />
+      )}
     </Sidebar>
   );
 }

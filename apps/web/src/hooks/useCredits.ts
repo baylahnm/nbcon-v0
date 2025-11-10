@@ -1,13 +1,7 @@
 import { useEffect, useState } from 'react';
 import { supabase } from '@nbcon/config';
 import { useSubscriptionTier } from './useSubscriptionTier';
-
-const tierLimits: Record<string, number> = {
-  free: 50,
-  basic: 500,
-  pro: 2000,
-  enterprise: 999999, // Unlimited
-};
+import { TIER_LIMITS } from '../config/plans';
 
 interface Credits {
   used: number;
@@ -20,7 +14,7 @@ export function useCredits() {
   const { tier } = useSubscriptionTier();
   const [credits, setCredits] = useState<Credits>({
     used: 0,
-    limit: tierLimits[tier] || 50,
+    limit: TIER_LIMITS[tier] || 50,
     isLoading: true,
     canUse: true,
   });
@@ -28,8 +22,9 @@ export function useCredits() {
   useEffect(() => {
     async function fetchCredits() {
       try {
-        const { data: { user } } = await supabase.auth.getUser();
-        if (!user) {
+        // Use getSession() instead of getUser() for better caching
+        const { data: { session } } = await supabase.auth.getSession();
+        if (!session?.user) {
           setCredits((prev) => ({ ...prev, isLoading: false }));
           return;
         }
@@ -38,7 +33,7 @@ export function useCredits() {
         const { data, error } = await supabase
           .from('user_credits')
           .select('daily_tokens_used, daily_tokens_limit')
-          .eq('user_id', user.id)
+          .eq('user_id', session.user.id)
           .single();
 
         if (error) {
@@ -46,7 +41,7 @@ export function useCredits() {
           if (error.code === 'PGRST116') {
             // Initialize credits for user
             const { error: initError } = await supabase.rpc('initialize_user_credits', {
-              p_user_id: user.id,
+              p_user_id: session.user.id,
               p_tier: tier,
             });
 
@@ -54,7 +49,7 @@ export function useCredits() {
               console.error('Error initializing credits:', initError);
               setCredits((prev) => ({
                 ...prev,
-                limit: tierLimits[tier] || 50,
+                limit: TIER_LIMITS[tier] || 50,
                 isLoading: false,
               }));
               return;
@@ -64,7 +59,7 @@ export function useCredits() {
             const { data: newData } = await supabase
               .from('user_credits')
               .select('daily_tokens_used, daily_tokens_limit')
-              .eq('user_id', user.id)
+              .eq('user_id', session.user.id)
               .single();
 
             if (newData) {
@@ -83,7 +78,7 @@ export function useCredits() {
           console.error('Error fetching credits:', error);
           setCredits((prev) => ({
             ...prev,
-            limit: tierLimits[tier] || 50,
+            limit: TIER_LIMITS[tier] || 50,
             isLoading: false,
           }));
           return;
@@ -103,7 +98,7 @@ export function useCredits() {
         console.error('Error in useCredits:', error);
         setCredits((prev) => ({
           ...prev,
-          limit: tierLimits[tier] || 50,
+          limit: TIER_LIMITS[tier] || 50,
           isLoading: false,
         }));
       }

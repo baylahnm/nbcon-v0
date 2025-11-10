@@ -17,8 +17,9 @@ import { cn } from "@/lib/utils";
 export type TabMedia = {
   value: string; // unique value for Tabs
   label: string; // button label
-  src: string;   // image url
+  src?: string;   // image url (optional if component is provided)
   alt?: string;
+  component?: React.ReactNode; // React component (optional if src is provided)
 };
 
 export type ShowcaseStep = {
@@ -142,11 +143,29 @@ export function FeatureShowcase({
 
         {/* Right column */}
         <div className="md:col-span-6">
-          <Card
-            className="relative overflow-hidden rounded-2xl border border-border bg-card/40 p-0 shadow-sm"
-            style={{ height: panelMinHeight, minHeight: panelMinHeight }}
-          >
-            <Tabs defaultValue={initial} className="relative h-full w-full">
+          <Tabs defaultValue={initial} className="relative w-full">
+            {/* Tab controls outside the card */}
+            <div className="flex w-full justify-center mb-4">
+              <TabsList className="flex gap-2 rounded-xl border border-border bg-muted/80 p-1 backdrop-blur supports-[backdrop-filter]:bg-muted/70">
+                {tabs.map((t) => (
+                  <TabsTrigger
+                    key={t.value}
+                    value={t.value}
+                    className="rounded-lg px-4 py-2 data-[state=active]:bg-foreground data-[state=active]:text-background"
+                  >
+                    {t.label}
+                  </TabsTrigger>
+                ))}
+              </TabsList>
+            </div>
+
+            <Card
+              className="relative overflow-hidden rounded-2xl border border-border bg-card/40 p-0 shadow-sm"
+              style={{ 
+                height: tabs.some(t => t.component) ? '700px' : panelMinHeight, 
+                minHeight: tabs.some(t => t.component) ? '700px' : panelMinHeight 
+              }}
+            >
               {/* Absolute-fill media container */}
               <div className="relative h-full w-full">
                 {tabs.map((t, idx) => (
@@ -154,38 +173,31 @@ export function FeatureShowcase({
                     key={t.value}
                     value={t.value}
                     className={cn(
-                      "absolute inset-0 m-0 h-full w-full",
+                      t.component ? "relative m-0 w-full h-full overflow-auto" : "absolute inset-0 m-0 h-full w-full",
                       "data-[state=inactive]:hidden"
                     )}
-                    style={{ height: '100%', minHeight: '100%' }}
+                    style={t.component ? {} : { height: '100%', minHeight: '100%' }}
                   >
-                    <img
-                      src={t.src}
-                      alt={t.alt ?? t.label}
-                      className="h-full w-full object-cover"
-                      style={{ height: '100%', minHeight: '100%' }}
-                      loading={idx === 0 ? "eager" : "lazy"}
-                    />
+                    {t.component ? (
+                      <div className="w-full h-full bg-background flex items-start justify-start p-4">
+                        <div className="w-full">
+                          {t.component}
+                        </div>
+                      </div>
+                    ) : t.src ? (
+                      <img
+                        src={t.src}
+                        alt={t.alt ?? t.label}
+                        className="h-full w-full object-cover"
+                        style={{ height: '100%', minHeight: '100%' }}
+                        loading={idx === 0 ? "eager" : "lazy"}
+                      />
+                    ) : null}
                   </TabsContent>
                 ))}
               </div>
-
-              {/* Tab controls (pill) */}
-              <div className="pointer-events-auto absolute inset-x-0 bottom-4 z-10 flex w-full justify-center">
-                <TabsList className="flex gap-2 rounded-xl border border-border bg-background/80 p-1 backdrop-blur supports-[backdrop-filter]:bg-background/70">
-                  {tabs.map((t) => (
-                    <TabsTrigger
-                      key={t.value}
-                      value={t.value}
-                      className="rounded-lg px-4 py-2 data-[state=active]:bg-foreground data-[state=active]:text-background"
-                    >
-                      {t.label}
-                    </TabsTrigger>
-                  ))}
-                </TabsList>
-              </div>
-            </Tabs>
-          </Card>
+            </Card>
+          </Tabs>
         </div>
       </div>
     </section>

@@ -1,10 +1,10 @@
-import { HeroSection } from "@/components/ui/hero-section-3"
+import ModernAnimatedHeroSection from "@/components/ui/modern-animated-hero-section"
 import { FeaturesGrid } from "@/components/ui/features-grid"
 
 export default function LandingPage() {
   return (
     <>
-      <HeroSection />
+      <ModernAnimatedHeroSection />
       
       {/* Features Grid Section */}
       <FeaturesGrid />

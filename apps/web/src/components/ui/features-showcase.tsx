@@ -1,32 +1,36 @@
 "use client";
 
 import { FeatureShowcase, type TabMedia } from "@/components/ui/feature-showcase";
+import { UsageDashboardPreview } from "@/components/ui/usage-dashboard-preview";
+import { AICoPilotPreview } from "@/components/ui/ai-copilot-preview";
+import { FieldToReportPreview } from "@/components/ui/field-to-report-preview";
+import { MultiAgentTeamPreview } from "@/components/ui/multi-agent-team-preview";
 
 export function FeaturesShowcase() {
   const tabs: TabMedia[] = [
     {
       value: "project-chat",
-      label: "Project as Chat",
-      src: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop",
-      alt: "Project as Chat interface",
+      label: "Dashboard",
+      alt: "Usage Dashboard",
+      component: <UsageDashboardPreview />,
     },
     {
       value: "ai-copilot",
       label: "AI Co-Pilot",
-      src: "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=2070&auto=format&fit=crop",
       alt: "AI Co-Pilot dashboard",
+      component: <AICoPilotPreview />,
     },
     {
       value: "field-report",
       label: "Field-to-Report",
-      src: "https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?q=80&w=2070&auto=format&fit=crop",
       alt: "Field-to-Report workflow",
+      component: <FieldToReportPreview />,
     },
     {
       value: "multi-agent",
       label: "Multi-Agent Team",
-      src: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop",
       alt: "Multi-Agent Team orchestration",
+      component: <MultiAgentTeamPreview />,
     },
   ];
 
@@ -39,9 +43,9 @@ export function FeaturesShowcase() {
       steps={[
         {
           id: "step-1",
-          title: "Project as Chat",
+          title: "Dashboard & Analytics",
           text:
-            "Transform your project workflow into natural conversations. Build, iterate, and collaborate through intuitive chat interfaces that understand engineering context.",
+            "Track your usage, monitor AI credits, and view productivity metrics in real-time. Get insights into your projects, conversations, and team performance.",
         },
         {
           id: "step-2",
@@ -64,7 +68,7 @@ export function FeaturesShowcase() {
       ]}
       tabs={tabs}
       defaultTab="project-chat"
-      panelMinHeight={600}
+      panelMinHeight={800}
     />
   );
 }

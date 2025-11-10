@@ -1,4 +1,4 @@
-import { HeroSection } from "@/components/ui/hero-section-3"
+import ModernAnimatedHeroSection from "@/components/ui/modern-animated-hero-section"
 import { LogoCloud } from "@/components/ui/logo-cloud"
 import { FeaturesShowcase } from "@/components/ui/features-showcase"
 import { HowItWorksSection } from "@/components/ui/how-it-works-section"
@@ -9,7 +9,7 @@ import { TestimonialsSection } from "@/components/ui/testimonials-section"
 export default function HomePage() {
   return (
     <>
-      <HeroSection />
+      <ModernAnimatedHeroSection />
       <LogoCloud />
       <FeaturesShowcase />
       <HowItWorksSection />

@@ -29,7 +29,7 @@
   "dependencies": {
     "@supabase/supabase-js": "^2.39.0",
     "jsonwebtoken": "^9.0.2",
-    "posthog-js": "^1.146.1",
+    "posthog-js": "^1.290.0",
     "stripe": "^14.0.0"
   },
   "devDependencies": {

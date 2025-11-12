@@ -10,13 +10,13 @@ export default function HeroSection() {
           Hire SCE-verified engineers in minutes.
         </h1>
         <p className="text-lg text-muted-foreground mb-12">
-          NBCON PRO connects certified professionals and AI tools to accelerate engineering projects across Saudi Arabia.
+          nbcon.ai connects certified professionals and AI tools to accelerate engineering projects across Saudi Arabia.
         </p>
         <div className="max-w-2xl mx-auto">
           <PromptBox />
         </div>
         <p className="mt-8 text-xs text-muted-foreground">
-          By using NBCON PRO AI Assistant, you agree to our Terms & AI Policy.
+          By using nbcon.ai AI Assistant, you agree to our Terms & AI Policy.
         </p>
       </div>
     </section>

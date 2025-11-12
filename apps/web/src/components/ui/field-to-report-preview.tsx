@@ -69,16 +69,6 @@ export function FieldToReportPreview() {
   return (
     <div className="w-full h-full flex items-center justify-center p-4 overflow-auto">
       <div className="w-full max-w-2xl h-full flex flex-col">
-        {/* Dashboard Header */}
-        <div className="mb-4 flex-shrink-0">
-          <h2 className="text-xl font-bold text-foreground mb-1">
-            Field-to-Report Workflow
-          </h2>
-          <p className="text-xs text-muted-foreground">
-            Seamless data collection to final report
-          </p>
-        </div>
-
         <div className="bg-card dark:bg-surface-elevated rounded-xl shadow-xl overflow-hidden border border-border flex-1 flex flex-col min-h-0">
           {/* Browser Header */}
           <div className="bg-gradient-to-r from-muted/50 to-muted/30 px-3 py-2 border-b border-border flex items-center justify-between flex-shrink-0">

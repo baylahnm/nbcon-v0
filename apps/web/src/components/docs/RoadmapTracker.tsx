@@ -65,7 +65,7 @@ export function RoadmapTracker() {
 
       <div className="space-y-3">
         {phases.map((phase) => (
-          <div key={phase.phase} className="border rounded-lg p-4">
+          <div key={phase.phase} className="border-[0.5px] border-border/50 rounded-lg p-4">
             <div
               className="flex items-center justify-between cursor-pointer"
               onClick={() => togglePhase(phase.phase)}

@@ -10,6 +10,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import { SimpleHeroSection } from "@/components/ui/simple-hero-section";
+import { TrustedBySection } from "@/components/ui/trusted-by-section";
 import { RouteWrapper } from "@/components/portal/shared/RouteWrapper";
 import {
   Accordion,
@@ -142,30 +143,7 @@ export default function EnterprisePage() {
       />
 
       {/* Trusted By Section */}
-      <section className="py-16 px-4">
-        <div className="container mx-auto max-w-6xl">
-          <h2 className="text-center subsection-heading text-muted-foreground mb-12">
-            Trusted by the world&apos;s leading enterprises.
-          </h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 items-center justify-items-center opacity-60">
-            {[
-              "Stripe",
-              "NVIDIA",
-              "Coinbase",
-              "Rippling",
-              "Optiver",
-              "Bloomberg",
-            ].map((company, idx) => (
-              <div
-                key={idx}
-                className="text-2xl font-bold text-muted-foreground grayscale hover:grayscale-0 transition-all"
-              >
-                {company}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <TrustedBySection />
 
       {/* Ship better software, faster */}
       <section className="py-24 md:py-32 px-4">

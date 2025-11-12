@@ -1,0 +1,79 @@
+[
+  {
+    "version": "1.0.0",
+    "date": "2025-01-15",
+    "type": "major",
+    "highlights": [
+      "AI Agent Ecosystem with 7 specialized agents",
+      "Multi-domain agent framework (Civil, Electrical, Mechanical, Survey, GIS)",
+      "Stripe integration for subscription management",
+      "Real-time tier updates and billing dashboard"
+    ],
+    "categories": {
+      "features": [
+        "AI Agent Ecosystem with 7 specialized agents",
+        "Multi-domain agent framework supporting Civil, Electrical, Mechanical, Survey, and GIS domains",
+        "Stripe integration for subscription management",
+        "Real-time tier updates and billing dashboard"
+      ],
+      "improvements": [
+        "Enhanced UI/UX with unified theme system",
+        "Improved performance and loading times"
+      ],
+      "documentation": [
+        "Complete API documentation",
+        "Getting started guides"
+      ]
+    },
+    "fullNotes": "This is the first major release of nbcon.ai, introducing our comprehensive AI agent ecosystem and subscription management system.",
+    "relatedDocs": ["/docs/get-started/welcome", "/docs/core/agent"]
+  },
+  {
+    "version": "0.9.0",
+    "date": "2024-12-20",
+    "type": "minor",
+    "highlights": [
+      "Enhanced autocomplete features",
+      "Improved codebase indexing",
+      "Better error handling"
+    ],
+    "categories": {
+      "features": [
+        "Enhanced autocomplete with multi-line suggestions",
+        "Improved codebase indexing performance"
+      ],
+      "improvements": [
+        "Better error handling and user feedback",
+        "Optimized search functionality"
+      ],
+      "bugFixes": [
+        "Fixed issue with large codebase indexing",
+        "Resolved autocomplete timing issues"
+      ]
+    },
+    "fullNotes": "Minor release focusing on improving core functionality and user experience.",
+    "relatedDocs": ["/docs/context/codebase-indexing"]
+  },
+  {
+    "version": "0.8.5",
+    "date": "2024-12-10",
+    "type": "patch",
+    "highlights": [
+      "Security updates",
+      "Bug fixes"
+    ],
+    "categories": {
+      "security": [
+        "Updated dependencies with security patches",
+        "Enhanced authentication security"
+      ],
+      "bugFixes": [
+        "Fixed memory leak in agent processing",
+        "Resolved UI rendering issues"
+      ]
+    },
+    "fullNotes": "Patch release addressing security concerns and critical bugs.",
+    "relatedDocs": []
+  }
+]
+

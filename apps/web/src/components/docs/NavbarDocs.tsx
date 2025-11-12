@@ -10,6 +10,7 @@ import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import Fuse from "fuse.js";
 import { useMemo } from "react";
 import { NbconLogo } from "@/components/ui/nbcon-logo";
+import { VersionSelector } from "./VersionSelector";
 import { useI18n } from "@/hooks/useI18n";
 
 interface SearchItem { title: string; slug: string; excerpt?: string }
@@ -47,13 +48,13 @@ export function NavbarDocs({ index, sidebar = [] }: { index: SearchItem[]; sideb
   };
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-40 w-full border-b-[0.5px] border-border/50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between gap-4">
         <div className="flex items-center gap-6">
           {sidebar && sidebar.length > 0 && <SidebarDocsMobile items={sidebar} />}
           <NbconLogo />
           <nav className="hidden md:flex items-center gap-6">
-            <Link href="/docs" className="text-sm font-medium text-foreground hover:text-foreground transition-colors border-b-2 border-primary pb-1">
+            <Link href="/docs" className="text-sm font-medium text-foreground hover:text-foreground transition-colors border-b-[0.5px] border-primary pb-1">
               Docs
             </Link>
             <Link href="/api" className="text-sm font-medium text-foreground/80 hover:text-foreground transition-colors">
@@ -67,10 +68,10 @@ export function NavbarDocs({ index, sidebar = [] }: { index: SearchItem[]; sideb
         <div className="flex items-center gap-2">
           <Dialog open={searchOpen} onOpenChange={setSearchOpen}>
             <DialogTrigger asChild>
-              <Button variant="ghost" size="sm" className="gap-2 text-muted-foreground hover:text-foreground border border-input">
+              <Button variant="ghost" size="sm" className="gap-2 text-muted-foreground hover:text-foreground border-[0.5px] border-border/50">
                 <Search className="h-4 w-4" />
                 <span className="hidden sm:inline">Search docs...</span>
-                <kbd className="pointer-events-none hidden sm:inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100">
+                <kbd className="pointer-events-none hidden sm:inline-flex h-5 select-none items-center gap-1 rounded border-[0.5px] border-border/50 bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100">
                   <span className="text-xs">⌘</span>K
                 </kbd>
               </Button>
@@ -83,7 +84,7 @@ export function NavbarDocs({ index, sidebar = [] }: { index: SearchItem[]; sideb
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
                     placeholder="Search docs..."
-                    className="w-full rounded-md border bg-background pl-10 pr-3 py-3 text-sm outline-none focus:ring-2 focus:ring-ring"
+                    className="w-full rounded-md border-[0.5px] border-border/50 bg-background pl-10 pr-3 py-3 text-sm outline-none focus:ring-2 focus:ring-ring"
                     autoFocus
                   />
                 </div>
@@ -107,9 +108,10 @@ export function NavbarDocs({ index, sidebar = [] }: { index: SearchItem[]; sideb
               </div>
             </DialogContent>
           </Dialog>
+          <VersionSelector />
           <Button variant="ghost" size="sm" className="gap-2">
             <span className="hidden sm:inline">Ask AI</span>
-            <kbd className="pointer-events-none hidden sm:inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100">
+            <kbd className="pointer-events-none hidden sm:inline-flex h-5 select-none items-center gap-1 rounded border-[0.5px] border-border/50 bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100">
               <span className="text-xs">⌘</span>I
             </kbd>
           </Button>

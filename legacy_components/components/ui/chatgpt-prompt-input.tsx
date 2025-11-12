@@ -80,7 +80,7 @@ export function PromptBox() {
               onKeyDown={handleKeyDown}
               onCompositionStart={() => setIsComposing(true)}
               onCompositionEnd={() => setIsComposing(false)}
-              placeholder="Message NBCON PRO AI Assistant..."
+              placeholder="Message nbcon.ai AI Assistant..."
               className="w-full resize-none bg-transparent px-2 py-3 text-white placeholder:text-gray-500 focus:outline-none text-sm leading-6 max-h-[200px] overflow-y-auto"
               rows={1}
             />

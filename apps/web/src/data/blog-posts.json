@@ -1,0 +1,57 @@
+[
+  {
+    "slug": "getting-started-with-nbcon-ai",
+    "title": "Getting Started with nbcon.ai: Your First AI-Powered Engineering Project",
+    "description": "Learn how to set up your first project with nbcon.ai and start leveraging AI agents for your engineering workflows.",
+    "author": {
+      "name": "Sarah Chen",
+      "avatar": "",
+      "bio": "Engineering Lead at nbcon.ai"
+    },
+    "date": "2025-01-20",
+    "category": "Tutorials",
+    "tags": ["getting-started", "tutorial", "ai-agents"],
+    "featuredImage": "/images/blog/getting-started.jpg",
+    "readingTime": 5,
+    "published": true,
+    "featured": true,
+    "excerpt": "In this comprehensive guide, we'll walk you through setting up your first nbcon.ai project and using AI agents to accelerate your engineering workflows."
+  },
+  {
+    "slug": "ai-agents-explained",
+    "title": "Understanding AI Agents: How They Transform Engineering Workflows",
+    "description": "Deep dive into how AI agents work and how they can revolutionize your engineering processes.",
+    "author": {
+      "name": "Michael Zhang",
+      "avatar": "",
+      "bio": "AI Research Lead"
+    },
+    "date": "2025-01-15",
+    "category": "Engineering",
+    "tags": ["ai-agents", "engineering", "technology"],
+    "featuredImage": "/images/blog/ai-agents.jpg",
+    "readingTime": 8,
+    "published": true,
+    "featured": false,
+    "excerpt": "AI agents are changing how engineers work. Learn about the technology behind nbcon.ai's agent system and how it can help your team."
+  },
+  {
+    "slug": "product-update-january-2025",
+    "title": "Product Update: January 2025 - New Features and Improvements",
+    "description": "Check out the latest features and improvements we've added to nbcon.ai this month.",
+    "author": {
+      "name": "nbcon.ai Team",
+      "avatar": "",
+      "bio": "The nbcon.ai product team"
+    },
+    "date": "2025-01-10",
+    "category": "Product Updates",
+    "tags": ["product-update", "features", "announcement"],
+    "featuredImage": "/images/blog/product-update.jpg",
+    "readingTime": 3,
+    "published": true,
+    "featured": false,
+    "excerpt": "We're excited to share the latest updates to nbcon.ai, including new AI agents, improved performance, and enhanced user experience."
+  }
+]
+

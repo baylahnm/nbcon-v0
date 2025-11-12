@@ -101,7 +101,7 @@ export function PricingFrequencyToggle({
 	return (
 		<div
 			className={cn(
-				'bg-surface dark:bg-surface mx-auto flex w-fit rounded-full border border-sidebar-border p-1',
+				'bg-surface dark:bg-surface mx-auto flex w-fit rounded-full border-[0.5px] border-sidebar-border/50 p-1',
 				props.className,
 			)}
 			{...props}
@@ -141,7 +141,7 @@ export function PricingCard({
 		<div
 			key={plan.name}
 			className={cn(
-				'relative flex w-full flex-col rounded-lg border border-border dark:border-border-elevated',
+				'relative flex w-full flex-col rounded-lg border-[0.5px] border-border/50 dark:border-border-elevated/50',
 				className,
 			)}
 			{...props}
@@ -157,7 +157,7 @@ export function PricingCard({
 			)}
 			<div
 				className={cn(
-					'bg-surface rounded-t-lg border-b border-border dark:border-border-elevated p-4',
+					'bg-surface rounded-t-lg border-b-[0.5px] border-border/50 dark:border-border-elevated/50 p-4',
 					plan.highlighted && 'bg-muted/40',
 				)}
 			>

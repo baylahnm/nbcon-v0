@@ -107,7 +107,7 @@
 
 **What is MCP?**
 - MCP (Model Context Protocol) enables integration with external tools and services
-- Allows NBCON PRO to connect to MCP servers for enhanced AI capabilities and tool access
+- Allows nbcon.ai to connect to MCP servers for enhanced AI capabilities and tool access
 - **Status:** ⚠️ **DOCUMENTED BUT NOT IMPLEMENTED** - Feature is planned but code doesn't exist yet
 
 **Current Status:**

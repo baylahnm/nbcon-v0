@@ -6,7 +6,8 @@ import { cn } from "@/lib/utils";
 
 // Define the props interface for type safety and clarity
 export interface ProjectCardProps extends React.HTMLAttributes<HTMLDivElement> {
-  imgSrc: string;
+  imgSrc?: string;
+  component?: React.ReactNode;
   title: string;
   description: string;
   link: string;
@@ -14,7 +15,7 @@ export interface ProjectCardProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const ProjectCard = React.forwardRef<HTMLDivElement, ProjectCardProps>(
-  ({ className, imgSrc, title, description, link, linkText = "View Project", ...props }, ref) => {
+  ({ className, imgSrc, component, title, description, link, linkText = "View Project", ...props }, ref) => {
     return (
       <div
         ref={ref}
@@ -24,14 +25,20 @@ const ProjectCard = React.forwardRef<HTMLDivElement, ProjectCardProps>(
         )}
         {...props}
       >
-        {/* Card Image Section */}
-        <div className="aspect-video overflow-hidden">
-          <img
-            src={imgSrc}
-            alt={title}
-            className="h-full w-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110"
-            loading="lazy"
-          />
+        {/* Card Image/Component Section */}
+        <div className="aspect-video overflow-hidden bg-background">
+          {component ? (
+            <div className="h-full w-full scale-90 origin-center transition-transform duration-700 ease-in-out group-hover:scale-95">
+              {component}
+            </div>
+          ) : imgSrc ? (
+            <img
+              src={imgSrc}
+              alt={title}
+              className="h-full w-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110"
+              loading="lazy"
+            />
+          ) : null}
         </div>
 
         {/* Card Content Section */}

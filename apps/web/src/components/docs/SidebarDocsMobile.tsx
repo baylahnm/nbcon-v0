@@ -18,8 +18,8 @@ export function SidebarDocsMobile({ items }: { items: SidebarNode[] }) {
           <Menu className="h-5 w-5" />
         </Button>
       </SheetTrigger>
-      <SheetContent side={isRTL ? "right" : "left"} className="w-64 p-0">
-        <SidebarDocs items={items} onNavigate={() => setOpen(false)} />
+      <SheetContent side={isRTL ? "right" : "left"} className="w-64 p-0" hideClose>
+        <SidebarDocs items={items} variant="mobile" onNavigate={() => setOpen(false)} />
       </SheetContent>
     </Sheet>
   );

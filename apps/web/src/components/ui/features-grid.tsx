@@ -2,31 +2,35 @@
 
 import { ProjectCard } from "@/components/ui/project-card";
 import { motion } from "framer-motion";
+import { UsageDashboardPreview } from "@/components/ui/usage-dashboard-preview";
+import { AICoPilotPreview } from "@/components/ui/ai-copilot-preview";
+import { FieldToReportPreview } from "@/components/ui/field-to-report-preview";
+import { MultiAgentTeamPreview } from "@/components/ui/multi-agent-team-preview";
 
 const features = [
   {
-    imgSrc: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop",
+    component: <UsageDashboardPreview />,
     title: "Project as Chat",
     description: "Transform your project workflow into natural conversations. Build, iterate, and collaborate through intuitive chat interfaces.",
     link: "#",
     linkText: "Learn more"
   },
   {
-    imgSrc: "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=2070&auto=format&fit=crop",
+    component: <AICoPilotPreview />,
     title: "AI Co-Pilot",
     description: "Your intelligent assistant that understands engineering workflows. Get real-time suggestions and automate repetitive tasks.",
     link: "#",
     linkText: "Explore AI"
   },
   {
-    imgSrc: "https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?q=80&w=2070&auto=format&fit=crop",
+    component: <FieldToReportPreview />,
     title: "Field-to-Report",
     description: "Seamless workflow from field data collection to final report generation. Connect your entire project lifecycle.",
     link: "#",
     linkText: "See workflow"
   },
   {
-    imgSrc: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop",
+    component: <MultiAgentTeamPreview />,
     title: "Multi-Agent Team",
     description: "Orchestrate multiple AI agents working together on complex projects. Each agent specializes in different aspects of your work.",
     link: "#",

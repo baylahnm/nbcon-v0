@@ -48,7 +48,7 @@ const components = {
   // Table styling
   table: (props: MDXComponentProps) => (
     <div className="overflow-x-auto my-4">
-      <table className="min-w-full divide-y divide-border border border-border rounded-md" {...props} />
+      <table className="min-w-full divide-y divide-border/50 border-[0.5px] border-border/50 rounded-md" {...props} />
     </div>
   ),
   thead: (props: MDXComponentProps) => <thead className="bg-muted" {...props} />,
@@ -61,7 +61,7 @@ const components = {
   td: (props: MDXComponentProps) => (
     <td className="px-4 py-3 text-sm text-foreground whitespace-nowrap" {...props} />
   ),
-  tr: (props: MDXComponentProps) => <tr className="border-t border-border" {...props} />,
+  tr: (props: MDXComponentProps) => <tr className="border-t-[0.5px] border-border/50" {...props} />,
   // Code block styling
   code: (props: MDXComponentProps) => {
     const isInline = !props.className;
@@ -77,7 +77,7 @@ const components = {
   },
   pre: (props: MDXComponentProps) => (
     <pre
-      className="overflow-x-auto rounded-lg bg-muted p-4 my-4 border border-border"
+      className="overflow-x-auto rounded-lg bg-muted p-4 my-4 border-[0.5px] border-border/50"
       {...props}
     />
   ),
@@ -129,7 +129,7 @@ const components = {
   ),
   // Blockquotes
   blockquote: (props: MDXComponentProps) => (
-    <blockquote className="border-l-4 border-primary pl-4 my-4 italic text-muted-foreground" {...props} />
+    <blockquote className="border-l-[0.5px] border-primary/50 pl-4 my-4 italic text-muted-foreground" {...props} />
   ),
 };
 
@@ -194,7 +194,7 @@ export default function DocsIndex() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="group rounded-lg border p-6 hover:bg-accent transition-colors"
+                className="group rounded-lg border-[0.5px] border-border/50 bg-surface p-6 hover:bg-accent transition-colors"
               >
                 <div className="flex items-start gap-4">
                   <span className="text-2xl">{link.icon}</span>
@@ -210,7 +210,7 @@ export default function DocsIndex() {
           </div>
 
           {/* Integrations Summary Card */}
-          <div className="mb-12 rounded-lg border p-6 bg-muted/50">
+          <div className="mb-12 rounded-lg border-[0.5px] border-border/50 bg-surface p-6">
             <h2 className="text-2xl font-semibold mb-3">{t("docs.sections.integrations")}</h2>
             <p className="text-muted-foreground mb-4">{t("docs.integrationsSummary")}</p>
             <Link
@@ -231,7 +231,7 @@ export default function DocsIndex() {
               <Link
                 key={item.slug}
                 href={`/docs/${item.slug}`}
-                className="rounded-lg border p-4 hover:bg-accent transition-colors"
+                className="rounded-lg border-[0.5px] border-border/50 bg-surface p-4 hover:bg-accent transition-colors"
               >
                 <div className="font-semibold mb-1">{item.title}</div>
                 <div className="text-xs text-muted-foreground">{t(`docs.sections.${item.section}`)}</div>

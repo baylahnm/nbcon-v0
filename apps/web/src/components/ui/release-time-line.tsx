@@ -5,6 +5,10 @@ import Link from "next/link";
 import { ArrowUpRight, Package, Calendar, Sparkles, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { UsageDashboardPreview } from "@/components/ui/usage-dashboard-preview";
+import { ProjectManagementPreview } from "@/components/ui/project-management-preview";
+import { DataVisualizationPreview } from "@/components/ui/data-visualization-preview";
+import { MonitoringPreview } from "@/components/ui/monitoring-preview";
 
 export type TimeLine_01Entry = {
   icon: React.ComponentType<{ className?: string }>;
@@ -13,6 +17,7 @@ export type TimeLine_01Entry = {
   description: string;
   items?: string[];
   image?: string;
+  component?: React.ReactNode;
   button?: {
     url: string;
     text: string;
@@ -40,8 +45,7 @@ export const defaultEntries: TimeLine_01Entry[] = [
       "Export reports in PDF, CSV, and Excel formats",
       "Multi-tenant data isolation and security",
     ],
-    image:
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop",
+    component: <UsageDashboardPreview />,
     button: {
       url: "/templates",
       text: "View Dashboard",
@@ -59,8 +63,7 @@ export const defaultEntries: TimeLine_01Entry[] = [
       "Advanced filtering and search capabilities",
       "Integration with Git, Slack, and Jira",
     ],
-    image:
-      "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=2070&auto=format&fit=crop",
+    component: <ProjectManagementPreview />,
   },
   {
     icon: Zap,
@@ -74,8 +77,7 @@ export const defaultEntries: TimeLine_01Entry[] = [
       "Export data to multiple formats",
       "Customizable color themes and branding",
     ],
-    image:
-      "https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?q=80&w=2070&auto=format&fit=crop",
+    component: <DataVisualizationPreview />,
   },
   {
     icon: Calendar,
@@ -89,8 +91,7 @@ export const defaultEntries: TimeLine_01Entry[] = [
       "Incident management and resolution tracking",
       "Customizable dashboard layouts",
     ],
-    image:
-      "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop",
+    component: <MonitoringPreview />,
     button: {
       url: "/pricing",
       text: "Explore Dashboards",
@@ -211,14 +212,18 @@ export default function TimeLine_01({
                   )}
                   style={{ top: `${20 + index * 24}px` }}
                 >
-                  {entry.image && (
+                  {entry.component ? (
+                    <div className="mb-4 w-full h-72 rounded-lg overflow-hidden bg-background">
+                      {entry.component}
+                    </div>
+                  ) : entry.image ? (
                     <img
                       src={entry.image}
                       alt={`${entry.title} visual`}
                       className="mb-4 w-full h-72 rounded-lg object-cover"
                       loading="lazy"
                     />
-                  )}
+                  ) : null}
                   <div className="space-y-4">
                     {/* Header with icon and title */}
                     <div className="flex items-center gap-3">

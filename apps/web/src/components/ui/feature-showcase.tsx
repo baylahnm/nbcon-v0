@@ -76,6 +76,17 @@ export function FeatureShowcase({
   className,
 }: FeatureShowcaseProps) {
   const initial = defaultTab ?? (tabs[0]?.value ?? "tab-0");
+  const [activeTab, setActiveTab] = React.useState(initial);
+  const [hoveredStep, setHoveredStep] = React.useState<string | null>(null);
+  const [openStep, setOpenStep] = React.useState<string | null>(null);
+
+  // Map step IDs to tab values
+  const stepToTabMap: Record<string, string> = {
+    "step-1": tabs[0]?.value ?? "tab-0",
+    "step-2": tabs[1]?.value ?? "tab-1",
+    "step-3": tabs[2]?.value ?? "tab-2",
+    "step-4": tabs[3]?.value ?? "tab-3",
+  };
 
   return (
     <section className={cn("w-full bg-background text-foreground", className)}>
@@ -111,17 +122,48 @@ export function FeatureShowcase({
 
           {/* Steps (Accordion) */}
           <div className="mt-10 max-w-xl">
-            <Accordion type="single" collapsible className="w-full">
-              {steps.map((step) => (
-                <AccordionItem key={step.id} value={step.id}>
-                  <AccordionTrigger className="text-left text-base font-medium">
-                    {step.title}
-                  </AccordionTrigger>
-                  <AccordionContent className="text-sm text-muted-foreground">
-                    {step.text}
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
+            <Accordion 
+              type="single" 
+              collapsible 
+              className="w-full"
+              value={hoveredStep || openStep || undefined}
+              onValueChange={(value) => {
+                setOpenStep(value || null);
+                const tabValue = stepToTabMap[value || ""];
+                if (tabValue) setActiveTab(tabValue);
+              }}
+            >
+              {steps.map((step, index) => {
+                const tabValue = stepToTabMap[step.id];
+                return (
+                  <div
+                    key={step.id}
+                    onMouseEnter={() => {
+                      setHoveredStep(step.id);
+                      if (tabValue) setActiveTab(tabValue);
+                    }}
+                    onMouseLeave={() => {
+                      setHoveredStep(null);
+                    }}
+                  >
+                    <AccordionItem value={step.id}>
+                      <AccordionTrigger 
+                        className="text-left text-base font-medium"
+                        onClick={() => {
+                          setOpenStep(openStep === step.id ? null : step.id);
+                          const tabValue = stepToTabMap[step.id];
+                          if (tabValue) setActiveTab(tabValue);
+                        }}
+                      >
+                        {step.title}
+                      </AccordionTrigger>
+                      <AccordionContent className="text-sm text-muted-foreground">
+                        {step.text}
+                      </AccordionContent>
+                    </AccordionItem>
+                  </div>
+                );
+              })}
             </Accordion>
 
             {/* CTAs */}
@@ -143,7 +185,7 @@ export function FeatureShowcase({
 
         {/* Right column */}
         <div className="md:col-span-6">
-          <Tabs defaultValue={initial} className="relative w-full">
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="relative w-full">
             {/* Tab controls outside the card */}
             <div className="flex w-full justify-center mb-4">
               <TabsList className="flex gap-2 rounded-xl border border-border bg-muted/80 p-1 backdrop-blur supports-[backdrop-filter]:bg-muted/70">

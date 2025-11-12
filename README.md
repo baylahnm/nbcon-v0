@@ -1,4 +1,4 @@
-# NBCON PRO
+# nbcon.ai
 
 Streamline engineering projects with AI-powered automation — from smart engineer matching and real-time cost estimation to project management and SCE compliance. Our solutions reduce project delays, ensure quality, and scale effortlessly with your engineering needs in Saudi Arabia.
 
@@ -64,7 +64,7 @@ If secrets are detected, replace with `process.env.VARIABLE_NAME` and add a TODO
 
 ## 🔌 Integrations
 
-NBCON PRO integrates with:
+nbcon.ai integrates with:
 
 - **Supabase** - Authentication, database, and realtime features
 - **Stripe** - Payment processing and subscriptions

@@ -12,7 +12,13 @@ export interface SidebarNode {
   section: string; // folder name
 }
 
-export function SidebarDocs({ items, onNavigate }: { items: SidebarNode[]; onNavigate?: () => void }) {
+interface SidebarDocsProps {
+  items: SidebarNode[];
+  onNavigate?: () => void;
+  variant?: "desktop" | "mobile";
+}
+
+export function SidebarDocs({ items, onNavigate, variant = "desktop" }: SidebarDocsProps) {
   const router = useRouter();
   const { t, isRTL } = useI18n();
   const [expanded, setExpanded] = useState<Record<string, boolean>>({});
@@ -30,11 +36,49 @@ export function SidebarDocs({ items, onNavigate }: { items: SidebarNode[]; onNav
     return t(`docs.sections.${section}`) || section.replace(/-/g, " ");
   };
 
+  // Custom section order - "get-started" should appear first
+  const sectionOrder = [
+    "get-started",
+    "core",
+    "configuration",
+    "context",
+    "integrations",
+    "account",
+    "cookbook",
+    "troubleshooting",
+  ];
+
+  const sortSections = (sections: string[]): string[] => {
+    const ordered: string[] = [];
+    const unordered: string[] = [];
+
+    // Add sections in custom order
+    sectionOrder.forEach((section) => {
+      if (sections.includes(section)) {
+        ordered.push(section);
+      }
+    });
+
+    // Add any remaining sections alphabetically
+    sections.forEach((section) => {
+      if (!sectionOrder.includes(section)) {
+        unordered.push(section);
+      }
+    });
+
+    return [...ordered, ...unordered.sort()];
+  };
+
+
+  // Determine visibility classes based on variant
+  const visibilityClass = variant === "mobile" ? "block" : "hidden lg:block";
+  const borderClass = variant === "mobile" ? "" : isRTL ? "border-l" : "border-r";
+  const minHeightClass = variant === "mobile" ? "min-h-full" : "min-h-screen";
 
   // If no items, show placeholder
   if (items.length === 0) {
     return (
-      <aside className={`w-64 min-h-screen hidden lg:block ${isRTL ? "border-l" : "border-r"} border-border`}>
+      <aside className={`w-64 ${minHeightClass} ${visibilityClass} ${borderClass} border-[0.5px] border-border/50`}>
         <nav className="p-4 space-y-6">
           <div className="text-sm text-muted-foreground">No documentation found. Please check server logs.</div>
         </nav>
@@ -43,10 +87,10 @@ export function SidebarDocs({ items, onNavigate }: { items: SidebarNode[]; onNav
   }
 
   return (
-    <aside className={`w-64 min-h-screen hidden lg:block ${isRTL ? "border-l" : "border-r"} border-border`}>
+    <aside className={`w-64 ${minHeightClass} ${visibilityClass} ${borderClass} border-[0.5px] border-border/50`}>
       <nav className="p-4 space-y-6">
         {/* Documentation Sections */}
-        {Object.keys(bySection).sort().map((section) => {
+        {sortSections(Object.keys(bySection)).map((section) => {
           const isExpanded = expanded[section] !== false; // Default to expanded
           const sectionItems = bySection[section].sort((a, b) => a.title.localeCompare(b.title));
           

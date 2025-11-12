@@ -29,16 +29,6 @@ export function UsageDashboardPreview() {
   return (
     <div className="w-full h-full flex items-center justify-center p-4 overflow-auto">
       <div className="w-full max-w-2xl h-full flex flex-col">
-        {/* Dashboard Header */}
-        <div className="mb-4 flex-shrink-0">
-          <h2 className="text-xl font-bold text-foreground mb-1">
-            Your Dashboard Overview
-          </h2>
-          <p className="text-xs text-muted-foreground">
-            Track your usage and productivity metrics
-          </p>
-        </div>
-
         {/* Dashboard Card */}
         <div className="bg-card dark:bg-surface-elevated rounded-2xl shadow-[0_8px_40px_rgb(0,0,0,0.12)] overflow-hidden border border-border flex-1 flex flex-col min-h-0">
           {/* Browser Header */}

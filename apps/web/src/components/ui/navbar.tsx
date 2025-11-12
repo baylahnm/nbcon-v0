@@ -5,15 +5,21 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { 
   ArrowRight, 
-  Square, 
-  FileText, 
-  Eye, 
-  Gauge,
+  Navigation, 
+  Map, 
+  Building2, 
+  Zap, 
+  Cog, 
+  Layers, 
+  Leaf, 
+  DollarSign,
+  FileText,
   BookOpen,
   MessageSquare,
   Users,
   Briefcase,
   HelpCircle,
+  LifeBuoy,
   Menu
 } from "lucide-react";
 import { NbconLogo } from "@/components/ui/nbcon-logo";
@@ -50,86 +56,204 @@ export function Navbar() {
                   Templates
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <div className="grid gap-3 p-4 md:w-[600px] lg:w-[700px] lg:grid-cols-[1fr_200px] bg-popover">
-                    {/* Featured Templates Section */}
-                    <div className="row-span-3">
-                      <div className="flex items-center justify-between mb-3">
-                        <div>
-                          <h3 className="text-sm font-semibold leading-none text-foreground">Featured Templates</h3>
-                          <p className="text-xs text-muted-foreground mt-1.5">Remix from top creators</p>
-                        </div>
-                        <ArrowRight className="h-4 w-4 text-muted-foreground" />
+                  <div className="w-full p-6 md:w-[750px] lg:w-[900px] bg-popover">
+                    {/* Header Section */}
+                    <div className="mb-6 pb-4 border-b border-border">
+                      <div className="flex items-center justify-between mb-2">
+                        <h3 className="text-base font-semibold text-foreground">Templates</h3>
+                        <Link 
+                          href="/templates" 
+                          className="text-xs text-muted-foreground hover:text-primary transition-colors flex items-center gap-1 group"
+                        >
+                          Browse all
+                          <ArrowRight className="h-3 w-3 group-hover:translate-x-0.5 transition-transform" />
+                        </Link>
                       </div>
-                      <div className="grid grid-cols-2 gap-2">
-                        <div className="h-24 rounded-md bg-muted/50 border border-border/50 flex items-center justify-center hover:bg-muted/70 hover:border-border/50 transition-colors cursor-pointer">
-                          <div className="text-xs text-muted-foreground">Dashboard</div>
-                        </div>
-                        <div className="h-24 rounded-md bg-muted/50 border border-border/50 flex items-center justify-center hover:bg-muted/70 hover:border-border/50 transition-colors cursor-pointer">
-                          <div className="text-xs text-muted-foreground">Map UI</div>
-                        </div>
-                        <div className="h-24 rounded-md bg-muted/50 border border-border/50 flex items-center justify-center hover:bg-muted/70 hover:border-border/50 transition-colors cursor-pointer">
-                          <div className="text-xs text-muted-foreground">Control Panel</div>
-                        </div>
-                        <div className="h-24 rounded-md bg-muted/50 border border-border/50 flex items-center justify-center hover:bg-muted/70 hover:border-border/50 transition-colors cursor-pointer">
-                          <div className="text-xs text-muted-foreground">Landing</div>
-                        </div>
-                      </div>
+                      <p className="text-xs text-muted-foreground">Browse templates from all categories</p>
                     </div>
-                    {/* Categories Section */}
-                    <div className="space-y-1">
+
+                    {/* Categories Grid */}
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
                       <NavigationMenuLink asChild>
                         <Link
                           href="/templates/survey-templates"
                           className={cn(
-                            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors",
-                            "hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                            "group flex flex-col items-start gap-2 rounded-lg border border-border/50 p-3",
+                            "hover:border-blue-500/50 hover:bg-blue-500/5 transition-all",
+                            "focus:outline-none focus:ring-2 focus:ring-blue-500/20"
                           )}
                         >
-                          <div className="flex items-center gap-2">
-                            <Square className="h-4 w-4" />
-                            <div className="text-sm font-medium leading-none">Survey Templates</div>
+                          <div className="flex items-center gap-2 w-full">
+                            <div className="p-1.5 rounded-md bg-blue-500/10 group-hover:bg-blue-500/20 transition-colors">
+                              <Navigation className="h-4 w-4 text-blue-600" />
+                            </div>
+                            <div className="text-xs font-medium text-foreground group-hover:text-blue-600 transition-colors flex-1">
+                              Survey
+                            </div>
+                          </div>
+                          <div className="text-xs text-muted-foreground line-clamp-1">
+                            GNSS, LiDAR, Photogrammetry
                           </div>
                         </Link>
                       </NavigationMenuLink>
+
                       <NavigationMenuLink asChild>
                         <Link
                           href="/templates/gis-layouts"
                           className={cn(
-                            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors",
-                            "hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                            "group flex flex-col items-start gap-2 rounded-lg border border-border/50 p-3",
+                            "hover:border-green-500/50 hover:bg-green-500/5 transition-all",
+                            "focus:outline-none focus:ring-2 focus:ring-green-500/20"
                           )}
                         >
-                          <div className="flex items-center gap-2">
-                            <Eye className="h-4 w-4" />
-                            <div className="text-sm font-medium leading-none">GIS Layouts</div>
+                          <div className="flex items-center gap-2 w-full">
+                            <div className="p-1.5 rounded-md bg-green-500/10 group-hover:bg-green-500/20 transition-colors">
+                              <Map className="h-4 w-4 text-green-600" />
+                            </div>
+                            <div className="text-xs font-medium text-foreground group-hover:text-green-600 transition-colors flex-1">
+                              GIS Layouts
+                            </div>
+                          </div>
+                          <div className="text-xs text-muted-foreground line-clamp-1">
+                            Maps, Dashboards, Analysis
                           </div>
                         </Link>
                       </NavigationMenuLink>
+
                       <NavigationMenuLink asChild>
                         <Link
-                          href="/templates/site-control"
+                          href="/templates/civil-templates"
                           className={cn(
-                            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors",
-                            "hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                            "group flex flex-col items-start gap-2 rounded-lg border border-border/50 p-3",
+                            "hover:border-blue-500/50 hover:bg-blue-500/5 transition-all",
+                            "focus:outline-none focus:ring-2 focus:ring-blue-500/20"
                           )}
                         >
-                          <div className="flex items-center gap-2">
-                            <Gauge className="h-4 w-4" />
-                            <div className="text-sm font-medium leading-none">Site Control</div>
+                          <div className="flex items-center gap-2 w-full">
+                            <div className="p-1.5 rounded-md bg-blue-500/10 group-hover:bg-blue-500/20 transition-colors">
+                              <Building2 className="h-4 w-4 text-blue-600" />
+                            </div>
+                            <div className="text-xs font-medium text-foreground group-hover:text-blue-600 transition-colors flex-1">
+                              Civil
+                            </div>
+                          </div>
+                          <div className="text-xs text-muted-foreground line-clamp-1">
+                            Site Design, Infrastructure
                           </div>
                         </Link>
                       </NavigationMenuLink>
+
                       <NavigationMenuLink asChild>
                         <Link
-                          href="/templates/landing-pages"
+                          href="/templates/electrical-templates"
                           className={cn(
-                            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors",
-                            "hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                            "group flex flex-col items-start gap-2 rounded-lg border border-border/50 p-3",
+                            "hover:border-yellow-500/50 hover:bg-yellow-500/5 transition-all",
+                            "focus:outline-none focus:ring-2 focus:ring-yellow-500/20"
                           )}
                         >
-                          <div className="flex items-center gap-2">
-                            <FileText className="h-4 w-4" />
-                            <div className="text-sm font-medium leading-none">Landing Pages</div>
+                          <div className="flex items-center gap-2 w-full">
+                            <div className="p-1.5 rounded-md bg-yellow-500/10 group-hover:bg-yellow-500/20 transition-colors">
+                              <Zap className="h-4 w-4 text-yellow-600" />
+                            </div>
+                            <div className="text-xs font-medium text-foreground group-hover:text-yellow-600 transition-colors flex-1">
+                              Electrical
+                            </div>
+                          </div>
+                          <div className="text-xs text-muted-foreground line-clamp-1">
+                            Load Schedules, Panels
+                          </div>
+                        </Link>
+                      </NavigationMenuLink>
+
+                      <NavigationMenuLink asChild>
+                        <Link
+                          href="/templates/mechanical-templates"
+                          className={cn(
+                            "group flex flex-col items-start gap-2 rounded-lg border border-border/50 p-3",
+                            "hover:border-purple-500/50 hover:bg-purple-500/5 transition-all",
+                            "focus:outline-none focus:ring-2 focus:ring-purple-500/20"
+                          )}
+                        >
+                          <div className="flex items-center gap-2 w-full">
+                            <div className="p-1.5 rounded-md bg-purple-500/10 group-hover:bg-purple-500/20 transition-colors">
+                              <Cog className="h-4 w-4 text-purple-600" />
+                            </div>
+                            <div className="text-xs font-medium text-foreground group-hover:text-purple-600 transition-colors flex-1">
+                              Mechanical
+                            </div>
+                          </div>
+                          <div className="text-xs text-muted-foreground line-clamp-1">
+                            HVAC, Piping Systems
+                          </div>
+                        </Link>
+                      </NavigationMenuLink>
+
+                      <NavigationMenuLink asChild>
+                        <Link
+                          href="/templates/geotechnical-templates"
+                          className={cn(
+                            "group flex flex-col items-start gap-2 rounded-lg border border-border/50 p-3",
+                            "hover:border-amber-500/50 hover:bg-amber-500/5 transition-all",
+                            "focus:outline-none focus:ring-2 focus:ring-amber-500/20"
+                          )}
+                        >
+                          <div className="flex items-center gap-2 w-full">
+                            <div className="p-1.5 rounded-md bg-amber-500/10 group-hover:bg-amber-500/20 transition-colors">
+                              <Layers className="h-4 w-4 text-amber-600" />
+                            </div>
+                            <div className="text-xs font-medium text-foreground group-hover:text-amber-600 transition-colors flex-1">
+                              Geotechnical
+                            </div>
+                          </div>
+                          <div className="text-xs text-muted-foreground line-clamp-1">
+                            Soil Analysis, Foundations
+                          </div>
+                        </Link>
+                      </NavigationMenuLink>
+
+                      <NavigationMenuLink asChild>
+                        <Link
+                          href="/templates/environmental-templates"
+                          className={cn(
+                            "group flex flex-col items-start gap-2 rounded-lg border border-border/50 p-3",
+                            "hover:border-emerald-500/50 hover:bg-emerald-500/5 transition-all",
+                            "focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
+                          )}
+                        >
+                          <div className="flex items-center gap-2 w-full">
+                            <div className="p-1.5 rounded-md bg-emerald-500/10 group-hover:bg-emerald-500/20 transition-colors">
+                              <Leaf className="h-4 w-4 text-emerald-600" />
+                            </div>
+                            <div className="text-xs font-medium text-foreground group-hover:text-emerald-600 transition-colors flex-1">
+                              Environmental
+                            </div>
+                          </div>
+                          <div className="text-xs text-muted-foreground line-clamp-1">
+                            Impact Assessments, Compliance
+                          </div>
+                        </Link>
+                      </NavigationMenuLink>
+
+                      <NavigationMenuLink asChild>
+                        <Link
+                          href="/templates/finance-templates"
+                          className={cn(
+                            "group flex flex-col items-start gap-2 rounded-lg border border-border/50 p-3",
+                            "hover:border-green-500/50 hover:bg-green-500/5 transition-all",
+                            "focus:outline-none focus:ring-2 focus:ring-green-500/20"
+                          )}
+                        >
+                          <div className="flex items-center gap-2 w-full">
+                            <div className="p-1.5 rounded-md bg-green-500/10 group-hover:bg-green-500/20 transition-colors">
+                              <DollarSign className="h-4 w-4 text-green-600" />
+                            </div>
+                            <div className="text-xs font-medium text-foreground group-hover:text-green-600 transition-colors flex-1">
+                              Finance
+                            </div>
+                          </div>
+                          <div className="text-xs text-muted-foreground line-clamp-1">
+                            Cost Estimation, Budgets
                           </div>
                         </Link>
                       </NavigationMenuLink>
@@ -283,6 +407,20 @@ export function Navbar() {
                           </div>
                         </Link>
                       </NavigationMenuLink>
+                      <NavigationMenuLink asChild>
+                        <Link
+                          href="/support"
+                          className={cn(
+                            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors",
+                            "hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                          )}
+                        >
+                          <div className="flex items-center gap-2">
+                            <LifeBuoy className="h-4 w-4" />
+                            <div className="text-sm font-medium leading-none">Support</div>
+                          </div>
+                        </Link>
+                      </NavigationMenuLink>
                     </div>
                   </div>
                 </NavigationMenuContent>
@@ -326,7 +464,19 @@ export function Navbar() {
             </Button>
           </SheetTrigger>
           <SheetContent side="right" className="w-[300px] sm:w-[400px]">
-            <nav className="flex flex-col gap-4 mt-8">
+            <Link
+              href="/"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="block mb-6"
+            >
+              <h1 
+                className="text-lg font-bold text-foreground leading-none tracking-tight mt-0"
+                style={{ fontFamily: '"Carter One", cursive' }}
+              >
+                nbcon.ai
+              </h1>
+            </Link>
+            <nav className="flex flex-col gap-4">
               <Link
                 href="/templates"
                 onClick={() => setIsMobileMenuOpen(false)}
@@ -407,6 +557,13 @@ export function Navbar() {
                   className="text-sm text-foreground/80 hover:text-foreground transition-colors"
                 >
                   FAQ
+                </Link>
+                <Link
+                  href="/support"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="text-sm text-foreground/80 hover:text-foreground transition-colors"
+                >
+                  Support
                 </Link>
               </div>
               <Link

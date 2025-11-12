@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import Head from "next/head";
-import { SimpleHeroSection } from "@/components/ui/simple-hero-section";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -104,27 +103,15 @@ export default function EnvironmentalTemplates() {
         />
       </Head>
 
-      {/* Hero Section */}
-      <SimpleHeroSection
-        headline="Environmental Templates"
-        description="Environmental impact assessments, compliance, and remediation planning powered by Environmental AI agent"
-        cta={{
-          primary: {
-            text: "Browse Templates",
-            onClick: () => {
-              document.getElementById("templates-section")?.scrollIntoView({ behavior: "smooth" });
-            },
-          },
-          secondary: {
-            text: "View Documentation",
-            href: "/docs",
-          },
-        }}
-        backgroundVariant="minimal"
-      />
-
       {/* Main Content */}
-      <main id="templates-section" className="container mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        {/* Header */}
+        <div className="mb-12">
+          <h1 className="text-4xl font-bold mb-4">Environmental Templates</h1>
+          <p className="text-muted-foreground mb-4 max-w-3xl text-lg">
+            Environmental impact assessments, compliance, and remediation planning powered by Environmental AI agent.
+          </p>
+        </div>
         {/* Filters */}
         <EnvironmentalTemplateFilter
           filters={filters}

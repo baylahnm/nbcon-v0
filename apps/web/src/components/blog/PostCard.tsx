@@ -40,7 +40,7 @@ export function PostCard({ post, featured = false }: PostCardProps) {
               />
             ) : (
               <div className="absolute inset-0 flex items-center justify-center">
-                <BookOpen className="h-24 w-24 text-muted-foreground" />
+                <BookOpen className="h-24 w-24 text-black dark:text-gray-300" />
               </div>
             )}
           </div>
@@ -65,11 +65,11 @@ export function PostCard({ post, featured = false }: PostCardProps) {
                 <span className="body-small">{post.author?.name || "Author"}</span>
               </div>
               <div className="flex items-center gap-2">
-                <Clock className="h-4 w-4" />
+                <Clock className="h-4 w-4 text-black dark:text-gray-300" />
                 <span className="body-small">{publishedDate}</span>
               </div>
               <div className="flex items-center gap-2">
-                <Clock className="h-4 w-4" />
+                <Clock className="h-4 w-4 text-black dark:text-gray-300" />
                 <span className="body-small">{post.readingTime} min read</span>
               </div>
             </div>
@@ -78,7 +78,7 @@ export function PostCard({ post, featured = false }: PostCardProps) {
               className="inline-flex items-center text-primary hover:underline body-medium"
             >
               Read More
-              <ArrowRight className="h-4 w-4 ml-2" />
+              <ArrowRight className="h-4 w-4 ml-2 text-black dark:text-gray-300" />
             </Link>
           </CardHeader>
         </div>
@@ -98,7 +98,7 @@ export function PostCard({ post, featured = false }: PostCardProps) {
           />
         ) : (
           <div className="absolute inset-0 flex items-center justify-center">
-            <BookOpen className="h-16 w-16 text-muted-foreground" />
+            <BookOpen className="h-16 w-16 text-black dark:text-gray-300" />
           </div>
         )}
       </div>
@@ -137,7 +137,7 @@ export function PostCard({ post, featured = false }: PostCardProps) {
             <span className="body-small">{post.author?.name || "Author"}</span>
           </div>
           <div className="flex items-center gap-1">
-            <Clock className="h-3 w-3" />
+            <Clock className="h-3 w-3 text-black dark:text-gray-300" />
             <span className="body-small">{post.readingTime} min</span>
           </div>
         </div>
@@ -155,7 +155,7 @@ export function PostCard({ post, featured = false }: PostCardProps) {
           className="inline-flex items-center text-primary hover:underline body-small"
         >
           Read Article
-          <ArrowRight className="h-3 w-3 ml-2" />
+          <ArrowRight className="h-3 w-3 ml-2 text-black dark:text-gray-300" />
         </Link>
       </CardContent>
     </Card>

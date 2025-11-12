@@ -1,7 +1,7 @@
 # Repository Structure & Cleanup Plan
 
 **Last Updated:** 2025-01-28  
-**Status:** ✅ **ALL PHASES COMPLETE** - Cleanup executed, AI Agent Ecosystem implemented, Chat UI integrated, Asset structure organized, Pages documentation structured
+**Status:** ✅ **ALL PHASES COMPLETE** - Cleanup executed, AI Agent Ecosystem implemented, Chat UI integrated, Asset structure organized, Pages documentation structured, Legal pages plans created
 
 ---
 
@@ -277,7 +277,13 @@ docs/
 │   ├── Enterprise/                  → ✅ KEEP (enterprise page docs)
 │   ├── Pricing/                     → ✅ KEEP (pricing page docs)
 │   ├── iOS/                         → ✅ KEEP (iOS page docs)
-│   └── Students/                    → ✅ KEEP (students page docs)
+│   ├── Students/                    → ✅ KEEP (students page docs)
+│   ├── Privacy/                     → ✅ KEEP (privacy policy page plan)
+│   │   └── README.md                → ⚠️ PLANNED
+│   ├── Terms/                       → ✅ KEEP (terms of service page plan)
+│   │   └── README.md                → ⚠️ PLANNED
+│   └── Cookies/                     → ✅ KEEP (cookie policy page plan)
+│       └── README.md                → ⚠️ PLANNED
 ├── components/                      → ⚠️ REVIEW (check if code examples still relevant)
 ├── theme/                           → ⚠️ REVIEW (only keep if used for docs UI)
 ├── plan_nbcon_v0/                   → ✅ DELETED (outdated pre-launch plans)
@@ -506,8 +512,9 @@ pnpm --filter @nbcon/web build
 - ✅ Unified typography system implemented and applied across pages
 - ✅ SimpleHeroSection component created and integrated
 - ✅ Select component created for form inputs
+- ✅ Legal pages plans created (Privacy, Terms, Cookies) in separate folders
 
-**Current Status:** Production-ready AI chat system with full conversation management, unified design system, and comprehensive page implementations (5 resource pages completed)
+**Current Status:** Production-ready AI chat system with full conversation management, unified design system, and comprehensive page implementations (5 resource pages completed, 3 legal pages planned)
 
 ---
 
@@ -523,6 +530,9 @@ pnpm --filter @nbcon/web build
 ### 📋 Planned Pages
 - **FAQ** (`/faq`) - Frequently Asked Questions page
 - **Docs Enhancements** (`/docs`) - Enhanced documentation features
+- **Privacy Policy** (`/privacy`) - GDPR/CCPA compliant privacy policy ⚠️ HIGH PRIORITY
+- **Terms of Service** (`/terms`) - Legal terms and conditions ⚠️ HIGH PRIORITY
+- **Cookie Policy** (`/cookies`) - GDPR cookie consent and policy ⚠️ HIGH PRIORITY
 
 ### 📚 Documentation Structure
 All page plans are organized in `docs/pages/`:
@@ -534,6 +544,9 @@ All page plans are organized in `docs/pages/`:
 - `Pricing/` - Pricing page documentation
 - `iOS/` - iOS app page documentation
 - `Students/` - Students page documentation
+- `Privacy/` - Privacy Policy page plan (`/privacy`)
+- `Terms/` - Terms of Service page plan (`/terms`)
+- `Cookies/` - Cookie Policy page plan (`/cookies`)
 
 ### 🎨 Design System
 All implemented pages use:

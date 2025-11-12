@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import Head from "next/head";
-import { SimpleHeroSection } from "@/components/ui/simple-hero-section";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -102,27 +101,15 @@ export default function FinanceTemplates() {
         />
       </Head>
 
-      {/* Hero Section */}
-      <SimpleHeroSection
-        headline="Finance Templates"
-        description="Financial workflows, cost estimation, and budget management templates created by the community"
-        cta={{
-          primary: {
-            text: "Browse Templates",
-            onClick: () => {
-              document.getElementById("templates-section")?.scrollIntoView({ behavior: "smooth" });
-            },
-          },
-          secondary: {
-            text: "View Documentation",
-            href: "/docs",
-          },
-        }}
-        backgroundVariant="minimal"
-      />
-
       {/* Main Content */}
-      <main id="templates-section" className="container mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        {/* Header */}
+        <div className="mb-12">
+          <h1 className="text-4xl font-bold mb-4">Finance Templates</h1>
+          <p className="text-muted-foreground mb-4 max-w-3xl text-lg">
+            Financial workflows, cost estimation, and budget management templates created by the community.
+          </p>
+        </div>
         {/* Filters */}
         <FinanceTemplateFilter
           filters={filters}

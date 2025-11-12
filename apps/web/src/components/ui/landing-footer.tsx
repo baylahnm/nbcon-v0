@@ -15,27 +15,28 @@ const footerLinks = [
     ],
   },
   {
-    title: "API",
+    title: "Resources",
     links: [
-      { id: 4, title: "Documentation", url: "/docs/api" },
-      { id: 5, title: "Authentication", url: "/docs/api/auth" },
-      { id: 6, title: "Webhooks", url: "/docs/api/webhooks" },
+      { id: 4, title: "Blog", url: "/resources/blog" },
+      { id: 5, title: "Community", url: "/resources/community" },
+      { id: 6, title: "Forum", url: "/resources/forum" },
+      { id: 7, title: "Changelog", url: "/resources/changelog" },
     ],
   },
   {
-    title: "Learn",
+    title: "Support",
     links: [
-      { id: 7, title: "Resources", url: "/resources" },
-      { id: 8, title: "Blog", url: "#" },
-      { id: 9, title: "Community", url: "#" },
+      { id: 8, title: "FAQ", url: "/faq" },
+      { id: 9, title: "Support", url: "/support" },
+      { id: 10, title: "Documentation", url: "/docs" },
     ],
   },
   {
     title: "Company",
     links: [
-      { id: 10, title: "About", url: "#" },
-      { id: 11, title: "Contact", url: "#" },
-      { id: 12, title: "Careers", url: "#" },
+      { id: 11, title: "Careers", url: "/resources/careers" },
+      { id: 12, title: "Enterprise", url: "/enterprise" },
+      { id: 13, title: "Pricing", url: "/pricing" },
     ],
   },
 ];

@@ -143,13 +143,6 @@ export function LogoCloud() {
     <section className="bg-background overflow-hidden py-16 w-full">
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center md:flex-row">
-          {/* Text on left for md+ screens */}
-          <div className="flex-shrink-0 text-center md:text-right md:max-w-44 md:border-r md:border-border md:pr-6 mb-6 md:mb-0">
-            <p className="text-sm text-muted-foreground">
-              Powering the best teams
-            </p>
-          </div>
-
           {/* Animated logo slider */}
           <div className="w-full py-6 md:w-auto md:flex-1">
             <BlurredInfiniteSlider

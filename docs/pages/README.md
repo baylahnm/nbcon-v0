@@ -27,7 +27,13 @@ pages/
 │   └── README.md
 ├── iOS/               # iOS page documentation
 │   └── README.md
-└── Students/          # Students page documentation
+├── Students/          # Students page documentation
+│   └── README.md
+├── Privacy/           # Privacy Policy page documentation
+│   └── README.md
+├── Terms/             # Terms of Service page documentation
+│   └── README.md
+└── Cookies/           # Cookie Policy page documentation
     └── README.md
 ```
 
@@ -66,6 +72,21 @@ Documentation for the iOS app page.
 ### Students (`/Students`)
 Documentation for the students page.
 
+### Privacy (`/Privacy`)
+Documentation for the Privacy Policy page (`/privacy`).
+
+See [Privacy/README.md](./Privacy/README.md) for detailed plan.
+
+### Terms (`/Terms`)
+Documentation for the Terms of Service page (`/terms`).
+
+See [Terms/README.md](./Terms/README.md) for detailed plan.
+
+### Cookies (`/Cookies`)
+Documentation for the Cookie Policy page (`/cookies`).
+
+See [Cookies/README.md](./Cookies/README.md) for detailed plan.
+
 ## Quick Links
 
 - [Resources Pages Plans](./Resources/README.md) - All resource-related page plans
@@ -80,3 +101,13 @@ Documentation for the students page.
 ---
 
 **Last Updated**: 2025-01-28
+
+## Legal Pages
+
+Legal pages are critical for compliance and should be implemented with legal review:
+
+- [Privacy Policy Plan](./Privacy/README.md) - `/privacy`
+- [Terms of Service Plan](./Terms/README.md) - `/terms`
+- [Cookie Policy Plan](./Cookies/README.md) - `/cookies`
+
+All three pages are high priority legal requirements and should be implemented together.

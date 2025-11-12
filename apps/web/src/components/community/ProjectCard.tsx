@@ -34,7 +34,7 @@ export function ProjectCard({ project, featured = false }: ProjectCardProps) {
           />
         ) : (
           <div className="absolute inset-0 flex items-center justify-center">
-            <FolderOpen className="h-16 w-16 text-muted-foreground" />
+            <FolderOpen className="h-16 w-16 text-black dark:text-gray-300" />
           </div>
         )}
         {project.featured && (
@@ -76,11 +76,11 @@ export function ProjectCard({ project, featured = false }: ProjectCardProps) {
           </div>
           <div className="flex items-center gap-3 text-sm text-muted-foreground">
             <div className="flex items-center gap-1">
-              <Eye className="h-3 w-3" />
+              <Eye className="h-3 w-3 text-black dark:text-gray-300" />
               <span className="body-small">{project.views}</span>
             </div>
             <div className="flex items-center gap-1">
-              <Heart className="h-3 w-3" />
+              <Heart className="h-3 w-3 text-black dark:text-gray-300" />
               <span className="body-small">{project.votes}</span>
             </div>
           </div>
@@ -88,7 +88,7 @@ export function ProjectCard({ project, featured = false }: ProjectCardProps) {
         <Button variant="outline" size="sm" className="w-full" asChild>
           <a href={project.url} target="_blank" rel="noopener noreferrer">
             View Project
-            <ExternalLink className="h-3 w-3 ml-2" />
+            <ExternalLink className="h-3 w-3 ml-2 text-black dark:text-gray-300" />
           </a>
         </Button>
       </CardContent>

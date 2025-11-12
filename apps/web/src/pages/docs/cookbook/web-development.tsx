@@ -13,13 +13,13 @@ export default function WebDevelopmentPage({ index, sidebar }: DocPageProps) {
   return (
     <>
       <Head>
-        <title>Web Development | NBCON PRO Docs</title>
-        <meta name="description" content="Web development workflows with NBCON PRO" />
+        <title>Web Development | nbcon.ai Docs</title>
+        <meta name="description" content="Web development workflows with nbcon.ai" />
       </Head>
       <DocsLayout index={index} sidebar={sidebar}>
         <article className="prose prose-slate dark:prose-invert max-w-none">
           <h1>Web Development</h1>
-          <p>Best practices for web development with NBCON PRO.</p>
+          <p>Best practices for web development with nbcon.ai.</p>
 
           <h2>Project Setup</h2>
           <CodeBlock language="bash">
@@ -36,7 +36,7 @@ nbcon install`}
           </ol>
 
           <h2>Frameworks</h2>
-          <p>NBCON PRO supports:</p>
+          <p>nbcon.ai supports:</p>
           <ul>
             <li>React</li>
             <li>Vue</li>

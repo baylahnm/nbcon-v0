@@ -25,7 +25,7 @@ export default function BIM360Page() {
   return (
     <>
       <Head>
-        <title>{doc?.title || "BIM 360"} | NBCON PRO Docs</title>
+        <title>{doc?.title || "BIM 360"} | nbcon.ai Docs</title>
         {doc?.description ? <meta name="description" content={doc.description} /> : null}
       </Head>
       <DocsLayout index={index} sidebar={sidebar}>
@@ -34,7 +34,7 @@ export default function BIM360Page() {
           <p className="text-muted-foreground">{doc?.description || "BIM 360 integration for construction project management"}</p>
 
           <h2>{t("docs.integrationOverview") || "Overview"}</h2>
-          <p>NBCON PRO integrates with Autodesk BIM 360 for construction project management, document control, and collaboration workflows.</p>
+          <p>nbcon.ai integrates with Autodesk BIM 360 for construction project management, document control, and collaboration workflows.</p>
 
           <h2>{t("docs.setup") || "Setup"}</h2>
           <ul className="list-disc ps-5 space-y-1">

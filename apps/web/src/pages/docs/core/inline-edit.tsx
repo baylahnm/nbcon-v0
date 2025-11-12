@@ -12,7 +12,7 @@ export default function InlineEditPage({ index, sidebar }: DocPageProps) {
   return (
     <>
       <Head>
-        <title>Inline Edit | NBCON PRO Docs</title>
+        <title>Inline Edit | nbcon.ai Docs</title>
         <meta name="description" content="Inline editing capabilities" />
       </Head>
       <DocsLayout index={index} sidebar={sidebar}>

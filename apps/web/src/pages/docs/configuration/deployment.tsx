@@ -14,16 +14,16 @@ export default function DeploymentPage({ index, sidebar }: DocPageProps) {
   return (
     <>
       <Head>
-        <title>Deployment Guide | NBCON PRO Docs</title>
-        <meta name="description" content="Complete guide for deploying NBCON PRO to production" />
+        <title>Deployment Guide | nbcon.ai Docs</title>
+        <meta name="description" content="Complete guide for deploying nbcon.ai to production" />
       </Head>
       <DocsLayout index={index} sidebar={sidebar}>
         <article className="prose prose-slate dark:prose-invert max-w-none">
           <h1>Deployment Guide</h1>
-          <p>Complete guide for deploying NBCON PRO to production, including environment setup, Supabase configuration, Stripe integration, and CI/CD.</p>
+          <p>Complete guide for deploying nbcon.ai to production, including environment setup, Supabase configuration, Stripe integration, and CI/CD.</p>
 
           <h2>Overview</h2>
-          <p>NBCON PRO is deployed using:</p>
+          <p>nbcon.ai is deployed using:</p>
           <ul>
             <li><strong>Frontend:</strong> Cloudflare Pages (Next.js)</li>
             <li><strong>Backend:</strong> Supabase (Database, Auth, Edge Functions)</li>

@@ -13,13 +13,13 @@ export default function ThemesPage({ index, sidebar }: DocPageProps) {
   return (
     <>
       <Head>
-        <title>Themes | NBCON PRO Docs</title>
+        <title>Themes | nbcon.ai Docs</title>
         <meta name="description" content="Customizing the appearance" />
       </Head>
       <DocsLayout index={index} sidebar={sidebar}>
         <article className="prose prose-slate dark:prose-invert max-w-none">
           <h1>Themes</h1>
-          <p>Customize NBCON PRO's appearance with themes.</p>
+          <p>Customize nbcon.ai's appearance with themes.</p>
 
           <h2>Built-in Themes</h2>
           <ul>

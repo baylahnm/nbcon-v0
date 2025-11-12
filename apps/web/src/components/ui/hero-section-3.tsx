@@ -43,9 +43,6 @@ export function HeroSection() {
               </Button>
             </Link>
           </div>
-          <p className="text-xs text-muted-foreground">
-            By using NBCON PRO AI Assistant, you agree to our Terms & AI Policy.
-          </p>
         </div>
       </motion.div>
     </section>

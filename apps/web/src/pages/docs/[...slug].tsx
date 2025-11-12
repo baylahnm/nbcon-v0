@@ -33,7 +33,7 @@ export default function DocPage() {
     return (
       <>
         <Head>
-          <title>Page Not Found | NBCON PRO Docs</title>
+          <title>Page Not Found | nbcon.ai Docs</title>
         </Head>
         <DocsLayout index={index} sidebar={sidebar}>
           <article className="prose prose-slate dark:prose-invert max-w-none">
@@ -56,7 +56,7 @@ export default function DocPage() {
   return (
     <>
       <Head>
-        <title>{doc.title} | NBCON PRO Docs</title>
+        <title>{doc.title} | nbcon.ai Docs</title>
         {doc.description ? <meta name="description" content={doc.description} /> : null}
       </Head>
       <DocsLayout index={index} sidebar={sidebar}>

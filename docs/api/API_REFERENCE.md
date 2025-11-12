@@ -1,4 +1,4 @@
-# NBCON PRO API Reference
+# nbcon.ai API Reference
 
 ## Enterprise SDK
 

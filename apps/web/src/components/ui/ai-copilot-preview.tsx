@@ -44,7 +44,7 @@ Would you like a detailed analysis report?`,
                 <div className="w-2 h-2 rounded-full bg-yellow-400"></div>
                 <div className="w-2 h-2 rounded-full bg-green-400"></div>
               </div>
-              <span className="text-xs text-muted-foreground ml-1">nbcon.pro/ai-copilot</span>
+              <span className="text-xs text-muted-foreground ml-1">nbcon.ai/ai-copilot</span>
             </div>
             <div className="flex items-center gap-1.5">
               <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></div>

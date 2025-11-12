@@ -1,6 +1,6 @@
 # Supabase Email Templates
 
-This directory contains all email templates for NBCON PRO, ready to be uploaded to Supabase Dashboard.
+This directory contains all email templates for nbcon.ai, ready to be uploaded to Supabase Dashboard.
 
 ## Templates
 
@@ -13,9 +13,9 @@ This directory contains all email templates for NBCON PRO, ready to be uploaded 
 
 ## Branding
 
-All templates use consistent NBCON PRO branding:
+All templates use consistent nbcon.ai branding:
 - **Logo**: "nb" glyph in rounded square with gradient (#2D5346 to #50635C)
-- **App Name**: NBCON PRO (displayed as "nbcon" in emails)
+- **App Name**: nbcon.ai (displayed as "nbcon" in emails)
 - **Tagline**: "Saudi Arabia's Professional Engineering Marketplace"
 - **Colors**: 
   - Primary: #2D5346 (Dark Green)

@@ -25,7 +25,7 @@ export default function SlackLinearPage() {
   return (
     <>
       <Head>
-        <title>{doc?.title || "Slack & Linear"} | NBCON PRO Docs</title>
+        <title>{doc?.title || "Slack & Linear"} | nbcon.ai Docs</title>
         {doc?.description ? <meta name="description" content={doc.description} /> : null}
       </Head>
       <DocsLayout index={index} sidebar={sidebar}>
@@ -34,7 +34,7 @@ export default function SlackLinearPage() {
           <p className="text-muted-foreground">{doc?.description || "Team collaboration integrations with Slack and Linear"}</p>
 
           <h2>{t("docs.integrationOverview") || "Overview"}</h2>
-          <p>NBCON PRO integrates with Slack for team notifications and Linear for project management, enabling seamless collaboration workflows.</p>
+          <p>nbcon.ai integrates with Slack for team notifications and Linear for project management, enabling seamless collaboration workflows.</p>
 
           <h2>Slack Integration</h2>
           <h3>{t("docs.setup") || "Setup"}</h3>
@@ -51,7 +51,7 @@ export default function SlackLinearPage() {
             <li>Create Linear API key</li>
             <li>Configure team and project mappings</li>
             <li>Set up webhooks for issue updates</li>
-            <li>Map NBCON PRO projects to Linear teams</li>
+            <li>Map nbcon.ai projects to Linear teams</li>
           </ul>
 
           <CodeBlock language="typescript">

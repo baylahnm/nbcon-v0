@@ -25,7 +25,7 @@ export default function BluebeamStudioPage() {
   return (
     <>
       <Head>
-        <title>{doc?.title || "Bluebeam Studio"} | NBCON PRO Docs</title>
+        <title>{doc?.title || "Bluebeam Studio"} | nbcon.ai Docs</title>
         {doc?.description ? <meta name="description" content={doc.description} /> : null}
       </Head>
       <DocsLayout index={index} sidebar={sidebar}>
@@ -34,7 +34,7 @@ export default function BluebeamStudioPage() {
           <p className="text-muted-foreground">{doc?.description || "Bluebeam Studio integration for PDF collaboration and markup"}</p>
 
           <h2>{t("docs.integrationOverview") || "Overview"}</h2>
-          <p>NBCON PRO integrates with Bluebeam Studio for PDF collaboration, markup management, and document review workflows.</p>
+          <p>nbcon.ai integrates with Bluebeam Studio for PDF collaboration, markup management, and document review workflows.</p>
 
           <h2>{t("docs.setup") || "Setup"}</h2>
           <ul className="list-disc ps-5 space-y-1">

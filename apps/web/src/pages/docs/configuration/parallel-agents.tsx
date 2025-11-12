@@ -13,7 +13,7 @@ export default function ParallelAgentsPage({ index, sidebar }: DocPageProps) {
   return (
     <>
       <Head>
-        <title>Parallel Agents | NBCON PRO Docs</title>
+        <title>Parallel Agents | nbcon.ai Docs</title>
         <meta name="description" content="Running multiple AI agents in parallel" />
       </Head>
       <DocsLayout index={index} sidebar={sidebar}>

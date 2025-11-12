@@ -43,7 +43,7 @@ const Icons = {
   claude: () => <Claude size={24} />,
   openai: () => <OpenAI size={24} />,
   
-  // Row 2: Gemini, nbcon.pro (center), DeepSeek
+  // Row 2: Gemini, nbcon.ai (center), DeepSeek
   gemini: () => <Gemini size={24} />,
   nbcon: () => <NbLogo className="w-10 h-10" />,
   deepseek: () => <DeepSeek size={24} />,
@@ -101,7 +101,7 @@ export default function StackFeatureSection({
             <Link href={buttonLink}>{buttonText}</Link>
           </Button>
           {secondaryButtonText && (
-            <Button variant="outline" size="lg" asChild>
+            <Button variant="outline" size="lg" asChild className="border border-border bg-chat-input dark:bg-chat-input hover:bg-chat-input/80">
               <Link href="/docs">{secondaryButtonText}</Link>
             </Button>
           )}
@@ -123,7 +123,7 @@ export default function StackFeatureSection({
               <Icons.openai />
             </Circle>
           </div>
-          {/* Row 2: Gemini, nbcon.pro (center), DeepSeek */}
+          {/* Row 2: Gemini, nbcon.ai (center), DeepSeek */}
           <div className="flex flex-row items-center justify-between">
             <Circle ref={div2Ref}>
               <Icons.gemini />

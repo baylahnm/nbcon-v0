@@ -89,7 +89,7 @@ const getOpenAIClient = () => {
       baseURL: openRouterUrl,
       defaultHeaders: {
         "HTTP-Referer": process.env.FRONTEND_URL || "http://localhost:3000",
-        "X-Title": "NBCON PRO",
+        "X-Title": "nbcon.ai",
       },
     });
   }
@@ -385,7 +385,7 @@ async function callXAI(
       baseURL: "https://openrouter.ai/api/v1",
       defaultHeaders: {
         "HTTP-Referer": process.env.FRONTEND_URL || "http://localhost:3000",
-        "X-Title": "NBCON PRO",
+        "X-Title": "nbcon.ai",
       },
     });
 

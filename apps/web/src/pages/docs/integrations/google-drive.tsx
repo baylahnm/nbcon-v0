@@ -25,7 +25,7 @@ export default function GoogleDrivePage() {
   return (
     <>
       <Head>
-        <title>{doc?.title || "Google Drive"} | NBCON PRO Docs</title>
+        <title>{doc?.title || "Google Drive"} | nbcon.ai Docs</title>
         {doc?.description ? <meta name="description" content={doc.description} /> : null}
       </Head>
       <DocsLayout index={index} sidebar={sidebar}>
@@ -34,7 +34,7 @@ export default function GoogleDrivePage() {
           <p className="text-muted-foreground">{doc?.description || "Google Drive integration for file storage and collaboration"}</p>
 
           <h2>{t("docs.integrationOverview") || "Overview"}</h2>
-          <p>NBCON PRO integrates with Google Drive for file storage, sharing, and collaboration. Access and sync project files directly from Google Drive.</p>
+          <p>nbcon.ai integrates with Google Drive for file storage, sharing, and collaboration. Access and sync project files directly from Google Drive.</p>
 
           <h2>{t("docs.setup") || "Setup"}</h2>
           <ul className="list-disc ps-5 space-y-1">

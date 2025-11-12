@@ -25,7 +25,7 @@ export default function DownloadsPage() {
   return (
     <>
       <Head>
-        <title>{doc?.title || "Downloads"} | NBCON PRO Docs</title>
+        <title>{doc?.title || "Downloads"} | nbcon.ai Docs</title>
         {doc?.description ? <meta name="description" content={doc.description} /> : null}
       </Head>
       <DocsLayout index={index} sidebar={sidebar}>

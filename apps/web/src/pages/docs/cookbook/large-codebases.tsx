@@ -13,13 +13,13 @@ export default function LargeCodebasesPage({ index, sidebar }: DocPageProps) {
   return (
     <>
       <Head>
-        <title>Large Codebases | NBCON PRO Docs</title>
+        <title>Large Codebases | nbcon.ai Docs</title>
         <meta name="description" content="Working with large codebases" />
       </Head>
       <DocsLayout index={index} sidebar={sidebar}>
         <article className="prose prose-slate dark:prose-invert max-w-none">
           <h1>Large Codebases</h1>
-          <p>Tips for working with large codebases in NBCON PRO.</p>
+          <p>Tips for working with large codebases in nbcon.ai.</p>
 
           <h2>Optimization</h2>
           <ul>

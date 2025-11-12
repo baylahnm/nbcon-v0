@@ -5,12 +5,12 @@ export default function ResourcesPage() {
   return (
     <>
       <Head>
-        <title>Resources | NBCON PRO</title>
+        <title>Resources | nbcon.ai</title>
       </Head>
       <main className="container py-20">
         <h1 className="text-3xl font-bold mb-4">Resources & Documentation</h1>
         <p className="text-muted-foreground mb-8 max-w-2xl">
-          Learn, build, and master NBCON PRO through guides, documentation, and tutorials.
+          Learn, build, and master nbcon.ai through guides, documentation, and tutorials.
         </p>
         <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
           <li><a href="/docs" className="text-foreground hover:underline">Documentation</a></li>

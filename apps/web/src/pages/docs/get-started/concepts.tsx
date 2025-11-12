@@ -12,16 +12,16 @@ export default function ConceptsPage({ index, sidebar }: DocPageProps) {
   return (
     <>
       <Head>
-        <title>Concepts | NBCON PRO Docs</title>
-        <meta name="description" content="Core concepts and architecture of NBCON PRO" />
+        <title>Concepts | nbcon.ai Docs</title>
+        <meta name="description" content="Core concepts and architecture of nbcon.ai" />
       </Head>
       <DocsLayout index={index} sidebar={sidebar}>
         <article className="prose prose-slate dark:prose-invert max-w-none">
           <h1>Core Concepts</h1>
-          <p>Understanding the fundamental concepts behind NBCON PRO.</p>
+          <p>Understanding the fundamental concepts behind nbcon.ai.</p>
 
           <h2>AI Agents</h2>
-          <p>NBCON PRO uses specialized AI agents for different engineering domains:</p>
+          <p>nbcon.ai uses specialized AI agents for different engineering domains:</p>
           <ul>
             <li><strong>Civil Engineering Agent</strong>: Handles structural analysis and design</li>
             <li><strong>Electrical Agent</strong>: Manages power systems and circuits</li>

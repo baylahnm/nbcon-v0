@@ -25,7 +25,7 @@ export default function OneDrivePage() {
   return (
     <>
       <Head>
-        <title>{doc?.title || "Microsoft OneDrive"} | NBCON PRO Docs</title>
+        <title>{doc?.title || "Microsoft OneDrive"} | nbcon.ai Docs</title>
         {doc?.description ? <meta name="description" content={doc.description} /> : null}
       </Head>
       <DocsLayout index={index} sidebar={sidebar}>
@@ -34,7 +34,7 @@ export default function OneDrivePage() {
           <p className="text-muted-foreground">{doc?.description || "OneDrive integration for Microsoft 365 file storage"}</p>
 
           <h2>{t("docs.integrationOverview") || "Overview"}</h2>
-          <p>NBCON PRO integrates with Microsoft OneDrive for enterprise file storage and collaboration through Microsoft 365.</p>
+          <p>nbcon.ai integrates with Microsoft OneDrive for enterprise file storage and collaboration through Microsoft 365.</p>
 
           <h2>{t("docs.setup") || "Setup"}</h2>
           <ul className="list-disc ps-5 space-y-1">

@@ -25,7 +25,7 @@ export default function AutodeskPage() {
   return (
     <>
       <Head>
-        <title>{doc?.title || "Autodesk"} | NBCON PRO Docs</title>
+        <title>{doc?.title || "Autodesk"} | nbcon.ai Docs</title>
         {doc?.description ? <meta name="description" content={doc.description} /> : null}
       </Head>
       <DocsLayout index={index} sidebar={sidebar}>
@@ -34,7 +34,7 @@ export default function AutodeskPage() {
           <p className="text-muted-foreground">{doc?.description || "Autodesk integration for CAD and BIM workflows"}</p>
 
           <h2>{t("docs.integrationOverview") || "Overview"}</h2>
-          <p>NBCON PRO integrates with Autodesk platforms (AutoCAD, Revit, BIM 360) for CAD file access, model viewing, and BIM data extraction.</p>
+          <p>nbcon.ai integrates with Autodesk platforms (AutoCAD, Revit, BIM 360) for CAD file access, model viewing, and BIM data extraction.</p>
 
           <h2>{t("docs.setup") || "Setup"}</h2>
           <ul className="list-disc ps-5 space-y-1">

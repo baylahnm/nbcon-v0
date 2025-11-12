@@ -1,4 +1,4 @@
-# Icon System Documentation - NBCON PRO
+# Icon System Documentation - nbcon.ai
 
 **Status:** ✅ **Unified & Modernized**  
 **Last Updated:** 2024  
@@ -8,7 +8,7 @@
 
 ## 📊 Overview
 
-NBCON PRO uses a **unified, modern icon system** with **lucide-react** as the primary library. Legacy icon libraries have been removed to reduce bundle size (~700KB reduction) and improve consistency across the codebase.
+nbcon.ai uses a **unified, modern icon system** with **lucide-react** as the primary library. Legacy icon libraries have been removed to reduce bundle size (~700KB reduction) and improve consistency across the codebase.
 
 ---
 
@@ -460,7 +460,7 @@ pnpm build
 
 ### Legacy Setup (Deprecated)
 
-Previously, NBCON PRO used multiple icon libraries including `bootstrap-icons` and `@fortawesome/fontawesome-free`. These were loaded globally via CSS imports in `_app.tsx`:
+Previously, nbcon.ai used multiple icon libraries including `bootstrap-icons` and `@fortawesome/fontawesome-free`. These were loaded globally via CSS imports in `_app.tsx`:
 
 ```typescript
 // Old way (removed)
@@ -500,7 +500,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 
 ## 🎯 Summary
 
-NBCON PRO has a **well-structured, unified icon system** with:
+nbcon.ai has a **well-structured, unified icon system** with:
 
 - ✅ **lucide-react** as the primary library (54+ files)
 - ✅ **react-icons** for brand logos (3 files)
@@ -515,5 +515,5 @@ NBCON PRO has a **well-structured, unified icon system** with:
 ---
 
 **Last Updated:** 2024  
-**Maintained By:** NBCON PRO Team
+**Maintained By:** nbcon.ai Team
 

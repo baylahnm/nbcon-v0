@@ -13,13 +13,13 @@ export default function ShellCommandsPage({ index, sidebar }: DocPageProps) {
   return (
     <>
       <Head>
-        <title>Shell Commands | NBCON PRO Docs</title>
+        <title>Shell Commands | nbcon.ai Docs</title>
         <meta name="description" content="Configuring shell commands" />
       </Head>
       <DocsLayout index={index} sidebar={sidebar}>
         <article className="prose prose-slate dark:prose-invert max-w-none">
           <h1>Shell Commands</h1>
-          <p>Configure custom shell commands for NBCON PRO.</p>
+          <p>Configure custom shell commands for nbcon.ai.</p>
 
           <h2>Built-in Commands</h2>
           <CodeBlock language="bash">

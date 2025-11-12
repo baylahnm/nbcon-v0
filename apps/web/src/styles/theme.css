@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* NBCON PRO Theme Variables */
+/* nbcon.ai Theme Variables */
 @layer base {
   :root {
     --chart-1: oklch(0.646 0.222 41.116);

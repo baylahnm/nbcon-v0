@@ -104,7 +104,7 @@ export const defaultEntries: TimeLine_01Entry[] = [
  */
 export default function TimeLine_01({
   title = "Dashboard Showcase",
-  description = "Explore our collection of powerful dashboard components designed for modern engineering workflows. From analytics to project management, see how NBCON PRO can transform your operations.",
+  description = "Explore our collection of powerful dashboard components designed for modern engineering workflows. From analytics to project management, see how nbcon.ai can transform your operations.",
   entries = defaultEntries,
   className,
 }: TimeLine_01Props) {
@@ -170,7 +170,7 @@ export default function TimeLine_01({
       <div className="container mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start px-4 sm:px-6 lg:px-8">
         {/* Left Column: Sticky Content */}
         <div className="flex flex-col gap-6 lg:sticky lg:top-20">
-          <div className="inline-flex items-center gap-2 self-start rounded-full border border-border bg-muted/50 px-3 py-1 text-sm">
+          <div className="inline-flex items-center gap-2 self-start rounded-full border border-border bg-chat-input dark:bg-chat-input px-3 py-1 text-sm">
             <div className="h-2 w-2 rounded-full bg-green-500" />
             <span className="text-muted-foreground">Dashboard Components</span>
           </div>

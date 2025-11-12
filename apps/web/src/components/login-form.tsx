@@ -43,7 +43,12 @@ export function LoginForm() {
   return (
     <div className="w-full max-w-xs space-y-6">
       <div className="space-y-2 text-center">
-        <h1 className="text-2xl font-bold tracking-tight">Welcome back</h1>
+        <h1 className="text-2xl font-bold tracking-tight flex items-center justify-center gap-2 flex-wrap">
+          Welcome back to{" "}
+          <span className="text-lg font-bold text-foreground leading-none tracking-tight" style={{ fontFamily: "Carter One, cursive" }}>
+            nbcon.ai
+          </span>
+        </h1>
         <p className="text-sm text-muted-foreground">
           Enter your credentials to access your account
         </p>

@@ -13,13 +13,13 @@ export default function PricingPage({ index, sidebar }: DocPageProps) {
   return (
     <>
       <Head>
-        <title>Pricing | NBCON PRO Docs</title>
+        <title>Pricing | nbcon.ai Docs</title>
         <meta name="description" content="Subscription plans and pricing tiers" />
       </Head>
       <DocsLayout index={index} sidebar={sidebar}>
         <article className="prose prose-slate dark:prose-invert max-w-none">
           <h1>Pricing Plans</h1>
-          <p>NBCON PRO offers flexible pricing to suit your needs.</p>
+          <p>nbcon.ai offers flexible pricing to suit your needs.</p>
 
           <h2>Free Tier</h2>
           <ul>

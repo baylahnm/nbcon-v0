@@ -13,13 +13,13 @@ export default function ExtensionsPage({ index, sidebar }: DocPageProps) {
   return (
     <>
       <Head>
-        <title>Extensions | NBCON PRO Docs</title>
-        <meta name="description" content="Extending NBCON PRO with custom extensions" />
+        <title>Extensions | nbcon.ai Docs</title>
+        <meta name="description" content="Extending nbcon.ai with custom extensions" />
       </Head>
       <DocsLayout index={index} sidebar={sidebar}>
         <article className="prose prose-slate dark:prose-invert max-w-none">
           <h1>Extensions</h1>
-          <p>Extend NBCON PRO functionality with custom extensions.</p>
+          <p>Extend nbcon.ai functionality with custom extensions.</p>
 
           <h2>Creating Extensions</h2>
           <CodeBlock language="typescript">

@@ -24,7 +24,7 @@ export default function EnterprisePage() {
   return (
     <>
       <Head>
-        <title>{doc?.title || "Enterprise"} | NBCON PRO Docs</title>
+        <title>{doc?.title || "Enterprise"} | nbcon.ai Docs</title>
         {doc?.description ? <meta name="description" content={doc.description} /> : null}
       </Head>
       <DocsLayout index={index} sidebar={sidebar}>
@@ -48,7 +48,7 @@ export default function EnterprisePage() {
           <p>Custom pricing based on your needs. Contact sales for a quote.</p>
 
           <h2>Contact</h2>
-          <p>Reach out to our enterprise team at enterprise@nbcon.app</p>
+          <p>Reach out to our enterprise team at enterprise@nbcon.ai</p>
         </article>
       </DocsLayout>
     </>

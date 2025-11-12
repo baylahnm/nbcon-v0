@@ -25,7 +25,7 @@ export default function RevitPage() {
   return (
     <>
       <Head>
-        <title>{doc?.title || "Revit"} | NBCON PRO Docs</title>
+        <title>{doc?.title || "Revit"} | nbcon.ai Docs</title>
         {doc?.description ? <meta name="description" content={doc.description} /> : null}
       </Head>
       <DocsLayout index={index} sidebar={sidebar}>
@@ -34,7 +34,7 @@ export default function RevitPage() {
           <p className="text-muted-foreground">{doc?.description || "Revit integration for BIM model access and data extraction"}</p>
 
           <h2>{t("docs.integrationOverview") || "Overview"}</h2>
-          <p>NBCON PRO integrates with Autodesk Revit for BIM model access, element data extraction, and model synchronization.</p>
+          <p>nbcon.ai integrates with Autodesk Revit for BIM model access, element data extraction, and model synchronization.</p>
 
           <h2>{t("docs.setup") || "Setup"}</h2>
           <ul className="list-disc ps-5 space-y-1">

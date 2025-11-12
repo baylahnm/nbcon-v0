@@ -61,7 +61,7 @@ export function MultiAgentTeamPreview() {
         {showLeftDot && (
           <div className="w-1.5 h-1.5 rounded-full bg-primary/50 flex-shrink-0"></div>
         )}
-        <div className={`relative flex items-center gap-1 px-3 py-2 rounded-lg border bg-background dark:bg-black ${node.borderColor} ${
+        <div className={`relative flex items-center gap-1 px-3 py-2 rounded-lg border bg-background dark:bg-surface ${node.borderColor} ${
           isVertical ? "flex-col py-3 min-w-[47px]" : "min-w-[40px]"
         }`}>
           <div className={`${node.color} rounded-lg p-0.5 flex items-center justify-center flex-shrink-0`}>
@@ -110,7 +110,7 @@ export function MultiAgentTeamPreview() {
                 <div className="w-2 h-2 rounded-full bg-yellow-400"></div>
                 <div className="w-2 h-2 rounded-full bg-green-400"></div>
               </div>
-              <span className="text-xs text-muted-foreground ml-1">nbcon.pro/workflow-builder</span>
+              <span className="text-xs text-muted-foreground ml-1">nbcon.ai/workflow-builder</span>
             </div>
             <div className="flex items-center gap-2">
               <button className="p-1 hover:bg-muted rounded">

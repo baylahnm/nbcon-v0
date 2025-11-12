@@ -126,14 +126,14 @@ export function FeatureShowcase({
 
             {/* CTAs */}
             <div className="mt-8 flex flex-wrap gap-3">
-              <Button asChild size="lg">
+              <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
                 <Link href="#start">Get started</Link>
               </Button>
               <Button
                 asChild
                 size="lg"
                 variant="secondary"
-                className="border border-border bg-transparent"
+                className="border border-border bg-chat-input dark:bg-chat-input hover:bg-chat-input/80"
               >
                 <Link href="#examples">Browse examples</Link>
               </Button>

@@ -24,7 +24,7 @@ export default function FreePage() {
   return (
     <>
       <Head>
-        <title>{doc?.title || "Free"} | NBCON PRO Docs</title>
+        <title>{doc?.title || "Free"} | nbcon.ai Docs</title>
         {doc?.description ? <meta name="description" content={doc.description} /> : null}
       </Head>
       <DocsLayout index={index} sidebar={sidebar}>

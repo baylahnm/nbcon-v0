@@ -1,4 +1,4 @@
-# NBCON PRO — Complete Roadmap & Implementation Status
+# nbcon.ai — Complete Roadmap & Implementation Status
 
 **Last Updated:** 2025-01-06  
 **Recent Update:** Icon system unified (removed bootstrap-icons & fontawesome, ~700KB bundle reduction), Tailwind CSS warnings fixed, documentation consolidated; Email templates updated with "nbcon" branding; Phase 4 now includes icon system unification; overall progress at 96% (86/90 tasks)  
@@ -715,7 +715,7 @@ Many landing page UX enhancements are marked as ✅ in roadmap but should be ver
 - [x] Visual Hierarchy Improvements - Add background variations and dividers ✅
 - [x] Image Loading States - Convert to Next.js Image with skeletons ✅
 - [x] Smooth Scroll Behavior - Add CSS smooth scroll ✅
-- [x] Hero Section Messaging - Update H1 to match NBCON PRO focus ✅
+- [x] Hero Section Messaging - Update H1 to match nbcon.ai focus ✅
 - [x] How It Works Section Content - Remove generic React/Tailwind references ✅
 - [x] Stats Credibility Enhancement - Add client logos and certifications ✅ **VERIFIED**
 - [x] Load More Button Functionality - Implement pagination ✅

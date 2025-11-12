@@ -1,4 +1,4 @@
-# NBCON PRO — AI Chat & Agent System Implementation Plan
+# nbcon.ai — AI Chat & Agent System Implementation Plan
 
 **Last Updated:** 2025-01-27  
 **Status:** ✅ **CORE SYSTEM COMPLETE** — Chat UI integrated, credits system working, multi-provider routing active

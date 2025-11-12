@@ -13,7 +13,7 @@ export default function AtSymbolsPage({ index, sidebar }: DocPageProps) {
   return (
     <>
       <Head>
-        <title>@ Symbols | NBCON PRO Docs</title>
+        <title>@ Symbols | nbcon.ai Docs</title>
         <meta name="description" content="Using @ symbols for references" />
       </Head>
       <DocsLayout index={index} sidebar={sidebar}>

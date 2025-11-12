@@ -5,7 +5,7 @@ export default function SurveyTemplates() {
   return (
     <>
       <Head>
-        <title>Survey Templates | NBCON PRO</title>
+        <title>Survey Templates | nbcon.ai</title>
       </Head>
       <main className="container py-20">
         <h1 className="text-3xl font-bold mb-4">Survey Templates</h1>

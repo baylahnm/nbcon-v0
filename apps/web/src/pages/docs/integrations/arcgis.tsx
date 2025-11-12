@@ -25,7 +25,7 @@ export default function ArcGISPage() {
   return (
     <>
       <Head>
-        <title>{doc?.title || "ArcGIS"} | NBCON PRO Docs</title>
+        <title>{doc?.title || "ArcGIS"} | nbcon.ai Docs</title>
         {doc?.description ? <meta name="description" content={doc.description} /> : null}
       </Head>
       <DocsLayout index={index} sidebar={sidebar}>
@@ -34,7 +34,7 @@ export default function ArcGISPage() {
           <p className="text-muted-foreground">{doc?.description || "ArcGIS integration for geospatial data and mapping"}</p>
 
           <h2>{t("docs.integrationOverview") || "Overview"}</h2>
-          <p>NBCON PRO integrates with ArcGIS for geospatial data access, map services, and location-based analysis in engineering projects.</p>
+          <p>nbcon.ai integrates with ArcGIS for geospatial data access, map services, and location-based analysis in engineering projects.</p>
 
           <h2>{t("docs.setup") || "Setup"}</h2>
           <ul className="list-disc ps-5 space-y-1">

@@ -1,4 +1,4 @@
-# NBCON PRO Unified Theme System — Implementation Plan
+# nbcon.ai Unified Theme System — Implementation Plan
 
 **Date:** 2025-01-27  
 **Status:** Ready for Implementation  

@@ -12,13 +12,13 @@ export default function PhaseSummariesPage({ index, sidebar }: DocPageProps) {
   return (
     <>
       <Head>
-        <title>Phase Summaries | NBCON PRO Docs</title>
+        <title>Phase Summaries | nbcon.ai Docs</title>
         <meta name="description" content="Implementation phase summaries" />
       </Head>
       <DocsLayout index={index} sidebar={sidebar}>
         <article className="prose prose-slate dark:prose-invert max-w-none">
           <h1>Implementation Phase Summaries</h1>
-          <p>This document provides a comprehensive overview of all implementation phases for NBCON PRO, including completion status and key achievements.</p>
+          <p>This document provides a comprehensive overview of all implementation phases for nbcon.ai, including completion status and key achievements.</p>
 
           <h2>Overall Progress</h2>
           <p><strong>Current Status:</strong> 96% Complete (86/90 tasks)<br />

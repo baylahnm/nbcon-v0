@@ -1,6 +1,7 @@
 import { ArrowLeft } from "lucide-react"
 import { SignupForm } from "@/components/signup-form"
 import Link from "next/link"
+import { RainingLettersBackground } from "@/components/ui/raining-letters-background"
 
 export default function SignupPage() {
   return (
@@ -16,12 +17,8 @@ export default function SignupPage() {
           <SignupForm />
         </div>
       </div>
-      <div className="bg-muted relative hidden lg:block">
-        <img
-          src="https://images.unsplash.com/photo-1516382799247-87df85cc8188?q=80&w=1400&auto=format&fit=crop"
-          alt="Engineering site"
-          className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
-        />
+      <div className="bg-muted relative hidden lg:block overflow-hidden">
+        <RainingLettersBackground />
       </div>
     </div>
   )

@@ -13,7 +13,7 @@ export default function RulesPage({ index, sidebar }: DocPageProps) {
   return (
     <>
       <Head>
-        <title>Rules | NBCON PRO Docs</title>
+        <title>Rules | nbcon.ai Docs</title>
         <meta name="description" content="Configuring rules and guidelines" />
       </Head>
       <DocsLayout index={index} sidebar={sidebar}>

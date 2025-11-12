@@ -1,4 +1,4 @@
-# NBCON PRO – ISO 27001 Readiness Checklist
+# nbcon.ai – ISO 27001 Readiness Checklist
 
 **Standard**: ISO/IEC 27001:2022  
 **Status**: Assessment In Progress  
@@ -8,7 +8,7 @@
 
 ## Overview
 
-This checklist maps NBCON PRO's security controls to ISO 27001 requirements and identifies gaps for certification readiness.
+This checklist maps nbcon.ai's security controls to ISO 27001 requirements and identifies gaps for certification readiness.
 
 ---
 

@@ -24,7 +24,7 @@ export default function BasicPage() {
   return (
     <>
       <Head>
-        <title>{doc?.title || "Basic"} | NBCON PRO Docs</title>
+        <title>{doc?.title || "Basic"} | nbcon.ai Docs</title>
         {doc?.description ? <meta name="description" content={doc.description} /> : null}
       </Head>
       <DocsLayout index={index} sidebar={sidebar}>

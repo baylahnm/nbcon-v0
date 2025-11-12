@@ -25,7 +25,7 @@ export default function DeeplinksWebhooksPage() {
   return (
     <>
       <Head>
-        <title>{doc?.title || "Deeplinks & Webhooks"} | NBCON PRO Docs</title>
+        <title>{doc?.title || "Deeplinks & Webhooks"} | nbcon.ai Docs</title>
         {doc?.description ? <meta name="description" content={doc.description} /> : null}
       </Head>
       <DocsLayout index={index} sidebar={sidebar}>
@@ -34,7 +34,7 @@ export default function DeeplinksWebhooksPage() {
           <p className="text-muted-foreground">{doc?.description || "Deep linking and webhook integration for external systems"}</p>
 
           <h2>{t("docs.integrationOverview") || "Overview"}</h2>
-          <p>NBCON PRO supports deep linking for direct navigation to specific resources and webhooks for real-time event notifications to external systems.</p>
+          <p>nbcon.ai supports deep linking for direct navigation to specific resources and webhooks for real-time event notifications to external systems.</p>
 
           <h2>Deeplinks</h2>
           <h3>{t("docs.setup") || "Setup"}</h3>

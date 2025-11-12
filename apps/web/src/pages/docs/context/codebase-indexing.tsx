@@ -12,13 +12,13 @@ export default function CodebaseIndexingPage({ index, sidebar }: DocPageProps) {
   return (
     <>
       <Head>
-        <title>Codebase Indexing | NBCON PRO Docs</title>
-        <meta name="description" content="How NBCON PRO indexes your codebase" />
+        <title>Codebase Indexing | nbcon.ai Docs</title>
+        <meta name="description" content="How nbcon.ai indexes your codebase" />
       </Head>
       <DocsLayout index={index} sidebar={sidebar}>
         <article className="prose prose-slate dark:prose-invert max-w-none">
           <h1>Codebase Indexing</h1>
-          <p>NBCON PRO creates a searchable index of your entire codebase.</p>
+          <p>nbcon.ai creates a searchable index of your entire codebase.</p>
 
           <h2>How It Works</h2>
           <ol>

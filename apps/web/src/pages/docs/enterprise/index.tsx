@@ -13,7 +13,7 @@ export default function EnterprisePage({ index, sidebar }: DocPageProps) {
   return (
     <>
       <Head>
-        <title>Enterprise | NBCON PRO Docs</title>
+        <title>Enterprise | nbcon.ai Docs</title>
         <meta name="description" content="Enterprise features and solutions" />
       </Head>
       <DocsLayout index={index} sidebar={sidebar}>

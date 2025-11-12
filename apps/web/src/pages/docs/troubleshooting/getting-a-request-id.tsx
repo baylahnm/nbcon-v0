@@ -13,7 +13,7 @@ export default function GettingRequestIdPage({ index, sidebar }: DocPageProps) {
   return (
     <>
       <Head>
-        <title>Getting a Request ID | NBCON PRO Docs</title>
+        <title>Getting a Request ID | nbcon.ai Docs</title>
         <meta name="description" content="How to get a request ID for support" />
       </Head>
       <DocsLayout index={index} sidebar={sidebar}>

@@ -13,13 +13,13 @@ export default function IgnoreFilesPage({ index, sidebar }: DocPageProps) {
   return (
     <>
       <Head>
-        <title>Ignore Files | NBCON PRO Docs</title>
+        <title>Ignore Files | nbcon.ai Docs</title>
         <meta name="description" content="Configuring files to ignore" />
       </Head>
       <DocsLayout index={index} sidebar={sidebar}>
         <article className="prose prose-slate dark:prose-invert max-w-none">
           <h1>Ignore Files</h1>
-          <p>Control which files are indexed and processed by NBCON PRO.</p>
+          <p>Control which files are indexed and processed by nbcon.ai.</p>
 
           <h2>.nbconignore</h2>
           <p>Create a <code>.nbconignore</code> file in your project root:</p>
@@ -46,7 +46,7 @@ build/
           </CodeBlock>
 
           <h2>File Types</h2>
-          <p>By default, NBCON PRO ignores:</p>
+          <p>By default, nbcon.ai ignores:</p>
           <ul>
             <li>Binary files</li>
             <li>Large files (&gt;10MB)</li>

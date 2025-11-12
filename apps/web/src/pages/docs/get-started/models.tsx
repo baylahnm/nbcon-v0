@@ -12,13 +12,13 @@ export default function ModelsPage({ index, sidebar }: DocPageProps) {
   return (
     <>
       <Head>
-        <title>Models | NBCON PRO Docs</title>
+        <title>Models | nbcon.ai Docs</title>
         <meta name="description" content="Available AI models and their capabilities" />
       </Head>
       <DocsLayout index={index} sidebar={sidebar}>
         <article className="prose prose-slate dark:prose-invert max-w-none">
           <h1>AI Models</h1>
-          <p>NBCON PRO supports multiple AI models for different use cases.</p>
+          <p>nbcon.ai supports multiple AI models for different use cases.</p>
 
           <h2>Default Models</h2>
           <div className="overflow-x-auto my-4">

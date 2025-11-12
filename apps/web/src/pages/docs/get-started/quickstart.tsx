@@ -14,13 +14,13 @@ export default function QuickstartPage({ index, sidebar }: DocPageProps) {
   return (
     <>
       <Head>
-        <title>Quickstart | NBCON PRO Docs</title>
-        <meta name="description" content="Get up and running with NBCON PRO in minutes" />
+        <title>Quickstart | nbcon.ai Docs</title>
+        <meta name="description" content="Get up and running with nbcon.ai in minutes" />
       </Head>
       <DocsLayout index={index} sidebar={sidebar}>
         <article className="prose prose-slate dark:prose-invert max-w-none">
           <h1>Quickstart Guide</h1>
-          <p>This guide will help you get started with NBCON PRO quickly.</p>
+          <p>This guide will help you get started with nbcon.ai quickly.</p>
 
           <h2>Installation</h2>
           <CodeBlock language="bash">

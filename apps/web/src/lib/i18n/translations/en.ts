@@ -69,17 +69,17 @@ export const en = {
     ask: "Ask",
   },
   docs: {
-    title: "NBCON PRO Documentation",
-    description: "NBCON PRO is an AI-powered engineering platform that understands your projects and helps you build faster through natural language.",
+    title: "nbcon.ai Documentation",
+    description: "nbcon.ai is an AI-powered engineering platform that understands your projects and helps you build faster through natural language.",
     getStarted: "Get started",
-    getStartedDesc: "Download, install, and start building with NBCON PRO in minutes",
+    getStartedDesc: "Download, install, and start building with nbcon.ai in minutes",
     concepts: "Concepts",
-    conceptsDesc: "Understand core concepts and features that power NBCON PRO",
+    conceptsDesc: "Understand core concepts and features that power nbcon.ai",
     downloads: "Downloads",
-    downloadsDesc: "Get NBCON PRO for your computer",
+    downloadsDesc: "Get nbcon.ai for your computer",
     support: "Support",
     supportDesc: "For account and billing questions, contact our support team",
-    integrationsSummary: "NBCON PRO Integrations — Connect your workflows, BIM tools, and AI-powered systems.",
+    integrationsSummary: "nbcon.ai Integrations — Connect your workflows, BIM tools, and AI-powered systems.",
     integrationOverview: "Overview",
     setup: "Setup",
     notes: "Notes",
@@ -101,11 +101,11 @@ export const en = {
     pages: {
       "get-started/welcome": {
         title: "Welcome",
-        description: "Start here to learn how NBCON PRO is structured",
+        description: "Start here to learn how nbcon.ai is structured",
       },
       "get-started/quickstart": {
         title: "Quickstart",
-        description: "Get up and running with NBCON PRO in minutes",
+        description: "Get up and running with nbcon.ai in minutes",
       },
       "get-started/concepts": {
         title: "Concepts",
@@ -126,7 +126,7 @@ export const en = {
       },
       "core/agent": {
         title: "Agent",
-        description: "Using AI agents in NBCON PRO",
+        description: "Using AI agents in nbcon.ai",
       },
       "core/cloud": {
         title: "Cloud",

@@ -13,7 +13,7 @@ export default function CommonIssuesPage({ index, sidebar }: DocPageProps) {
   return (
     <>
       <Head>
-        <title>Common Issues | NBCON PRO Docs</title>
+        <title>Common Issues | nbcon.ai Docs</title>
         <meta name="description" content="Troubleshooting common problems" />
       </Head>
       <DocsLayout index={index} sidebar={sidebar}>
@@ -22,7 +22,7 @@ export default function CommonIssuesPage({ index, sidebar }: DocPageProps) {
           <p>Solutions to frequently encountered problems.</p>
 
           <h2>Connection Issues</h2>
-          <p><strong>Problem</strong>: Cannot connect to NBCON PRO</p>
+          <p><strong>Problem</strong>: Cannot connect to nbcon.ai</p>
           <p><strong>Solution</strong>:</p>
           <ol>
             <li>Check your internet connection</li>

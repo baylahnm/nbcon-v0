@@ -69,17 +69,17 @@ export const ar = {
     ask: "اسأل",
   },
   docs: {
-    title: "وثائق NBCON PRO",
-    description: "NBCON PRO هي منصة هندسية مدعومة بالذكاء الاصطناعي تفهم مشاريعك وتساعدك على البناء بشكل أسرع من خلال اللغة الطبيعية.",
+    title: "وثائق nbcon.ai",
+    description: "nbcon.ai هي منصة هندسية مدعومة بالذكاء الاصطناعي تفهم مشاريعك وتساعدك على البناء بشكل أسرع من خلال اللغة الطبيعية.",
     getStarted: "ابدأ",
-    getStartedDesc: "قم بتنزيل وتثبيت وابدأ البناء باستخدام NBCON PRO في دقائق",
+    getStartedDesc: "قم بتنزيل وتثبيت وابدأ البناء باستخدام nbcon.ai في دقائق",
     concepts: "المفاهيم",
-    conceptsDesc: "افهم المفاهيم والميزات الأساسية التي تشغل NBCON PRO",
+    conceptsDesc: "افهم المفاهيم والميزات الأساسية التي تشغل nbcon.ai",
     downloads: "التنزيلات",
-    downloadsDesc: "احصل على NBCON PRO لجهاز الكمبيوتر الخاص بك",
+    downloadsDesc: "احصل على nbcon.ai لجهاز الكمبيوتر الخاص بك",
     support: "الدعم",
     supportDesc: "لأسئلة الحساب والفواتير، اتصل بفريق الدعم لدينا",
-    integrationsSummary: "تكاملات NBCON PRO — اربط سير العمل وأدوات BIM والأنظمة المدعومة بالذكاء الاصطناعي.",
+    integrationsSummary: "تكاملات nbcon.ai — اربط سير العمل وأدوات BIM والأنظمة المدعومة بالذكاء الاصطناعي.",
     integrationOverview: "نظرة عامة",
     setup: "الإعداد",
     notes: "ملاحظات",
@@ -101,11 +101,11 @@ export const ar = {
     pages: {
       "get-started/welcome": {
         title: "مرحباً",
-        description: "ابدأ هنا لتعلم كيفية هيكلة NBCON PRO",
+        description: "ابدأ هنا لتعلم كيفية هيكلة nbcon.ai",
       },
       "get-started/quickstart": {
         title: "بدء سريع",
-        description: "ابدأ العمل مع NBCON PRO في دقائق",
+        description: "ابدأ العمل مع nbcon.ai في دقائق",
       },
       "get-started/concepts": {
         title: "المفاهيم",
@@ -126,7 +126,7 @@ export const ar = {
       },
       "core/agent": {
         title: "الوكيل",
-        description: "استخدام وكلاء الذكاء الاصطناعي في NBCON PRO",
+        description: "استخدام وكلاء الذكاء الاصطناعي في nbcon.ai",
       },
       "core/cloud": {
         title: "السحابة",

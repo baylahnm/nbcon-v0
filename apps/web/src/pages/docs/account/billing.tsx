@@ -23,7 +23,7 @@ export default function BillingPage() {
   return (
     <>
       <Head>
-        <title>Billing | NBCON PRO Docs</title>
+        <title>Billing | nbcon.ai Docs</title>
         <meta name="description" content="Managing your subscription and billing" />
       </Head>
       <DocsLayout index={index} sidebar={sidebar}>

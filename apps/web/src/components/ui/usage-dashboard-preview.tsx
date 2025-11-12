@@ -40,7 +40,7 @@ export function UsageDashboardPreview() {
         </div>
 
         {/* Dashboard Card */}
-        <div className="bg-card dark:bg-surface-elevated rounded-xl shadow-xl overflow-hidden border border-border flex-1 flex flex-col min-h-0">
+        <div className="bg-card dark:bg-surface-elevated rounded-2xl shadow-[0_8px_40px_rgb(0,0,0,0.12)] overflow-hidden border border-border flex-1 flex flex-col min-h-0">
           {/* Browser Header */}
           <div className="bg-gradient-to-r from-muted/50 to-muted/30 px-3 py-2 border-b border-border flex items-center justify-between flex-shrink-0">
             <div className="flex items-center gap-2">
@@ -49,7 +49,7 @@ export function UsageDashboardPreview() {
                 <div className="w-2 h-2 rounded-full bg-yellow-400"></div>
                 <div className="w-2 h-2 rounded-full bg-green-400"></div>
               </div>
-              <span className="text-xs text-muted-foreground ml-1">nbcon.pro/dashboard</span>
+              <span className="text-xs text-muted-foreground ml-1">nbcon.ai/dashboard</span>
             </div>
           </div>
 

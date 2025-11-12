@@ -37,10 +37,10 @@ export default async function handler(
 
     // TODO: Integrate with email service (Resend, SendGrid, etc.)
     // For now, log the submission and return success
-    // In production, this should send an email to enterprise@nbcon.app
+    // In production, this should send an email to enterprise@nbcon.ai
     
     const emailData = {
-      to: 'enterprise@nbcon.app',
+      to: 'enterprise@nbcon.ai',
       subject: `Enterprise Inquiry - ${company}`,
       html: `
         <h2>New Enterprise Inquiry</h2>
@@ -83,7 +83,7 @@ Tags: enterprise, sales, tier-upgrade
     // Example with Resend:
     // const resend = new Resend(process.env.RESEND_API_KEY);
     // await resend.emails.send({
-    //   from: 'NBCON PRO <noreply@nbcon.app>',
+    //   from: 'nbcon.ai <noreply@nbcon.ai>',
     //   to: emailData.to,
     //   subject: emailData.subject,
     //   html: emailData.html,

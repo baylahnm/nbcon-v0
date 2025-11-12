@@ -12,7 +12,7 @@ export default function KeyboardShortcutsPage({ index, sidebar }: DocPageProps) 
   return (
     <>
       <Head>
-        <title>Keyboard Shortcuts | NBCON PRO Docs</title>
+        <title>Keyboard Shortcuts | nbcon.ai Docs</title>
         <meta name="description" content="Keyboard shortcuts for faster navigation" />
       </Head>
       <DocsLayout index={index} sidebar={sidebar}>

@@ -65,7 +65,7 @@ export function HeroSection({ className }: HeroSectionProps) {
             transition={{ delay: 0.4, duration: 0.5 }}
             className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto"
           >
-            NBCON PRO connects certified professionals and AI tools to accelerate
+            nbcon.ai connects certified professionals and AI tools to accelerate
             engineering projects across Saudi Arabia.
           </motion.p>
 

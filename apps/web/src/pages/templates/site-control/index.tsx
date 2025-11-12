@@ -5,7 +5,7 @@ export default function SiteControl() {
   return (
     <>
       <Head>
-        <title>Site Control | NBCON PRO</title>
+        <title>Site Control | nbcon.ai</title>
       </Head>
       <main className="container py-20">
         <h1 className="text-3xl font-bold mb-4">Site Control Templates</h1>

@@ -42,7 +42,7 @@ const footerLinks = [
 
 export function LandingFooter() {
   return (
-    <footer className="w-full border-t bg-background">
+    <footer className="w-full border-t border-border dark:border-border-elevated bg-background rounded-t-[30px] shadow-[0_-8px_20px_-4px_rgba(0,0,0,0.06),0_-2px_4px_-1px_rgba(0,0,0,0.03)] dark:shadow-[0_-8px_20px_-4px_rgba(0,0,0,0.15),0_-2px_4px_-1px_rgba(0,0,0,0.05)] overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
           {/* Logo and Description */}
@@ -81,10 +81,18 @@ export function LandingFooter() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-12 pt-8 border-t flex flex-col sm:flex-row justify-between items-center gap-4">
-          <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} NBCON PRO. All rights reserved.
-          </p>
+        <div className="mt-12 pt-8 border-t border-border dark:border-border-elevated flex flex-col sm:flex-row justify-between items-center gap-4">
+          <div className="flex items-center gap-2">
+            <h1 
+              className="text-lg font-bold text-foreground leading-none tracking-tight" 
+              style={{ fontFamily: "Carter One, cursive" }}
+            >
+              n.
+            </h1>
+            <p className="text-sm text-muted-foreground">
+              © {new Date().getFullYear()} nbcon.ai. All rights reserved.
+            </p>
+          </div>
           <div className="flex gap-4 text-sm text-muted-foreground">
             <Link href="#" className="hover:text-foreground transition-colors">
               Privacy

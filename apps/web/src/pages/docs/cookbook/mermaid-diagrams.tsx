@@ -13,7 +13,7 @@ export default function MermaidDiagramsPage({ index, sidebar }: DocPageProps) {
   return (
     <>
       <Head>
-        <title>Mermaid Diagrams | NBCON PRO Docs</title>
+        <title>Mermaid Diagrams | nbcon.ai Docs</title>
         <meta name="description" content="Creating and using Mermaid diagrams" />
       </Head>
       <DocsLayout index={index} sidebar={sidebar}>

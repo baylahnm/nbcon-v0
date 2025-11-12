@@ -5,7 +5,7 @@ export default function LandingPages() {
   return (
     <>
       <Head>
-        <title>Landing Pages | NBCON PRO</title>
+        <title>Landing Pages | nbcon.ai</title>
       </Head>
       <main className="container py-20">
         <h1 className="text-3xl font-bold mb-4">Landing Page Templates</h1>

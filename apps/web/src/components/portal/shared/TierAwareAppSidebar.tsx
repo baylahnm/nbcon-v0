@@ -46,7 +46,7 @@ export function TierAwareAppSidebar() {
               <NbLogo className="w-8 h-8" />
             </div>
           ) : (
-            <h2 className="text-lg font-semibold">NBCON PRO</h2>
+            <h2 className="text-lg font-semibold">nbcon.ai</h2>
           )}
           <button
             onClick={() => setCollapsed(!collapsed)}

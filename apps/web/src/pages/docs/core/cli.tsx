@@ -13,13 +13,13 @@ export default function CLIPage({ index, sidebar }: DocPageProps) {
   return (
     <>
       <Head>
-        <title>CLI | NBCON PRO Docs</title>
-        <meta name="description" content="Command-line interface for NBCON PRO" />
+        <title>CLI | nbcon.ai Docs</title>
+        <meta name="description" content="Command-line interface for nbcon.ai" />
       </Head>
       <DocsLayout index={index} sidebar={sidebar}>
         <article className="prose prose-slate dark:prose-invert max-w-none">
           <h1>CLI Tool</h1>
-          <p>The NBCON PRO CLI provides powerful command-line tools.</p>
+          <p>The nbcon.ai CLI provides powerful command-line tools.</p>
 
           <h2>Installation</h2>
           <CodeBlock language="bash">

@@ -45,7 +45,7 @@ export function TestimonialsSection() {
   return (
     <ClientsSection
       tagLabel="Happy Clients"
-      title="Clients Love NBCON PRO"
+      title="Clients Love nbcon.ai"
       description="Trusted by 100+ happy clients, adding $250M+ in revenue."
       stats={statsData}
       testimonials={testimonialsData}

@@ -116,7 +116,7 @@ export function CommunityShowcase() {
           <div>
             <h2 className="text-3xl font-bold tracking-tight mb-2">From the Community</h2>
             <p className="text-muted-foreground">
-              Explore what the community is building with NBCON PRO
+              Explore what the community is building with nbcon.ai
             </p>
           </div>
           <Link href="#browse-all">
@@ -184,7 +184,7 @@ export function CommunityShowcase() {
           transition={{ delay: 0.6 }}
           className="flex justify-center mt-12"
         >
-          <Button variant="outline" size="lg">
+          <Button variant="outline" size="lg" className="border border-border bg-chat-input dark:bg-chat-input hover:bg-chat-input/80">
             Load More
           </Button>
         </motion.div>

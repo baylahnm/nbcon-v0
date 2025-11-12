@@ -13,7 +13,7 @@ export default function MCPPage({ index, sidebar }: DocPageProps) {
   return (
     <>
       <Head>
-        <title>Model Context Protocol (MCP) | NBCON PRO Docs</title>
+        <title>Model Context Protocol (MCP) | nbcon.ai Docs</title>
         <meta name="description" content="Using MCP for enhanced AI context" />
       </Head>
       <DocsLayout index={index} sidebar={sidebar}>

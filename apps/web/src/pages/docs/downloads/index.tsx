@@ -13,13 +13,13 @@ export default function DownloadsPage({ index, sidebar }: DocPageProps) {
   return (
     <>
       <Head>
-        <title>Downloads | NBCON PRO Docs</title>
-        <meta name="description" content="Download NBCON PRO applications" />
+        <title>Downloads | nbcon.ai Docs</title>
+        <meta name="description" content="Download nbcon.ai applications" />
       </Head>
       <DocsLayout index={index} sidebar={sidebar}>
         <article className="prose prose-slate dark:prose-invert max-w-none">
           <h1>Downloads</h1>
-          <p>Download NBCON PRO for your platform.</p>
+          <p>Download nbcon.ai for your platform.</p>
 
           <h2>Desktop Applications</h2>
           <ul>

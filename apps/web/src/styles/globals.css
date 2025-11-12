@@ -4,116 +4,121 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 3.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 3.9%;
+    /* ============================================
+       UNIFIED THEME SYSTEM - Core Tokens (12)
+       ============================================ */
+    
+    /* Base Colors (4 tokens) */
+    --background: 0 0% 100%;           /* Main page background */
+    --foreground: 0 0% 3.9%;           /* Primary text */
+    --surface: 0 0% 98%;                /* Cards, elevated surfaces (replaces card/popover) */
+    --surface-hover: 0 0% 96.1%;       /* Hover states (replaces accent/secondary backgrounds) */
+    
+    /* Semantic Colors (4 tokens) */
     --primary: 0 0% 9%;
     --primary-foreground: 0 0% 98%;
-    --secondary: 0 0% 96.1%;
+    --secondary: 0 0% 96.1%;           /* Secondary actions */
     --secondary-foreground: 0 0% 9%;
-    --muted: 0 0% 96.1%;
+    --muted: 0 0% 96.1%;               /* Subtle backgrounds (replaces accent) */
     --muted-foreground: 0 0% 45.1%;
-    --accent: 0 0% 96.1%;
-    --accent-foreground: 0 0% 9%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 89.8%;
-    --input: 0 0% 89.8%;
-    --ring: 0 0% 3.9%;
-    --radius: 0.5rem;
-    /* Brand colors */
-    --brand-primary: 220 90% 50%;
-    --brand-surface: 240 4% 10%;
-    --brand-text: 0 0% 98%;
-    --brand-muted: 240 5% 15%;
-    --brand-border: 240 3% 25%;
-    --brand-tiger-primary: 15 100% 50%;
-    --brand-twilight: 260 80% 50%;
-    --brand-twilight-foreground: 0 0% 98%;
-    --muted-active: 240 4.8% 20%;
-    /* Chart colors defined in theme.css using OKLCH */
-    /* Keeping placeholder HSL values here for fallback */
+    
+    /* Border & Input (2 tokens) */
+    --border: 0 0% 89.8%;               /* All borders (replaces border/input/border-elevated) */
+    --ring: 0 0% 3.9%;                 /* Focus rings */
+    
+    /* Specialized (2 tokens) */
+    --sidebar-background: 0 0% 98%;     /* Sidebar (kept for specific styling) */
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-border: 220 13% 91%;
+    --chat-input: 0 0% 93.7%;           /* Chat input background */
+    
+    /* Chart Colors (5 tokens) */
     --chart-1: 12 76% 61%;
     --chart-2: 173 58% 39%;
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
+    
+    /* Utilities */
+    --radius: 0.5rem;
+    
+    /* ============================================
+       BACKWARD COMPATIBILITY MAPPINGS
+       (These map old tokens to new unified tokens)
+       ============================================ */
+    --card: var(--surface);
+    --card-foreground: var(--foreground);
+    --popover: var(--surface);
+    --popover-foreground: var(--foreground);
+    --accent: var(--muted);
+    --accent-foreground: var(--foreground);
+    --input: var(--border);
+    --surface-elevated: var(--surface);
+    --border-elevated: var(--border);
+    --muted-active: var(--muted);
+    
+    /* Sidebar compatibility */
     --sidebar-primary: 240 5.9% 10%;
     --sidebar-primary-foreground: 0 0% 98%;
     --sidebar-accent: 240 4.8% 95.9%;
     --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
-    /* Surface System - Light Mode */
-    --surface: 0 0% 98%;              /* #fafafa - Main surface */
-    --surface-elevated: 0 0% 100%;    /* White - Elevated cards */
-    --surface-hover: 0 0% 96.1%;      /* Light gray - Hover states */
-    --border-elevated: 0 0% 89.8%;     /* Border for elevated surfaces */
-    /* Chat Input - Light Mode */
-    --chat-input: 0 0% 93.7%;          /* #efefef - Chat input background */
   }
 
   .dark {
+    /* Base Colors */
     --background: 0 0% 12.9%;
     --foreground: 0 0% 98%;
-    --card: 0 0% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 0 0% 3.9%;
-    --popover-foreground: 0 0% 98%;
+    --surface: 0 0% 9.4%;              /* Main surface (darker than background) */
+    --surface-hover: 0 0% 16.5%;       /* Hover states */
+    
+    /* Semantic Colors */
     --primary: 0 0% 98%;
     --primary-foreground: 0 0% 9%;
     --secondary: 0 0% 14.9%;
     --secondary-foreground: 0 0% 98%;
     --muted: 0 0% 14.9%;
     --muted-foreground: 0 0% 63.9%;
-    --accent: 0 0% 14.9%;
-    --accent-foreground: 0 0% 98%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 14.9%;
-    --input: 0 0% 14.9%;
+    
+    /* Border & Input */
+    --border: 0 0% 18.8%;              /* Uses chat-input color for better visibility */
     --ring: 0 0% 83.1%;
-    /* Brand colors for dark mode */
-    --brand-primary: 220 90% 50%;
-    --brand-surface: 240 4% 10%;
-    --brand-text: 0 0% 98%;
-    --brand-muted: 240 5% 15%;
-    --brand-border: 240 3% 25%;
-    --brand-tiger-primary: 15 100% 50%;
-    --brand-twilight: 260 80% 50%;
-    --brand-twilight-foreground: 0 0% 98%;
-    --muted-active: 240 4.8% 20%;
-    /* Chart colors defined in theme.css using OKLCH */
-    /* Keeping placeholder HSL values here for fallback */
+    
+    /* Specialized */
+    --sidebar-background: 0 0% 9.4%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 0 0% 16.5%;
+    --chat-input: 0 0% 18.8%;
+    
+    /* Chart Colors */
     --chart-1: 220 70% 50%;
     --chart-2: 160 60% 45%;
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
-    --sidebar-background: 0 0% 9.4%;
-    --sidebar-foreground: 240 4.8% 95.9%;
+    
+    /* Backward Compatibility */
+    --card: var(--surface);
+    --card-foreground: var(--foreground);
+    --popover: var(--surface);
+    --popover-foreground: var(--foreground);
+    --accent: var(--muted);
+    --accent-foreground: var(--foreground);
+    --input: var(--border);
+    --surface-elevated: var(--surface);
+    --border-elevated: var(--border);
+    --muted-active: var(--muted);
+    
+    /* Sidebar compatibility */
     --sidebar-primary: 224.3 76.3% 48%;
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 240 3.7% 15.9%;
     --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 0 0% 16.5%;
     --sidebar-ring: 217.2 91.2% 59.8%;
-    /* NBCON PRO custom colors */
-    --color-sidebar: 0 0% 9.4%;
-    --color-background: 0 0% 12.9%;
-    --color-chat-input: 0 0% 18.8%;
-    /* Surface System - Dark Mode */
-    --surface: 0 0% 9.4%;             /* #181818 - Main surface */
-    --surface-elevated: 0 0% 12.9%;   /* #212121 - Elevated cards */
-    --surface-hover: 0 0% 16.5%;      /* #2a2a2a - Hover states */
-    --border-elevated: 0 0% 18.0%;    /* #2d2d2d - Border for elevated */
-    /* Chat Input - Dark Mode */
-    --chat-input: 0 0% 18.8%;         /* #303030 - Chat input background */
   }
 }
 
@@ -121,8 +126,11 @@
   * {
     @apply border-border;
   }
+  html {
+    @apply bg-surface;
+  }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-surface text-foreground;
   }
 }
 
@@ -183,5 +191,73 @@
 
   .dark .scrollbar-custom {
     scrollbar-color: hsl(var(--muted-foreground) / 0.5) transparent;
+  }
+
+  /* Unified Typography System for nbcon.ai */
+  /* Hero Section Typography */
+  .hero-headline {
+    @apply text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight;
+  }
+
+  .hero-description {
+    @apply text-base md:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto;
+  }
+
+  /* Section Heading Typography */
+  .section-heading {
+    @apply text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight;
+  }
+
+  .subsection-heading {
+    @apply text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight leading-tight;
+  }
+
+  /* Card Typography */
+  .card-title {
+    @apply text-xl font-semibold leading-tight;
+  }
+
+  .card-description {
+    @apply text-sm text-muted-foreground;
+  }
+
+  .card-body {
+    @apply text-base text-foreground;
+  }
+
+  /* Stats/Metrics Typography */
+  .stat-large {
+    @apply text-5xl md:text-6xl lg:text-7xl font-bold;
+  }
+
+  .stat-medium {
+    @apply text-2xl font-bold;
+  }
+
+  .stat-label {
+    @apply text-sm font-medium text-muted-foreground;
+  }
+
+  /* Body Text Typography */
+  .body-large {
+    @apply text-base md:text-lg text-muted-foreground;
+  }
+
+  .body-regular {
+    @apply text-base text-foreground;
+  }
+
+  .body-small {
+    @apply text-sm text-muted-foreground;
+  }
+
+  /* Label/Metadata Typography */
+  .label-text {
+    @apply text-xs font-medium text-muted-foreground;
+  }
+
+  /* Trust Indicators Typography */
+  .trust-indicator {
+    @apply text-sm text-muted-foreground;
   }
 }

@@ -24,7 +24,7 @@ export default function UpdateAccessPage() {
   return (
     <>
       <Head>
-        <title>{doc?.title || "Update Access"} | NBCON PRO Docs</title>
+        <title>{doc?.title || "Update Access"} | nbcon.ai Docs</title>
         {doc?.description ? <meta name="description" content={doc.description} /> : null}
       </Head>
       <DocsLayout index={index} sidebar={sidebar}>

@@ -24,7 +24,7 @@ export default function ProPage() {
   return (
     <>
       <Head>
-        <title>{doc?.title || "Pro"} | NBCON PRO Docs</title>
+        <title>{doc?.title || "Pro"} | nbcon.ai Docs</title>
         {doc?.description ? <meta name="description" content={doc.description} /> : null}
       </Head>
       <DocsLayout index={index} sidebar={sidebar}>

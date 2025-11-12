@@ -1,7 +1,6 @@
 "use client";
 
 import { useI18n } from "../../hooks/useI18n";
-import { Button } from "./button";
 import { Globe } from "lucide-react";
 import {
   DropdownMenu,
@@ -9,6 +8,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "./dropdown-menu";
+import { cn } from "@/lib/utils";
 
 export function LanguageToggle() {
   const { locale, setLocale } = useI18n();
@@ -16,10 +16,15 @@ export function LanguageToggle() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="sm" className="gap-2">
+        <button
+          className={cn(
+            "bg-surface dark:bg-surface inline-flex items-center gap-2 overflow-hidden rounded-md border border-sidebar-border px-3 py-1.5 text-sm transition-all",
+            "text-foreground hover:text-foreground"
+          )}
+        >
           <Globe className="w-4 h-4" />
           <span className="hidden sm:inline">{locale.toUpperCase()}</span>
-        </Button>
+        </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuItem onClick={() => setLocale("en")}>

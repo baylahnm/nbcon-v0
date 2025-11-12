@@ -1,7 +1,7 @@
 # Repository Structure & Cleanup Plan
 
-**Last Updated:** 2025-01-27  
-**Status:** ✅ **ALL PHASES COMPLETE** - Cleanup executed, AI Agent Ecosystem implemented, Chat UI integrated
+**Last Updated:** 2025-01-28  
+**Status:** ✅ **ALL PHASES COMPLETE** - Cleanup executed, AI Agent Ecosystem implemented, Chat UI integrated, Asset structure organized
 
 ---
 
@@ -204,8 +204,17 @@ apps/web/
 │   ├── components/                  → ✅ KEEP
 │   ├── hooks/                       → ✅ KEEP
 │   ├── lib/                         → ✅ KEEP (after cleanup)
+│   ├── assets/                      → ✅ KEEP (imported assets)
+│   │   ├── images/                  → ✅ KEEP (component images)
+│   │   └── icons/                   → ✅ KEEP (SVG components)
+│   │       └── components/          → ✅ KEEP (React SVG components)
 │   └── utils/                       → ✅ KEEP
-├── public/                          → ✅ KEEP
+├── public/                          → ✅ KEEP (static assets)
+│   ├── images/                      → ✅ KEEP (static images)
+│   │   ├── hero/                    → ✅ KEEP (hero section images)
+│   │   ├── features/                → ✅ KEEP (feature showcase images)
+│   │   └── screenshots/             → ✅ KEEP (screenshot images)
+│   └── icons/                       → ✅ KEEP (static icons, favicon)
 ├── .next/                           → ⚠️ DELETE (build output)
 ├── .env.local                       → ✅ KEEP (gitignored)
 ├── .env.example                     → ✅ KEEP
@@ -474,5 +483,52 @@ pnpm --filter @nbcon/web build
 - ✅ Chat UI integration complete (Phase 5)
 - ✅ Dynamic routing and thread switching validated
 - ✅ React Strict Mode duplicate request prevention implemented
+- ✅ Asset folder structure organized (public/ and src/assets/ with documentation)
 
 **Current Status:** Production-ready AI chat system with full conversation management
+
+---
+
+## 📁 Asset Organization Structure
+
+### ✅ Asset Folders Created (2025-01-28)
+
+**Static Assets (public/):**
+- `apps/web/public/images/` - Static images served at `/images/...`
+  - `hero/` - Hero section images
+  - `features/` - Feature showcase images
+  - `screenshots/` - Screenshot images
+- `apps/web/public/icons/` - Static icons (favicon, logos) served at `/icons/...`
+
+**Imported Assets (src/assets/):**
+- `apps/web/src/assets/images/` - Images imported in components (bundled by Next.js)
+- `apps/web/src/assets/icons/` - SVG icons and components
+  - `components/` - React SVG components
+
+### 📖 Documentation
+- `apps/web/public/README.md` - Guide for static assets usage
+- `apps/web/src/assets/README.md` - Guide for imported assets usage
+
+### 🎯 Usage Guidelines
+
+**Use `public/` for:**
+- Large images that don't need bundling
+- Images referenced in HTML metadata (Open Graph, Twitter cards)
+- Images referenced by URL: `<img src="/images/hero.png" />`
+- Favicon and logo files
+
+**Use `src/assets/` for:**
+- Images imported directly in React components
+- Images that need TypeScript type checking
+- Images that benefit from Next.js optimization
+- Custom SVG React components
+
+**Example Usage:**
+```tsx
+// Static asset (public/)
+<img src="/images/hero/main-hero.png" alt="Hero" />
+
+// Imported asset (src/assets/)
+import heroImage from '@/assets/images/hero-bg.png';
+<Image src={heroImage} alt="Hero" />
+```

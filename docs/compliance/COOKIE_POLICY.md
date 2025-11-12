@@ -8,7 +8,7 @@
 
 ## Overview
 
-This Cookie Policy explains how NBCON PRO ("we", "us", "our") uses cookies and similar tracking technologies on our website and application. This policy describes what types of cookies we use, what information we collect through cookies, and how you can manage your cookie preferences.
+This Cookie Policy explains how nbcon.ai ("we", "us", "our") uses cookies and similar tracking technologies on our website and application. This policy describes what types of cookies we use, what information we collect through cookies, and how you can manage your cookie preferences.
 
 ---
 

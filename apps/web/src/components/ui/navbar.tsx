@@ -13,6 +13,7 @@ import {
   MessageSquare,
   Users,
   Briefcase,
+  HelpCircle,
   Menu
 } from "lucide-react";
 import { NbconLogo } from "@/components/ui/nbcon-logo";
@@ -26,6 +27,7 @@ import {
 } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { ToggleTheme } from "@/components/ui/toggle-theme";
 
 export function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -48,28 +50,28 @@ export function Navbar() {
                   Templates
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <div className="grid gap-3 p-4 md:w-[600px] lg:w-[700px] lg:grid-cols-[1fr_200px] dark:bg-popover dark:border dark:border-border/80">
+                  <div className="grid gap-3 p-4 md:w-[600px] lg:w-[700px] lg:grid-cols-[1fr_200px] bg-popover">
                     {/* Featured Templates Section */}
                     <div className="row-span-3">
                       <div className="flex items-center justify-between mb-3">
                         <div>
-                          <h3 className="text-sm font-semibold leading-none dark:text-foreground">Featured Templates</h3>
-                          <p className="text-xs text-muted-foreground mt-1.5 dark:text-muted-foreground">Remix from top creators</p>
+                          <h3 className="text-sm font-semibold leading-none text-foreground">Featured Templates</h3>
+                          <p className="text-xs text-muted-foreground mt-1.5">Remix from top creators</p>
                         </div>
-                        <ArrowRight className="h-4 w-4 text-muted-foreground dark:text-muted-foreground" />
+                        <ArrowRight className="h-4 w-4 text-muted-foreground" />
                       </div>
                       <div className="grid grid-cols-2 gap-2">
-                        <div className="h-24 rounded-md bg-muted/50 border border-border flex items-center justify-center dark:bg-muted/20 dark:border dark:border-border/60 dark:hover:bg-muted/30 dark:hover:border-border/80 transition-colors">
-                          <div className="text-xs text-muted-foreground dark:text-muted-foreground">Dashboard</div>
+                        <div className="h-24 rounded-md bg-muted/50 border border-border/50 flex items-center justify-center hover:bg-muted/70 hover:border-border/50 transition-colors cursor-pointer">
+                          <div className="text-xs text-muted-foreground">Dashboard</div>
                         </div>
-                        <div className="h-24 rounded-md bg-muted/50 border border-border flex items-center justify-center dark:bg-muted/20 dark:border dark:border-border/60 dark:hover:bg-muted/30 dark:hover:border-border/80 transition-colors">
-                          <div className="text-xs text-muted-foreground dark:text-muted-foreground">Map UI</div>
+                        <div className="h-24 rounded-md bg-muted/50 border border-border/50 flex items-center justify-center hover:bg-muted/70 hover:border-border/50 transition-colors cursor-pointer">
+                          <div className="text-xs text-muted-foreground">Map UI</div>
                         </div>
-                        <div className="h-24 rounded-md bg-muted/50 border border-border flex items-center justify-center dark:bg-muted/20 dark:border dark:border-border/60 dark:hover:bg-muted/30 dark:hover:border-border/80 transition-colors">
-                          <div className="text-xs text-muted-foreground dark:text-muted-foreground">Control Panel</div>
+                        <div className="h-24 rounded-md bg-muted/50 border border-border/50 flex items-center justify-center hover:bg-muted/70 hover:border-border/50 transition-colors cursor-pointer">
+                          <div className="text-xs text-muted-foreground">Control Panel</div>
                         </div>
-                        <div className="h-24 rounded-md bg-muted/50 border border-border flex items-center justify-center dark:bg-muted/20 dark:border dark:border-border/60 dark:hover:bg-muted/30 dark:hover:border-border/80 transition-colors">
-                          <div className="text-xs text-muted-foreground dark:text-muted-foreground">Landing</div>
+                        <div className="h-24 rounded-md bg-muted/50 border border-border/50 flex items-center justify-center hover:bg-muted/70 hover:border-border/50 transition-colors cursor-pointer">
+                          <div className="text-xs text-muted-foreground">Landing</div>
                         </div>
                       </div>
                     </div>
@@ -267,6 +269,20 @@ export function Navbar() {
                           </div>
                         </Link>
                       </NavigationMenuLink>
+                      <NavigationMenuLink asChild>
+                        <Link
+                          href="/faq"
+                          className={cn(
+                            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors",
+                            "hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                          )}
+                        >
+                          <div className="flex items-center gap-2">
+                            <HelpCircle className="h-4 w-4" />
+                            <div className="text-sm font-medium leading-none">FAQ</div>
+                          </div>
+                        </Link>
+                      </NavigationMenuLink>
                     </div>
                   </div>
                 </NavigationMenuContent>
@@ -294,19 +310,6 @@ export function Navbar() {
                     "focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50"
                   )}>
                     Students
-                  </Link>
-                </NavigationMenuLink>
-              </NavigationMenuItem>
-
-              {/* FAQ */}
-              <NavigationMenuItem>
-                <NavigationMenuLink asChild>
-                  <Link href="/faq" className={cn(
-                    "group inline-flex h-9 w-max items-center justify-center rounded-md px-3 py-1 text-sm font-medium transition-colors",
-                    "text-foreground/80 hover:text-foreground hover:bg-accent hover:text-accent-foreground",
-                    "focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50"
-                  )}>
-                    FAQ
                   </Link>
                 </NavigationMenuLink>
               </NavigationMenuItem>
@@ -398,6 +401,13 @@ export function Navbar() {
                 >
                   Careers
                 </Link>
+                <Link
+                  href="/faq"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="text-sm text-foreground/80 hover:text-foreground transition-colors"
+                >
+                  FAQ
+                </Link>
               </div>
               <Link
                 href="/ios"
@@ -413,14 +423,11 @@ export function Navbar() {
               >
                 Students
               </Link>
-              <Link
-                href="/faq"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="text-sm font-medium text-foreground/80 hover:text-foreground transition-colors"
-              >
-                FAQ
-              </Link>
               <div className="flex flex-col gap-2 pt-4 border-t">
+                <div className="flex items-center justify-between px-3 py-2">
+                  <span className="text-sm font-medium text-foreground">Theme</span>
+                  <ToggleTheme />
+                </div>
                 <Link href="/auth/login" onClick={() => setIsMobileMenuOpen(false)}>
                   <Button variant="ghost" className="w-full justify-start">
                     Sign In
@@ -436,6 +443,7 @@ export function Navbar() {
 
         {/* Right Auth Buttons */}
         <div className="hidden md:flex items-center gap-3">
+          <ToggleTheme />
           <Link href="/auth/login">
             <Button variant="ghost" size="sm" className="h-8 text-sm">
               Sign In

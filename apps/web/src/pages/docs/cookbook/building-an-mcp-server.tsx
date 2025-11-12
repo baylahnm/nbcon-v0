@@ -13,13 +13,13 @@ export default function BuildingMCPServerPage({ index, sidebar }: DocPageProps) 
   return (
     <>
       <Head>
-        <title>Building an MCP Server | NBCON PRO Docs</title>
+        <title>Building an MCP Server | nbcon.ai Docs</title>
         <meta name="description" content="Guide to building Model Context Protocol servers" />
       </Head>
       <DocsLayout index={index} sidebar={sidebar}>
         <article className="prose prose-slate dark:prose-invert max-w-none">
           <h1>Building an MCP Server</h1>
-          <p>Create custom MCP servers to extend NBCON PRO's capabilities.</p>
+          <p>Create custom MCP servers to extend nbcon.ai's capabilities.</p>
 
           <h2>Getting Started</h2>
           <CodeBlock language="typescript">

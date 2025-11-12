@@ -13,7 +13,7 @@ export default function TroubleshootingGuidePage({ index, sidebar }: DocPageProp
   return (
     <>
       <Head>
-        <title>Troubleshooting Guide | NBCON PRO Docs</title>
+        <title>Troubleshooting Guide | nbcon.ai Docs</title>
         <meta name="description" content="Comprehensive troubleshooting guide" />
       </Head>
       <DocsLayout index={index} sidebar={sidebar}>

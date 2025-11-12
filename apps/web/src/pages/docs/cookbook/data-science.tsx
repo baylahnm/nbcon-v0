@@ -13,13 +13,13 @@ export default function DataSciencePage({ index, sidebar }: DocPageProps) {
   return (
     <>
       <Head>
-        <title>Data Science | NBCON PRO Docs</title>
+        <title>Data Science | nbcon.ai Docs</title>
         <meta name="description" content="Data science workflows" />
       </Head>
       <DocsLayout index={index} sidebar={sidebar}>
         <article className="prose prose-slate dark:prose-invert max-w-none">
           <h1>Data Science</h1>
-          <p>Use NBCON PRO for data science projects.</p>
+          <p>Use nbcon.ai for data science projects.</p>
 
           <h2>Setup</h2>
           <CodeBlock language="bash">

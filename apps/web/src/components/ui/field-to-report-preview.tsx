@@ -44,7 +44,7 @@ export function FieldToReportPreview() {
         {showLeftDot && (
           <div className="w-1.5 h-1.5 rounded-full bg-primary/50 flex-shrink-0"></div>
         )}
-        <div className={`relative flex items-center gap-1 px-3 py-2 rounded-lg border bg-background dark:bg-black ${node.borderColor} min-w-[40px]`}>
+        <div className={`relative flex items-center gap-1 px-3 py-2 rounded-lg border bg-background dark:bg-surface ${node.borderColor} min-w-[40px]`}>
           <div className={`${node.color} rounded-lg p-0.5 flex items-center justify-center flex-shrink-0`}>
             <Icon className="w-[14px] h-[14px] text-white" />
           </div>
@@ -88,7 +88,7 @@ export function FieldToReportPreview() {
                 <div className="w-2 h-2 rounded-full bg-yellow-400"></div>
                 <div className="w-2 h-2 rounded-full bg-green-400"></div>
               </div>
-              <span className="text-xs text-muted-foreground ml-1">nbcon.pro/workflow</span>
+              <span className="text-xs text-muted-foreground ml-1">nbcon.ai/workflow</span>
             </div>
             <div className="flex items-center gap-2">
               <button className="p-1 hover:bg-muted rounded">

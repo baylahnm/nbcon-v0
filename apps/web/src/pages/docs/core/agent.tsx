@@ -13,13 +13,13 @@ export default function AgentPage({ index, sidebar }: DocPageProps) {
   return (
     <>
       <Head>
-        <title>Agent | NBCON PRO Docs</title>
-        <meta name="description" content="Using AI agents in NBCON PRO" />
+        <title>Agent | nbcon.ai Docs</title>
+        <meta name="description" content="Using AI agents in nbcon.ai" />
       </Head>
       <DocsLayout index={index} sidebar={sidebar}>
         <article className="prose prose-slate dark:prose-invert max-w-none">
           <h1>AI Agents</h1>
-          <p>NBCON PRO's AI agents help you automate complex engineering tasks.</p>
+          <p>nbcon.ai's AI agents help you automate complex engineering tasks.</p>
 
           <h2>Available Agents</h2>
           <ul>

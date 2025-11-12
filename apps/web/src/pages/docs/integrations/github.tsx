@@ -25,7 +25,7 @@ export default function GitHubPage() {
   return (
     <>
       <Head>
-        <title>{doc?.title || "GitHub"} | NBCON PRO Docs</title>
+        <title>{doc?.title || "GitHub"} | nbcon.ai Docs</title>
         {doc?.description ? <meta name="description" content={doc.description} /> : null}
       </Head>
       <DocsLayout index={index} sidebar={sidebar}>
@@ -34,11 +34,11 @@ export default function GitHubPage() {
           <p className="text-muted-foreground">{doc?.description || "GitHub integration for DevOps workflows"}</p>
 
           <h2>{t("docs.integrationOverview") || "Overview"}</h2>
-          <p>NBCON PRO integrates with GitHub for repository management, pull request analysis, and DevOps workflows.</p>
+          <p>nbcon.ai integrates with GitHub for repository management, pull request analysis, and DevOps workflows.</p>
 
           <h2>{t("docs.setup") || "Setup"}</h2>
           <ul className="list-disc ps-5 space-y-1">
-            <li>Install the NBCON PRO GitHub App</li>
+            <li>Install the nbcon.ai GitHub App</li>
             <li>Select repositories to connect</li>
             <li>Configure sync settings</li>
             <li>Set up GitHub Actions workflows</li>
@@ -48,7 +48,7 @@ export default function GitHubPage() {
           <ul className="list-disc ps-5 space-y-1">
             <li><strong>Pull Request Analysis</strong>: AI analyzes PRs automatically</li>
             <li><strong>Code Review</strong>: AI-powered code reviews</li>
-            <li><strong>Issue Linking</strong>: Link GitHub issues to NBCON PRO projects</li>
+            <li><strong>Issue Linking</strong>: Link GitHub issues to nbcon.ai projects</li>
           </ul>
 
           <CodeBlock language="yaml">

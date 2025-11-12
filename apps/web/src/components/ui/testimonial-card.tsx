@@ -48,7 +48,7 @@ export interface ClientsSectionProps {
 // --- Internal Sub-Components ---
 // StatCard using shadcn variables
 const StatCard = ({ value, label }: Stat) => (
-  <Card className="bg-muted/50 border-border text-center rounded-xl">
+  <Card className="bg-chat-input dark:bg-chat-input border-border text-center rounded-xl">
     <CardContent className="p-4">
       <p className="text-3xl font-bold text-foreground">{value}</p>
       <p className="text-sm text-muted-foreground">{label}</p>
@@ -247,12 +247,12 @@ export const ClientsSection = ({
         
         {/* Left Column: Sticky Content */}
         <div className="flex flex-col gap-6 lg:sticky lg:top-20">
-          <div className="inline-flex items-center gap-2 self-start rounded-full border border-border bg-muted/50 px-3 py-1 text-sm">
+          <div className="inline-flex items-center gap-2 self-start rounded-full border border-border bg-chat-input dark:bg-chat-input px-3 py-1 text-sm">
             <div className="h-2 w-2 rounded-full bg-green-500" />
             <span className="text-muted-foreground">{tagLabel}</span>
           </div>
           <h2 className="text-4xl md:text-5xl font-bold tracking-tight">
-            {title.includes("NBCON PRO") ? (
+            {title.includes("nbcon.ai") ? (
               <span className="flex items-center gap-3">
                 <span className="text-[40px]">Clients Love</span>
                 <NbconLogo className="h-10 md:h-12" asLink={false} />
@@ -268,7 +268,7 @@ export const ClientsSection = ({
             ))}
           </div>
           <div className="flex items-center gap-3 mt-6">
-            <Button variant="outline" size="lg" className="flex-[0.3]">{secondaryActionLabel}</Button>
+            <Button variant="outline" size="lg" className="flex-[0.3] border border-border bg-chat-input dark:bg-chat-input hover:bg-chat-input/80">{secondaryActionLabel}</Button>
             <Button size="lg" className="flex-[0.7]">{primaryActionLabel}</Button>
           </div>
         </div>

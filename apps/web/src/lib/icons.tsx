@@ -1,5 +1,5 @@
 /**
- * Unified Icon System - NBCON PRO
+ * Unified Icon System - nbcon.ai
  * 
  * Centralized access to approved icon libraries.
  * 

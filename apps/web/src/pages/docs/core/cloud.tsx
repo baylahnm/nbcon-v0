@@ -12,13 +12,13 @@ export default function CloudPage({ index, sidebar }: DocPageProps) {
   return (
     <>
       <Head>
-        <title>Cloud | NBCON PRO Docs</title>
+        <title>Cloud | nbcon.ai Docs</title>
         <meta name="description" content="Cloud features and synchronization" />
       </Head>
       <DocsLayout index={index} sidebar={sidebar}>
         <article className="prose prose-slate dark:prose-invert max-w-none">
           <h1>Cloud Features</h1>
-          <p>NBCON PRO Cloud provides seamless synchronization and collaboration.</p>
+          <p>nbcon.ai Cloud provides seamless synchronization and collaboration.</p>
 
           <h2>Synchronization</h2>
           <p>Your projects automatically sync across all devices:</p>

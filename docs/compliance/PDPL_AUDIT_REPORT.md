@@ -1,4 +1,4 @@
-# NBCON PRO – PDPL Audit Report
+# nbcon.ai – PDPL Audit Report
 
 **Audit Date**: 2025-01-05  
 **Status**: In Progress  
@@ -8,7 +8,7 @@
 
 ## Executive Summary
 
-This audit verifies NBCON PRO's compliance with PDPL requirements for personal data protection, data retention, encryption, and user rights.
+This audit verifies nbcon.ai's compliance with PDPL requirements for personal data protection, data retention, encryption, and user rights.
 
 ---
 

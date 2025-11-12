@@ -176,8 +176,8 @@ export default function DocsIndex() {
   return (
     <>
       <Head>
-        <title>Docs | NBCON PRO</title>
-        <meta name="description" content="NBCON PRO documentation" />
+        <title>Docs | nbcon.ai</title>
+        <meta name="description" content="nbcon.ai documentation" />
       </Head>
       <DocsLayout index={index} sidebar={sidebar}>
         <div className="max-w-4xl">

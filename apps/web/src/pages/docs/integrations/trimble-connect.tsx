@@ -25,7 +25,7 @@ export default function TrimbleConnectPage() {
   return (
     <>
       <Head>
-        <title>{doc?.title || "Trimble Connect"} | NBCON PRO Docs</title>
+        <title>{doc?.title || "Trimble Connect"} | nbcon.ai Docs</title>
         {doc?.description ? <meta name="description" content={doc.description} /> : null}
       </Head>
       <DocsLayout index={index} sidebar={sidebar}>
@@ -34,7 +34,7 @@ export default function TrimbleConnectPage() {
           <p className="text-muted-foreground">{doc?.description || "Trimble Connect integration for construction collaboration"}</p>
 
           <h2>{t("docs.integrationOverview") || "Overview"}</h2>
-          <p>NBCON PRO integrates with Trimble Connect for construction project collaboration, model sharing, and field data synchronization.</p>
+          <p>nbcon.ai integrates with Trimble Connect for construction project collaboration, model sharing, and field data synchronization.</p>
 
           <h2>{t("docs.setup") || "Setup"}</h2>
           <ul className="list-disc ps-5 space-y-1">

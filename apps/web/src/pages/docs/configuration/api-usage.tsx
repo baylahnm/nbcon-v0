@@ -14,16 +14,16 @@ export default function APIUsagePage({ index, sidebar }: DocPageProps) {
   return (
     <>
       <Head>
-        <title>API Usage Guide | NBCON PRO Docs</title>
-        <meta name="description" content="How to use NBCON PRO's APIs, including AI agent endpoints, Supabase integration, and authentication" />
+        <title>API Usage Guide | nbcon.ai Docs</title>
+        <meta name="description" content="How to use nbcon.ai's APIs, including AI agent endpoints, Supabase integration, and authentication" />
       </Head>
       <DocsLayout index={index} sidebar={sidebar}>
         <article className="prose prose-slate dark:prose-invert max-w-none">
           <h1>API Usage Guide</h1>
-          <p>This guide covers how to use NBCON PRO's APIs, including AI agent endpoints, Supabase integration, and authentication.</p>
+          <p>This guide covers how to use nbcon.ai's APIs, including AI agent endpoints, Supabase integration, and authentication.</p>
 
           <h2>Overview</h2>
-          <p>NBCON PRO provides several APIs:</p>
+          <p>nbcon.ai provides several APIs:</p>
           <ul>
             <li><strong>AI Agent API</strong> - <code>/api/ai/run</code> - Execute AI agent requests</li>
             <li><strong>Stripe API</strong> - Edge Functions for checkout and webhooks</li>

@@ -14,13 +14,13 @@ export default function GovernancePoliciesPage({ index, sidebar }: DocPageProps)
   return (
     <>
       <Head>
-        <title>Governance Policies | NBCON PRO Docs</title>
+        <title>Governance Policies | nbcon.ai Docs</title>
         <meta name="description" content="Governance policies, contribution guidelines, and code quality standards" />
       </Head>
       <DocsLayout index={index} sidebar={sidebar}>
         <article className="prose prose-slate dark:prose-invert max-w-none">
           <h1>Governance Policies</h1>
-          <p>This document outlines the governance policies, contribution guidelines, and code quality standards for NBCON PRO.</p>
+          <p>This document outlines the governance policies, contribution guidelines, and code quality standards for nbcon.ai.</p>
 
           <h2>Branch Naming Convention</h2>
           <ul>

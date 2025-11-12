@@ -25,7 +25,7 @@ export default function StripePage() {
   return (
     <>
       <Head>
-        <title>{doc?.title || "Stripe"} | NBCON PRO Docs</title>
+        <title>{doc?.title || "Stripe"} | nbcon.ai Docs</title>
         {doc?.description ? <meta name="description" content={doc.description} /> : null}
       </Head>
       <DocsLayout index={index} sidebar={sidebar}>
@@ -34,7 +34,7 @@ export default function StripePage() {
           <p className="text-muted-foreground">{doc?.description || "Payment processing integration with Stripe and local payment gateways"}</p>
 
           <h2>{t("docs.integrationOverview") || "Overview"}</h2>
-          <p>NBCON PRO integrates with Stripe for subscription management and payment processing. Support for local payment gateways in Saudi Arabia (Mada, STC Pay) is also available.</p>
+          <p>nbcon.ai integrates with Stripe for subscription management and payment processing. Support for local payment gateways in Saudi Arabia (Mada, STC Pay) is also available.</p>
 
           <h2>{t("docs.setup") || "Setup"}</h2>
           <ul className="list-disc ps-5 space-y-1">

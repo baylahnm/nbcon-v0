@@ -24,13 +24,13 @@ export default function TeamsPage() {
   return (
     <>
       <Head>
-        <title>{doc?.title || "Teams"} | NBCON PRO Docs</title>
+        <title>{doc?.title || "Teams"} | nbcon.ai Docs</title>
         {doc?.description ? <meta name="description" content={doc.description} /> : null}
       </Head>
       <DocsLayout index={index} sidebar={sidebar}>
         <article className="prose prose-slate dark:prose-invert max-w-none">
           <h1>{doc?.title || "Teams"}</h1>
-          <p className="text-muted-foreground">{doc?.description || "Collaborate with your team in NBCON PRO."}</p>
+          <p className="text-muted-foreground">{doc?.description || "Collaborate with your team in nbcon.ai."}</p>
 
           <h2>Creating Teams</h2>
           <ol>

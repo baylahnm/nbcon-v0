@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# NBCON PRO Release Script
+# nbcon.ai Release Script
 set -e
 
 VERSION_TYPE=$1
@@ -19,7 +19,7 @@ pnpm version $VERSION_TYPE
 VERSION=$(node -p "require('./package.json').version")
 
 # Create git tag
-git tag -a "v$VERSION" -m "NBCON PRO v$VERSION release"
+git tag -a "v$VERSION" -m "nbcon.ai v$VERSION release"
 
 # Push changes and tags
 git push origin main

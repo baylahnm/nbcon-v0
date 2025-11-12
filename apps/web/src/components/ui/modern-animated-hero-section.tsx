@@ -106,7 +106,7 @@ const ScrambledTitle: React.FC = () => {
         'No coding needed',
         'Start with a prompt',
         'Transform ideas into reality',
-        'Powered by NBCON PRO'
+        'Powered by nbcon.ai assistant'
       ]
       
       let counter = 0
@@ -244,9 +244,6 @@ const RainingLetters: React.FC = () => {
               </Button>
             </Link>
           </div>
-          <p className="text-xs text-muted-foreground dark:text-white/60">
-            By using NBCON PRO AI Assistant, you agree to our Terms & AI Policy.
-          </p>
         </div>
       </div>
 

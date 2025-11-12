@@ -25,7 +25,7 @@ export default function MapsPage() {
   return (
     <>
       <Head>
-        <title>{doc?.title || "Maps"} | NBCON PRO Docs</title>
+        <title>{doc?.title || "Maps"} | nbcon.ai Docs</title>
         {doc?.description ? <meta name="description" content={doc.description} /> : null}
       </Head>
       <DocsLayout index={index} sidebar={sidebar}>
@@ -34,7 +34,7 @@ export default function MapsPage() {
           <p className="text-muted-foreground">{doc?.description || "Mapbox and Google Maps integration for location services"}</p>
 
           <h2>{t("docs.integrationOverview") || "Overview"}</h2>
-          <p>NBCON PRO integrates with Mapbox and Google Maps for location-based features, geospatial data visualization, and mapping capabilities in engineering projects.</p>
+          <p>nbcon.ai integrates with Mapbox and Google Maps for location-based features, geospatial data visualization, and mapping capabilities in engineering projects.</p>
 
           <h2>{t("docs.setup") || "Setup"}</h2>
           <ul className="list-disc ps-5 space-y-1">

@@ -12,8 +12,8 @@ export default function TabPage({ index, sidebar }: DocPageProps) {
   return (
     <>
       <Head>
-        <title>Tab | NBCON PRO Docs</title>
-        <meta name="description" content="Working with tabs in NBCON PRO" />
+        <title>Tab | nbcon.ai Docs</title>
+        <meta name="description" content="Working with tabs in nbcon.ai" />
       </Head>
       <DocsLayout index={index} sidebar={sidebar}>
         <article className="prose prose-slate dark:prose-invert max-w-none">

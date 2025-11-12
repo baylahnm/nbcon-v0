@@ -25,7 +25,7 @@ export default function CloudflarePage() {
   return (
     <>
       <Head>
-        <title>{doc?.title || "Cloudflare"} | NBCON PRO Docs</title>
+        <title>{doc?.title || "Cloudflare"} | nbcon.ai Docs</title>
         {doc?.description ? <meta name="description" content={doc.description} /> : null}
       </Head>
       <DocsLayout index={index} sidebar={sidebar}>
@@ -34,7 +34,7 @@ export default function CloudflarePage() {
           <p className="text-muted-foreground">{doc?.description || "Cloudflare integration for security, CDN, and edge computing"}</p>
 
           <h2>{t("docs.integrationOverview") || "Overview"}</h2>
-          <p>NBCON PRO leverages Cloudflare for DDoS protection, CDN acceleration, edge computing, and security features. This ensures fast, secure delivery of content globally.</p>
+          <p>nbcon.ai leverages Cloudflare for DDoS protection, CDN acceleration, edge computing, and security features. This ensures fast, secure delivery of content globally.</p>
 
           <h2>{t("docs.setup") || "Setup"}</h2>
           <ul className="list-disc ps-5 space-y-1">

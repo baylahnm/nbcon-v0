@@ -13,13 +13,13 @@ export default function MigrationsPage({ index, sidebar }: DocPageProps) {
   return (
     <>
       <Head>
-        <title>Migrations | NBCON PRO Docs</title>
+        <title>Migrations | nbcon.ai Docs</title>
         <meta name="description" content="Migrating between versions" />
       </Head>
       <DocsLayout index={index} sidebar={sidebar}>
         <article className="prose prose-slate dark:prose-invert max-w-none">
           <h1>Migrations</h1>
-          <p>Guidelines for migrating between NBCON PRO versions.</p>
+          <p>Guidelines for migrating between nbcon.ai versions.</p>
 
           <h2>Automatic Migrations</h2>
           <p>Most migrations happen automatically when you update.</p>

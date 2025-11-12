@@ -1,9 +1,9 @@
 #!/bin/bash
 
-# NBCON PRO Deployment Script
+# nbcon.ai Deployment Script
 set -e
 
-echo "🚀 Starting NBCON PRO deployment..."
+echo "🚀 Starting nbcon.ai deployment..."
 
 # Check prerequisites
 if ! command -v pnpm &> /dev/null; then

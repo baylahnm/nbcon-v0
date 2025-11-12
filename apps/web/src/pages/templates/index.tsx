@@ -5,7 +5,7 @@ export default function TemplatesPage() {
   return (
     <>
       <Head>
-        <title>Templates | NBCON PRO</title>
+        <title>Templates | nbcon.ai</title>
       </Head>
       <main className="container py-20">
         <h1 className="text-3xl font-bold mb-4">Engineering Templates</h1>

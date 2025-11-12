@@ -25,7 +25,7 @@ export default function SupabasePage() {
   return (
     <>
       <Head>
-        <title>{doc?.title || "Supabase"} | NBCON PRO Docs</title>
+        <title>{doc?.title || "Supabase"} | nbcon.ai Docs</title>
         {doc?.description ? <meta name="description" content={doc.description} /> : null}
       </Head>
       <DocsLayout index={index} sidebar={sidebar}>
@@ -34,7 +34,7 @@ export default function SupabasePage() {
           <p className="text-muted-foreground">{doc?.description || "Supabase integration for authentication, database, and realtime features"}</p>
 
           <h2>{t("docs.integrationOverview") || "Overview"}</h2>
-          <p>NBCON PRO integrates with Supabase for authentication, database operations, and real-time updates. This integration provides secure user management, data persistence, and live collaboration features.</p>
+          <p>nbcon.ai integrates with Supabase for authentication, database operations, and real-time updates. This integration provides secure user management, data persistence, and live collaboration features.</p>
 
           <h2>{t("docs.setup") || "Setup"}</h2>
           <ul className="list-disc ps-5 space-y-1">

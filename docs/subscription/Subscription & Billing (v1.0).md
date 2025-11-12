@@ -35,7 +35,7 @@
 
 ## 💳 Overview
 
-NBCON PRO's **Subscription & Billing layer** links Stripe's financial engine with Supabase's access model, keeping user entitlements in perfect sync with real-time payment events.
+nbcon.ai's **Subscription & Billing layer** links Stripe's financial engine with Supabase's access model, keeping user entitlements in perfect sync with real-time payment events.
 
 **This document is the authoritative source for SAR pricing, Stripe IDs, and entitlements.**
 

@@ -13,7 +13,7 @@ export default function BugbotPage({ index, sidebar }: DocPageProps) {
   return (
     <>
       <Head>
-        <title>Bugbot | NBCON PRO Docs</title>
+        <title>Bugbot | nbcon.ai Docs</title>
         <meta name="description" content="Automated bug detection and fixing" />
       </Head>
       <DocsLayout index={index} sidebar={sidebar}>

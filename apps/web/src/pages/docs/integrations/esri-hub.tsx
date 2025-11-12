@@ -25,7 +25,7 @@ export default function EsriHubPage() {
   return (
     <>
       <Head>
-        <title>{doc?.title || "Esri Hub"} | NBCON PRO Docs</title>
+        <title>{doc?.title || "Esri Hub"} | nbcon.ai Docs</title>
         {doc?.description ? <meta name="description" content={doc.description} /> : null}
       </Head>
       <DocsLayout index={index} sidebar={sidebar}>
@@ -34,7 +34,7 @@ export default function EsriHubPage() {
           <p className="text-muted-foreground">{doc?.description || "Esri Hub integration for geospatial data portals and collaboration"}</p>
 
           <h2>{t("docs.integrationOverview") || "Overview"}</h2>
-          <p>NBCON PRO integrates with Esri Hub for geospatial data portals, content sharing, and collaborative mapping workflows.</p>
+          <p>nbcon.ai integrates with Esri Hub for geospatial data portals, content sharing, and collaborative mapping workflows.</p>
 
           <h2>{t("docs.setup") || "Setup"}</h2>
           <ul className="list-disc ps-5 space-y-1">

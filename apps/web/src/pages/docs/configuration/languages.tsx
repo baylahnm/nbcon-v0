@@ -12,13 +12,13 @@ export default function LanguagesPage({ index, sidebar }: DocPageProps) {
   return (
     <>
       <Head>
-        <title>Languages | NBCON PRO Docs</title>
+        <title>Languages | nbcon.ai Docs</title>
         <meta name="description" content="Supported programming languages" />
       </Head>
       <DocsLayout index={index} sidebar={sidebar}>
         <article className="prose prose-slate dark:prose-invert max-w-none">
           <h1>Supported Languages</h1>
-          <p>NBCON PRO supports a wide range of programming languages.</p>
+          <p>nbcon.ai supports a wide range of programming languages.</p>
 
           <h2>Fully Supported</h2>
           <ul>

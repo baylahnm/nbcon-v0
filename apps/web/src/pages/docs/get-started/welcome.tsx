@@ -14,14 +14,14 @@ export default function WelcomePage({ index, sidebar }: DocPageProps) {
   return (
     <>
       <Head>
-        <title>Welcome to NBCON PRO Docs | NBCON PRO Docs</title>
-        <meta name="description" content="Start here to learn how NBCON PRO is structured and how to build." />
+        <title>Welcome to nbcon.ai Docs | nbcon.ai Docs</title>
+        <meta name="description" content="Start here to learn how nbcon.ai is structured and how to build." />
       </Head>
       <DocsLayout index={index} sidebar={sidebar}>
         <article className="prose prose-slate dark:prose-invert max-w-none">
           <h1>Welcome</h1>
           <p>
-            NBCON PRO documentation is organized into sections. Use the left sidebar to navigate and the search bar to jump directly to a topic.
+            nbcon.ai documentation is organized into sections. Use the left sidebar to navigate and the search bar to jump directly to a topic.
           </p>
 
           <h2>Quick Start</h2>
